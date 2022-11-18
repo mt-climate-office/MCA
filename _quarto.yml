@@ -3,7 +3,7 @@ project:
   output-dir: "docs"
 
 book:
-  title: "Climate Change in Montana"
+  title: "**DRAFT** Climate Change in Montana"
   author: "Colin Brust"
   sidebar:
     style: docked

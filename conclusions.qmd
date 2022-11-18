@@ -1,4 +1,4 @@
-# Conclusions
+# **Draft** Conclusions
 The analysis presented in this chapter shows that Montana has warmed—up to 2.7°F (1.5°C) annually as averaged across the state—since 1950. Seasonally, that warming has been greatest in winter (3.9°F [2.2°C]) and spring (2.6°F [1.4°C]). Montana’s number of frost days has decreased by 12 days since 1951. Statewide, average annual precipitation did not change between 1950 and 2015, although variations caused by global climate oscillations, such as El Niño events, explain some of the historical precipitation variability in parts of the state.
 
 With this historical context, we considered Montana’s future under two potential greenhouse gas emission scenarios. Using those scenarios, we employed standard modeling techniques available to climate scientists today—ensembles of general circulation models—and projected Montana’s climate over the next century. Our analyses focused on projecting the possible range of temperature and precipitation amounts in Montana, under our chosen greenhouse gas emission scenarios.

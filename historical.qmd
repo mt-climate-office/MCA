@@ -78,7 +78,7 @@ annual_tmp <- terra::rast("./assets/tavg_nclimgrid_annual.tif") %>%
   {(. * 9/5) + 32} %>% terra::mask(normals::mt)
 ```
 
-# Historical Climate
+# **Draft** Historical Climate
 ## Climate Conditions 1981 - 2020
 To assess `r params$location`’s current climate, we analyzed climate variable data (see sidebar) provided as 3-decade of gridMET climate data @gridmet. In this section, we review average temperature and precipitation conditions from 1981-2010 as an indicator of current climate conditions.
 
