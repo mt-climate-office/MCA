@@ -5,7 +5,9 @@
 %
 \documentclass[
   letterpaper,
-]{scrreprt}\usepackage{amsmath,amssymb}
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
@@ -34,33 +36,47 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={Climate Change in Montana},
-  pdfauthor={Colin Brust},
-  colorlinks=true,
-  linkcolor={blue},
-  filecolor={Maroon},
-  citecolor={Blue},
-  urlcolor={Blue},
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
-% Make \paragraph and \subparagraph free-standing
-\ifx\paragraph\undefined\else
-  \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-  \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.46,0.14}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -83,6 +99,19 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
@@ -106,7 +135,7 @@
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
-
+\KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
 \@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
@@ -128,31 +157,11 @@
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
-\ifdefined\contentsname
-  \renewcommand*\contentsname{Table of contents}
-\else
-  \newcommand\contentsname{Table of contents}
-\fi
-\ifdefined\listfigurename
-  \renewcommand*\listfigurename{List of Figures}
-\else
-  \newcommand\listfigurename{List of Figures}
-\fi
-\ifdefined\listtablename
-  \renewcommand*\listtablename{List of Tables}
-\else
-  \newcommand\listtablename{List of Tables}
-\fi
-\ifdefined\figurename
-  \renewcommand*\figurename{Figure}
-\else
-  \newcommand\figurename{Figure}
-\fi
-\ifdefined\tablename
-  \renewcommand*\tablename{Table}
-\else
-  \newcommand\tablename{Table}
-\fi
+\renewcommand*\contentsname{Table of contents}
+\renewcommand*\listfigurename{List of Figures}
+\renewcommand*\listtablename{List of Tables}
+\renewcommand*\figurename{Figure}
+\renewcommand*\tablename{Table}
 }
 \@ifpackageloaded{float}{}{\usepackage{float}}
 \floatstyle{ruled}
@@ -175,6 +184,18 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Climate Change in Montana},
+  pdfauthor={Colin Brust},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
 
 \title{Climate Change in Montana}
 \author{Colin Brust}
@@ -183,9 +204,8 @@
 \begin{document}
 \maketitle
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt, frame hidden, enhanced, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, enhanced, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, sharp corners, interior hidden]}{\end{tcolorbox}}\fi
 
-\renewcommand*\contentsname{Table of contents}
 {
 \hypersetup{linkcolor=}
 \setcounter{tocdepth}{2}
@@ -320,7 +340,7 @@ longwave radiation. Each of these processes influences climate through
 changes to temperature, winds, the water cycle, and more. The overall
 process is best understood by considering the Earth's energy budget.
 
-\begin{tcolorbox}[standard jigsaw,colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, toptitle=1mm, rightrule=.15mm, leftrule=.75mm, titlerule=0mm, title={The Earth's Energy Budget}, arc=.35mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, opacityback=0, opacitybacktitle=0.6, colback=white, left=2mm, toprule=.15mm, coltitle=black]
+\begin{tcolorbox}[standard jigsaw,colback=white, leftrule=.75mm, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, left=2mm, titlerule=0mm, opacityback=0, title={The Earth's Energy Budget}, colframe=quarto-callout-note-color-frame, coltitle=black, bottomrule=.15mm, rightrule=.15mm, opacitybacktitle=0.6, toprule=.15mm, arc=.35mm]
 The Earth's climate is driven by the sun. The balance between incoming
 and outgoing radiation---Earth's radiation or energy budget---determines
 the energy available for changes in temperature, precipitation, and
@@ -384,7 +404,7 @@ referred to as human-caused climate change. In the following chapters,
 we will refer to the impacts and effects of climate change as a result
 of both natural variability and human-caused climate change.
 
-\begin{tcolorbox}[standard jigsaw,colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, toptitle=1mm, rightrule=.15mm, leftrule=.75mm, titlerule=0mm, title={The Greenhouse Effect}, arc=.35mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, opacityback=0, opacitybacktitle=0.6, colback=white, left=2mm, toprule=.15mm, coltitle=black]
+\begin{tcolorbox}[standard jigsaw,colback=white, leftrule=.75mm, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, left=2mm, titlerule=0mm, opacityback=0, title={The Greenhouse Effect}, colframe=quarto-callout-note-color-frame, coltitle=black, bottomrule=.15mm, rightrule=.15mm, opacitybacktitle=0.6, toprule=.15mm, arc=.35mm]
 The Earth's climate is driven by the sun. The high temperature of the
 sun results in the emission of high energy, shortwave radiation. About
 31\% of the shortwave radiation from the sun is reflected back to space
@@ -435,7 +455,7 @@ certain'' (i.e., 99-100\% likelihood). Examples of these events include:
 more frequent hot days, less frequent cold days, reductions in
 permafrost, and sea-level rise (IPCC 2014).
 
-\begin{tcolorbox}[standard jigsaw,colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, toptitle=1mm, rightrule=.15mm, leftrule=.75mm, titlerule=0mm, title={What is the IPCC}, arc=.35mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, opacityback=0, opacitybacktitle=0.6, colback=white, left=2mm, toprule=.15mm, coltitle=black]
+\begin{tcolorbox}[standard jigsaw,colback=white, leftrule=.75mm, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, left=2mm, titlerule=0mm, opacityback=0, title={What is the IPCC}, colframe=quarto-callout-note-color-frame, coltitle=black, bottomrule=.15mm, rightrule=.15mm, opacitybacktitle=0.6, toprule=.15mm, arc=.35mm]
 The Intergovernmental Panel on Climate Change is the leading
 international body for the assessment of climate change. It was
 established in 1988 by the United Nations Environment Programme and the
@@ -462,16 +482,1437 @@ systems that monitor the Earth's weather and climate. The sum total of
 this evidence tells an unambiguous story: the planet is warming.
 \end{quote}
 
-\hypertarget{alaskas-observed-climate}{%
-\chapter{Alaska's Observed Climate}\label{alaskas-observed-climate}}
+\hypertarget{historical-climate}{%
+\chapter{Historical Climate}\label{historical-climate}}
 
-To put future Montana climate change in perspective, we must first
-understand Montana's baseline (i.e., historical) conditions. In this
-section, we describe our state's unique geography and topography, as
-well as current climatology and the historical climate trends that have
-led us to the present day.
+\hypertarget{climate-conditions-1981---2020}{%
+\section{Climate Conditions 1981 -
+2020}\label{climate-conditions-1981---2020}}
 
-Alaska
+To assess Montana's current climate, we analyzed climate variable data
+(see sidebar) provided as 3-decade of gridMET climate
+data\textsuperscript{1}. In this section, we review average temperature
+and precipitation conditions from 1981-2010 as an indicator of current
+climate conditions.
+
+\begin{tcolorbox}[standard jigsaw,colback=white, leftrule=.75mm, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, left=2mm, titlerule=0mm, opacityback=0, title={Climate Variables}, colframe=quarto-callout-note-color-frame, coltitle=black, bottomrule=.15mm, rightrule=.15mm, opacitybacktitle=0.6, toprule=.15mm, arc=.35mm]
+
+In analyses of climate, scientists employ a suite of 50 essential
+climate variables to unify discussions (Global Climate Observing System
+undated). For this assessment, we primarily focus on just two: how
+climate change will affect Montana's temperature and precipitation in
+the future.
+
+\begin{itemize}
+\item
+  Temperature is an objective measure of how hot or cold and object is
+  with reference to some standard value. Temperature differences across
+  the Earth result primarily from regional differences in absorbed solar
+  radiation. Seasonal variations in temperature result from the tilt of
+  the Earth's axis as it rotates around the sun.
+\item
+  Precipitation is the quantity of water (solid or liquid) falling to
+  the Earth's surface at a specific place during a given period. Like
+  temperature, precipitation varies seasonally and from place to place.
+  Precipitation amounts can have a dramatic impact on local
+  environmental conditions, such as abundance of wildlife or potential
+  for crop production.
+\end{itemize}
+
+\end{tcolorbox}
+
+\hypertarget{temperature}{%
+\subsection{Temperature}\label{temperature}}
+
+Table~\ref{tbl-historical-temp} shows the average seasonal temperature
+variation across Montana's 7 Climate Divisions (Figure 2-3) from
+1981-2010. Temperatures vary across Montana, with average annual values
+ranging from 29.1°F to 47.4°F across the region.
+
+\hypertarget{tbl-historical-temp}{}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1556}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2111}}@{}}
+\caption{\label{tbl-historical-temp}Average (minimum / average /
+maximum) temperatures (°F) for the seven Montana climate divisions from
+1981-2010.}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+Division
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Winter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Spring
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Summer
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fall
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+Division
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Winter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Spring
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Summer
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fall
+\end{minipage} \\
+\midrule()
+\endhead
+Central & 16.8 / 27.6 / 38.5 & 37.2 / 49.9 / 62.5 & 46.7 / 61.5 / 76.3 &
+22 / 32.8 / 43.6 \\
+North Central & 13.6 / 24.8 / 36.1 & 38.2 / 51.3 / 64.4 & 47.2 / 62.2 /
+77.2 & 19.8 / 31.2 / 42.5 \\
+Northeastern & 10.7 / 21.7 / 32.8 & 39.9 / 53.5 / 67 & 49.9 / 64.9 /
+79.9 & 18.3 / 29.7 / 41.1 \\
+South Central & 17.1 / 28 / 38.9 & 38 / 50.7 / 63.4 & 48 / 62.8 / 77.5 &
+22.2 / 33 / 43.8 \\
+Southeastern & 14.3 / 26.1 / 37.9 & 40.4 / 54 / 67.5 & 50.9 / 66.4 /
+81.8 & 20.3 / 32.5 / 44.7 \\
+Southwestern & 15 / 24.5 / 34.1 & 33.1 / 45 / 56.9 & 42.9 / 57.1 / 71.4
+& 19.6 / 29 / 38.4 \\
+Western & 19 / 27.2 / 35.5 & 35.2 / 47 / 58.9 & 43.9 / 58 / 72.2 & 23 /
+30.7 / 38.3 \\
+\bottomrule()
+\end{longtable}
+
+Winters in Montana are cold, with statewide average temperatures of
+25.7°F. Between cold waves there are often periods of mild, windy
+weather in central Montana created by persistent, moist Pacific air
+masses on the west side of the Continental Divide, and the drying and
+warming effects as air descends on the east side of the Rockies. These
+surface winds are locally known as chinook winds and can bring rapid
+temperature increases to areas east of the Rockies that can last for
+days.
+
+Montana springs are highly variable and bring dramatic temperature
+changes. As a whole, Montana's average spring temperature is 50.3°F,
+although western Montana is cooler and warming comes later due to
+persistence of Pacific maritime air. In contrast, warmer continental air
+contributes to average temperatures up to 51.9°F in spring across
+central and eastern Montana.
+
+Elevation and proximity to the Continental Divide strongly influence
+local temperatures in summer. Valleys and the eastern plains are
+generally warmer than the higher elevations of the Continental Divide.
+While summer average temperature across Montana is 61.9°F, temperatures
+generally peak in July and August, with mean daily highs above 90°F in
+the east, as well as in western valleys.
+
+Fall temperatures in Montana are often highly variable, with an average
+temperature of 31.3°F. Days to weeks of warm temperatures are commonly
+followed by freezing temperatures that bring frosts and snow.
+
+\hypertarget{precipitation}{%
+\subsection{Precipitation}\label{precipitation}}
+
+In general, Montana is a water-limited, semi-arid landscape where
+precipitation is depended upon heavily by plants and animals alike.
+Table~\ref{tbl-historical-pr} shows the seasonal variation of
+precipitation across Montana's 7 Climate Divisions from 1981-2010.
+Precipitation amounts and form (rain versus snow) vary widely across the
+state and are strongly influenced by elevation and proximity to the
+Continental Divide. The average annual precipitation for Montana is
+19.2. Western Montana typically receives twice as much precipitation
+annually as eastern Montana (31.9 in. versus 16.5 in., respectively).
+The combination of moisture-rich maritime air from the Pacific in the
+winter, spring, and fall, and strong convective systems in the summer
+create a more evenly distributed year-round precipitation pattern in
+western Montana. In contrast, a majority the annual precipitation occurs
+in the late spring and summer months for eastern and central Montana,
+coming from sources in the subtropical Pacific and Gulf of Mexico.
+
+\hypertarget{tbl-historical-pr}{}
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{\label{tbl-historical-pr}Average precipitation in inches for
+the seven Montana climate divisions from 1981-2010.}\tabularnewline
+\toprule()
+Division & Winter & Spring & Summer & Fall \\
+\midrule()
+\endfirsthead
+\toprule()
+Division & Winter & Spring & Summer & Fall \\
+\midrule()
+\endhead
+Central & 2.7 & 7.6 & 4.7 & 3.1 \\
+North Central & 2.1 & 6.4 & 4.3 & 2.4 \\
+Northeastern & 1.2 & 5.9 & 4.6 & 1.8 \\
+South Central & 3.1 & 7.3 & 4.1 & 3.6 \\
+Southeastern & 1.6 & 6.5 & 4.2 & 2.2 \\
+Southwestern & 4.7 & 8.2 & 4.6 & 4.9 \\
+Western & 8.9 & 8.8 & 4.9 & 9.5 \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{historical-trends-1979---present}{%
+\section{Historical Trends 1979 -
+Present}\label{historical-trends-1979---present}}
+
+We evaluated how temperature and precipitation have historically
+changed, dating back to 1950. This review of historical trends helps us
+provide context for future climate change scenarios explored in later
+sections of this chapter. In addition, evaluating these trends can help
+us better understand a) how Montanans have previously experienced and
+responded to changing climate, b) if projections of future change reveal
+a different climate than we have previously experienced, and c) the
+potential impacts of that projected change.
+
+The presentation of trends that follows is confined to the period from
+1950--2015 using data from NOAA's NClimGrid Dataset (citation). This is
+widely acknowledged as the benchmark period in climate analysis
+(Liebmann et al.~2010; IPCC 2013a), a period when our network of
+meteorological sensors becomes more accurate and sufficiently dense. It
+also coincides with an upward inflection of the annual average
+temperature trend for Montana, demarcating a time period with the
+highest rate of change and likely the strongest anthropogenic signal
+(NOAAc undated).
+
+\hypertarget{temperature-1}{%
+\subsection{Temperature}\label{temperature-1}}
+
+Table~\ref{tbl-temp-trends} shows the decadal rate of change from
+1950-2015 for average annual temperatures across Montana. We provide
+that rate of change both annually and by season for the seven Montana
+climate divisions. We also present the average annual and average
+seasonal changes statewide and for the US as a whole. To account
+partially for autocorrelation we considered trends as significant with a
+conservative p value at p\textless0.05. Generally, Montana has warmed at
+a rate faster than the annual national average, as well as within
+individual seasons.
+
+\hypertarget{tbl-temp-trends}{}
+\begin{longtable}[]{@{}lrrrrr@{}}
+\caption{\label{tbl-temp-trends}Decadal rate of change for annual
+average temperatures in °F (°C) for each region in the study area and
+statewide from 1950-2015. A value of 0 indicates no statistically
+significant change between decadal averages.}\tabularnewline
+\toprule()
+Division & Annual & Winter & Spring & Summer & Fall \\
+\midrule()
+\endfirsthead
+\toprule()
+Division & Annual & Winter & Spring & Summer & Fall \\
+\midrule()
+\endhead
+Central & 0.31 & 0.50 & 0.56 & 0.26 & 0.24 \\
+North Central & 0.35 & 0.70 & 0.58 & 0.27 & 0.24 \\
+Northeastern & 0.29 & 0.61 & 0.58 & 0.22 & 0.21 \\
+South Central & 0.33 & 0.44 & 0.58 & 0.33 & 0.30 \\
+Southeastern & 0.26 & 0.52 & 0.51 & 0.17 & 0.24 \\
+Southwestern & 0.26 & 0.27 & 0.57 & 0.27 & 0.24 \\
+Western & 0.30 & 0.33 & 0.47 & 0.38 & 0.30 \\
+Statewide & 0.30 & 0.50 & 0.55 & 0.27 & 0.25 \\
+\bottomrule()
+\end{longtable}
+
+Average annual temperatures increased for the entire state and within
+all climate divisions (see Figure~\ref{fig-temp-trends}). The rate of
+temperature increase was 0.3°F/decade across the state, and this rate
+was relatively constant across all climate divisions
+(Table~\ref{tbl-temp-trends}). Similarly, average annual maximum and
+minimum temperatures increased statewide, and for all seven climate
+divisions, by 0.18-0.16°F/decade, respectively. Between 1950 and 2015,
+Montana's average annual temperature has increased by 1.92°F; annual
+maximum and minimum temperatures have increased approximately 1.15°F and
+1.02°F, respectively.
+
+\begin{figure}
+
+{\centering \includegraphics{./historical_files/figure-pdf/fig-temp-trends-1.pdf}
+
+}
+
+\caption{\label{fig-temp-trends}Trends in annual average temperature
+across each climate division (Figure I) in Montana}
+
+\end{figure}
+
+\hypertarget{precipitation-1}{%
+\subsection{Precipitation}\label{precipitation-1}}
+
+Annual precipitation averaged across the state has not changed
+significantly since 1950. Some change, however, has occurred within
+different climate divisions and for different seasons as shown in
+Table~\ref{tbl-ppt-trends}. We found no significant changes in summer
+and fall precipitation between 1950-2015 for any climate division.
+Seasonally, the largest changes---declines---in precipitation (rain and
+snow combined) have occurred during winter months
+(Table~\ref{tbl-ppt-trends}). We used a smaller p value (\textless0.05)
+to determine statistical significance of trends and to account for
+potential autocorrelation of time series data. Our analysis suggests
+that an increase in the number of El Niño events since 1950 has
+contributed to drier winters and decreased precipitation for Montana's
+northwestern, north central, and central climate divisions. In the
+eastern portions of the state significant increases in precipitation
+have occurred during the spring months (Table~\ref{tbl-ppt-trends}).
+
+\hypertarget{tbl-ppt-trends}{}
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{\label{tbl-ppt-trends}Decadal rate of change in average
+precipitation in inches/decade for the seven Montana climate divisions
+from 1951-2015. A value of 0 indicates no significant
+change.}\tabularnewline
+\toprule()
+Division & Winter & Spring & Summer & Fall \\
+\midrule()
+\endfirsthead
+\toprule()
+Division & Winter & Spring & Summer & Fall \\
+\midrule()
+\endhead
+Central & -0.12 & 0.08 & 0 & 0.06 \\
+North Central & -0.09 & 0.08 & 0 & 0.09 \\
+Northeastern & 0.00 & 0.21 & 0 & 0.07 \\
+South Central & 0.00 & 0.09 & 0 & 0.07 \\
+Southeastern & 0.00 & 0.31 & 0 & 0.09 \\
+Southwestern & -0.13 & 0.09 & 0 & 0.07 \\
+Western & -0.56 & 0.00 & 0 & 0.00 \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{extreme-aspects-of-montanas-climate}{%
+\subsection{Extreme aspects of Montana's
+climate}\label{extreme-aspects-of-montanas-climate}}
+
+Along with analyzing historical trends in temperature and precipitation,
+we performed an analysis of changes in extreme climate events since the
+middle of last century. Two examples of climate extremes include periods
+of intense warm or cool temperatures and significant wet or dry spells
+across seasons. Because these events affect every aspect of our society,
+decision makers and stakeholders are increasingly in need of historical
+evaluations of extreme events and how they are changing from seasons to
+centuries. The coldest temperature ever observed in the conterminous US
+was -70°F (-57°C) at Rogers Pass outside of Helena on January 20, 1954
+(see sidebar). Since 1950, however, our analysis shows the average
+winter temperature has increased by 0.4°F/decade (0.2°C/decade) across
+the state, with an overall average winter temperature increase of 3.6°F
+(2.0°C). Average spring temperatures have increased by 2.6°F (1.4°C)
+during the same period, and average summer temperatures have risen by
+2.0°F (1.1°C). Montana's fall average temperatures have increased by
+1.6°F (0.9°C) since 1950.
+
+We performed our analysis of climate extremes using the CLIMDEX project
+(CLIMDEX undated), which provides a collection of global and regional
+climate data from multiple sources. CLIMDEX is developed and maintained
+by researchers at the Climate Change Research Centre and the University
+of New South Wales, in collaboration with the University of Melbourne,
+Climate Research Division of Environment Canada, and NOAA's National
+Centers for Environmental Information. The CLIMDEX project aims to
+produce a global dataset of standardized indices representing the
+extreme aspects of climate. Particular attention was placed on the
+changes in variables such as consecutive dry days, days of heavy
+precipitation, growing season length, frost days, number of cool days
+and nights, and the number of warm days and nights. Extreme
+precipitation events across the United States have increased in both
+intensity and frequency since 1901 (NCA 2014), including across both the
+High Plains and the northwestern US (many states combined), where
+studies have shown an increase in the number of days with extreme
+precipitation (NCA 2014). However, for our analysis at the state level
+we found no evidence of changes in extreme precipitation so it is not a
+variable of focus. Here, we report those variables that did change
+significantly (p\textless0.05) for Montana and, for perspective, the
+climate normals for these extremes for the periods 1951--1980 and from
+1981-2010 (Table 2-5).
+
+\textbf{extremes table}
+
+The annual number of cool days and the number of days with frost are
+decreasing across Montana. We use the CLIMDEX definition of cool days as
+the percentage of days when maximum temperature is lower than 10\% of
+the historical observations. Coincident with warming temperatures, the
+number of cool days each year during the period from 1951--2010 has
+decreased by 13.3 days. Along with this trend, the number of days in
+which the minimum temperatures are below 32°F (0°C; i.e.~frost days) has
+decreased by 12 days during this time period. These trends have
+contributed to an overall increase in the growing season length of 12
+days between 1951 and 2010. In addition, the number of warm days, where
+maximum temperature exceeds 90°F (32°C) based on historical conditions,
+has increased by 11 days over this period. At a sub-annual level,
+monthly maximum and minimum temperatures have also changed. These are
+defined as the monthly maximum (minimum) value of daily maximum
+(minimum) temperatures. Monthly minimum values of daily minimum
+temperatures have increased by 5°F (2.8°C) from the period 1951--2010.
+Over the same time period, monthly minimum values of daily maximum
+temperatures have increased by 1.1°F (0.6°C).
+
+There has been an increase in the number of warm nights and a related
+decrease in the number of cool nights across Montana. We use the CLIMDEX
+definition of warm nights (and cool nights) as the number of days when
+minimum temperature is higher (lower) than a specified maximum (minimum)
+threshold defined by historical conditions. The number of warm nights
+has increased by 11 days from 1951 to 2010. The number of cool nights
+has decreased by 12 days over this same period. These trends are in
+agreement with observations across many portions of the continental US
+(Davy and Esau 2016).
+
+\begin{quote}
+Between 1951 and 2010, the growing season in Montana increased 12 days.
+\end{quote}
+
+\begin{tcolorbox}[standard jigsaw,colback=white, leftrule=.75mm, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, left=2mm, titlerule=0mm, opacityback=0, title={Drought}, colframe=quarto-callout-note-color-frame, coltitle=black, bottomrule=.15mm, rightrule=.15mm, opacitybacktitle=0.6, toprule=.15mm, arc=.35mm]
+Drought is a recurrent climate event that may vary in intensity and
+persistence by region. Drought can have broad and potentially
+devastating environmental and economic impacts (Wilhite 2000); thus, it
+is a topic of ongoing, statewide concern.
+
+Through time, Montana's people, agriculture, and industry, like its
+ecosystems, have evolved with drought. Today, many entities across the
+state address drought, including private and non-profit organizations,
+state and federal agencies, and landowners, as well as unique watershed
+partnerships.
+
+Drought is a complex phenomenon driven by both climate, but also
+affected by human-related factors (e.g., land use, water use). Although
+the definition of drought varies in different operational contexts, most
+definitions include several interrelated components, including:
+
+\begin{itemize}
+\item
+  meteorological drought, defined as a deficit in precipitation and
+  above average evapotranspiration that lead to increased aridity;
+\item
+  hydrological drought, characterized by reduced water levels in
+  streams, lakes, and aquifers following prolonged periods of
+  meteorological drought;
+\item
+  ecological drought, defined as a prolonged period over which an
+  ecosystem's demand for water exceeds the supply (the resulting water
+  deficit, or shortage, creates multiple stresses within and across
+  ecosystems); and
+\item
+  agricultural drought, commonly understood as a deficit in soil
+  moisture and water supply that lead to decreased productivity (in this
+  assessment, we will treat this form of drought as an important
+  component of ecological drought).
+\end{itemize}
+
+While the subsequent chapters dealing with water, agriculture, and
+forests treat the subject of drought differently, each describes drought
+within the context of one or more of the four definitions described
+above.
+\end{tcolorbox}
+
+\hypertarget{future-projections}{%
+\chapter{Future Projections}\label{future-projections}}
+
+\hypertarget{global-climate-modeling}{%
+\section{Global Climate Modeling}\label{global-climate-modeling}}
+
+Projecting future climate on a global scale requires modeling many
+intricate relationships between the land, ocean, and atmosphere. Many
+global climate and Earth system models exist, each varying in
+complexity, capabilities, and limitations.
+
+Consider one of the simplest forms of a model used for future
+projections, a linear regression model (Figure~\ref{fig-lm-example}).
+With this model, researchers would plot a climate variable (e.g.,
+temperature) over time, draw a best-fit, straight line through the data,
+and then extend the line into the future. That line, then, provides a
+means of projecting future conditions. Whether or not those projections
+are valid is a separate question. For example, the model may be based on
+false assumptions: the relationship may a) not be constant through time,
+b) not include outside influences such as human interventions (e.g.,
+policy regulations), and c) not consider system feedbacks that might
+enhance or dampen the relationship being modeled.
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-lm-example-1.pdf}
+
+}
+
+\caption{\label{fig-lm-example}Example of fitting a linear model to data
+to predict future conditions.}
+
+\end{figure}
+
+While the linear regression model provides an instructive visual aid for
+considering modeling, it is too simple for looking at climate changes,
+in which the interactions are complex and often nonlinear. For example,
+if temperatures rises, evaporation is expected to increase. At the same
+time, increasing temperatures increase the atmosphere's capacity to hold
+water. Water is a greenhouse gas so more water in the atmosphere means
+the atmosphere can absorb more heat\ldots{} thus driving more
+evaporation. What seemed a simple relationship has changed (possibly
+dramatically) because of this feedback between temperature, evaporation,
+and the water-holding capacity of the atmosphere.
+
+Linear models do not account for such nonlinear relationships. Instead,
+climate scientists account for nonlinearity through computer simulations
+that describe the physical and chemical interactions between the land,
+oceans, and atmosphere. These simulations, which project climate change
+into the future, are called general circulation models (GCMs; see
+sidebar)
+
+\begin{tcolorbox}[standard jigsaw,colback=white, leftrule=.75mm, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, left=2mm, titlerule=0mm, opacityback=0, title={General Circulation Models}, colframe=quarto-callout-note-color-frame, coltitle=black, bottomrule=.15mm, rightrule=.15mm, opacitybacktitle=0.6, toprule=.15mm, arc=.35mm]
+General circulation models (GCMs) help us project future climate
+conditions. They are the most advanced tools currently available for
+simulating the response of the global climate system---including
+processes in the atmosphere, ocean, cryosphere, and land surface---to
+increasing greenhouse gas concentrations.
+
+GCMs depict the climate using a 3-D grid over the globe, typically
+having a horizontal resolution of between 250 and 600 km (160 and 370
+miles), 10-20 vertical layers in the atmosphere and sometimes as many as
+30 layers in the oceans. Their resolution is quite coarse. Thus, impacts
+at the scale of a region, for example for Montana, require downscaling
+the results from the global model to a finer spatial grid (discussed
+later) (text adapted from IPCC 2013b).
+\end{tcolorbox}
+
+Because of the complexities involved, climate scientists rarely rely on
+a single model, but instead use an ensemble (or suite) of models. Each
+model in an ensemble represents a single description of future climate
+based on specific initial conditions and assumptions. The use of
+multiple models helps scientists explore the variability of future
+projections (i.e., how certain are we about the projection) and
+incorporate the strengths, as well as uncertainties, of multiple
+approaches.
+
+For the work of the Montana Climate Assessment, we employed an ensemble
+from the sixth iteration of the Coupled Model Intercomparison Project
+(CMIP5), which includes up to 42 GCMs depending on the experiment
+conducted (CMIP5 undated). The World Climate Research Program describes
+CMIP as ``a standard experimental protocol for studying the output'' of
+GCMs (CMIP undated). It provides a means of validating, comparing,
+documenting, and accessing diverse climate model results. The CMIP
+project dates back to 1995, with the fifth iteration (CMIP5) starting in
+2008 and providing climate data for the latest IPCC Fifth Assessment
+Report (Stocker et al.~2013).
+
+We employed 20 individual GCMs from the CMIP5 project for the Montana
+Climate Assessment ensemble, chosen because they provide daily outputs
+and a range of important climate variables.9 For this first Montana
+Climate Assessment, we are only using climate variables of temperature
+and precipitation (later assessment may evaluate other important
+variables such as wind and relative humidity).
+
+The benefits of using CMIP5 data are that each model in the ensemble a)
+has been rigorously evaluated, and b) uses the same standard
+socioeconomic trajectories---known as Representative Concentration
+Pathways (RCPs)---to describe future greenhouse gas emissions. RCPs are
+future greenhouse gas concentration scenarios.
+
+Four RCP scenarios are available in CMIP5: RCP2.6, RCP4.5, RCP6.0, and
+RCP8.5. The number after RCP represents the increase in radiative
+forcing in watts/m2 by the year 2100. Higher radiative forcing values
+are associated with larger amounts of trapped heat in the atmosphere due
+to increased greenhouse gas emissions (see sidebar). Simply stated,
+higher RCP values are typically associated with greater greenhouse gas
+emissions and therefore greater potential for climate change. Each RCP
+scenario makes different assumptions about future energy sources,
+population growth, economic activities, and technological advancements,
+as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  RCP2.6.---The peak-and-decline scenario assumes greenhouse gas
+  emissions peak between 2010-2020 and then decline by the
+  end-of-century, leading to a radiative forcing of 2.6 watts/m2. It
+  assumes greenhouse gas emissions are substantially reduced over time
+  (Van Vuuren et al.~2011).
+\item
+  RCP4.5.---The stabilization scenario where technological advancements
+  and strategies lead to a peak in greenhouse gas emissions at about
+  2040 followed by a decline (Clarke et al.~2007). We explore the RCP4.5
+  scenario in this assessment, and the United Nations Paris Agreement of
+  2016 curbs emissions at a level between RCP2.6 and RCP4.5.
+\item
+  RCP6.0.---A second stabilization scenario, but in this pathway
+  greenhouse gas emissions peak at 2080 and stabilization is not
+  achieved until after 2100 (Fujino et al.~2006).
+\item
+  RCP8.5.---The business-as-usual emission scenario where greenhouse gas
+  emissions increase throughout the 21st century (Riahi et al.~2007,
+  2009), based on the assumption that society is largely unsuccessful in
+  curbing those emissions. We use the RCP8.5 scenario, in which
+  greenhouse gases steadily rise, and note that this pathway best
+  matches current trends.
+\end{itemize}
+
+\begin{tcolorbox}[standard jigsaw,colback=white, leftrule=.75mm, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, left=2mm, titlerule=0mm, opacityback=0, title={Shared Socioeconomic Pathways}, colframe=quarto-callout-note-color-frame, coltitle=black, bottomrule=.15mm, rightrule=.15mm, opacitybacktitle=0.6, toprule=.15mm, arc=.35mm]
+\textbf{give overview of ssps}
+\end{tcolorbox}
+
+For the Montana Climate Assessment, we explore the RCP4.5 and RCP8.5
+scenarios only. We do not include RCP6.0 or RCP2.6 in our assessment for
+several reasons. RCP6.0 overlaps with RCP4.5 in the first half of the
+century and provides intermediate values between RCP4.5 and RCP8.5 at
+the end of the century. Additionally, RCP2.6 is becoming less and less
+realistic as society continues with business as usual regarding
+greenhouse gas emissions. For the remainder of the chapter, we will
+regularly refer to RCP4.5 and RCP8.5 as the stabilization and
+business-as-usual emission scenarios, respectively.
+
+Due to their complexity and global extent, GCMs can be computationally
+intensive. Thus, scientists often make climate projections at coarse
+spatial resolution where each projected data point is an average value
+of a grid cell that measures hundreds of miles (kilometers) across.
+
+For areas where the terrain and land cover are relatively homogenous
+(e.g., an expanse of the Great Plains), such coarse grid cells may be
+adequate to capture important climate processes. But in areas with
+complex landscapes like Montana, data points so widely spaced are
+inadequate to reflect variability in terrain and vegetation and their
+influence on climate. A 100 mile (161 km) grid, for example, might not
+capture the climate effects of a small mountain range rising out of the
+eastern Montana plains or the climate differences between mountain
+summits and valleys in western Montana where temperature and
+precipitation vary greatly.
+
+To capture such important terrain characteristics, scientist take the
+coarse-resolution output from a GCM and statistically attribute the
+results from those models to smaller regions at higher resolution (e.g.,
+grid points at 1 mile rather than 100 mile apart). This process, called
+downscaling, more accurately represents climate across smaller, more
+complex landscapes, including Montana.
+
+For this climate assessment, we used a statistical downscaling method
+called the Multivariate Adaptive Constructive Analogs.10 By using a
+downscaled dataset---rather than the original output from the ensemble
+of GCMs---we gained the ability to evaluate temperature and
+precipitation at relatively high resolution statewide before conveying
+the results at the climate division scale. Additionally, we were able to
+aggregate data points within each of Montana's seven climate divisions
+(Figure 2-3), and look at Montana's climate future in different
+geographic areas. Aggregating to the climate-division level minimizes
+the potential for false precision by reporting results at spatial scales
+that better represent underlying climate processes.
+
+The 20-downscaled GCMs in CMIP5 were evaluated at two future time
+periods: 1) mid century (2040--2069) and 2) end-of-century (2070--2099).
+Thirty-year averages of these future projections were then compared to a
+historical (1971--2000) 30-year average, which results in a projected
+difference, or change, from historical conditions. We make those
+projections using the stabilization (RCP4.5) and business-as-usual
+(RCP8.5) emission scenarios described previously (see sidebar). These
+future projections were then compared to the historical trends in
+Montana to reveal the major climate-associated changes that Montana is
+likely to experience in the future.
+
+\hypertarget{temperature-projections}{%
+\section{Temperature Projections}\label{temperature-projections}}
+
+Below we provide projections for various aspects of Montana's future
+temperature based on our modeling analysis. These projections are for
+the stabilization (RCP4.5) and business-as-usual (RCP8.5) emission
+scenarios and for two periods: mid century (2040-2069) and
+end-of-century (2070-2099).
+
+We discuss a subset of our modeling results here, including a)
+temperature projections reported by the median values of the 20 GCM
+ensemble and b) figures that include maps and graphs that represent the
+median value and distribution of values observed for temperature across
+the 20 GCMs.
+
+An ensemble minimum, maximum, and percent agreement are also provided
+parenthetically. The percent agreement represents the number of GCMs
+that project the same sign of change (i.e., positive or negative) as the
+median value. For example, if the median value is positive and 18 out of
+20 models also project positive change, then the percent agreement would
+be 100 x 18/20 = 90\%. This simple calculation helps convey the
+uncertainty in the projections.
+
+\hypertarget{average-annual-temperatures}{%
+\subsection{Average Annual
+Temperatures}\label{average-annual-temperatures}}
+
+Average annual temperatures increase in the mid-century and
+end-of-century projections for both stabilization and business-as-usual
+emission scenarios (Figures 2-9, 2-10). In the mid-century projection,
+most of the state has increases of about 4.5°F (2.5°C) for the
+stabilization emission scenario and 6.0°F (3.3°C) for the
+business-as-usual emission scenario. For end-of-century, statewide
+temperature increases by about 5.6°F (3.1°C) for the stabilization
+emission scenario and 9.8°F (5.4 °C) for the business-as-usual emission
+scenario. Although small differences exist between climate divisions,
+the general magnitude of these changes is consistent across the state
+for both emission scenarios and both time periods.
+
+\begin{itemize}
+\tightlist
+\item
+  Mid-century projection specifics.---Average annual temperatures
+  increase by mid century in both emission scenarios (Figures 2-9 and
+  2-10). In the stabilization emission scenario, most of the state is
+  projected to have increases of about 4.5°F (2.5°C) (minimum: 2.7°F
+  {[}1.5°C{]}, maximum: 6.1°F {[}3.4°C{]}, percent agreement: 100\%).
+  The business-as-usual emission scenario projects larger increases in
+  temperature of about 6.0°F (3.3°C) (minimum: 4.0°F {[}2.2°C{]},
+  maximum: 8.2°F {[}4.6°C{]}, model agreement: 100\%). While small
+  discrepancies exist between climate divisions, in general the
+  magnitude of these changes is consistent across the state in both
+  emission scenarios.
+\item
+  End-of-century projection specifics.---Average annual temperatures
+  increase by about 5.6°F (3.1°C) (minimum: 3.6°F {[}2.0°C{]}, maximum:
+  7.7°F {[}4.3°C{]}, percent agreement: 100\%) in the stabilization
+  emission scenario and by about 9.8°F (5.4°C) (minimum: 6.6°F
+  {[}3.7°C{]}, maximum: 12.9°F {[}7.2°C{]}, percent agreement: 100\%) in
+  the business-as-usual emission scenario (Figure 2-9).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tmp\_box\_data }\OtherTok{\textless{}{-}}\NormalTok{ normals}\SpecialCharTok{::}\FunctionTok{make\_boxplot\_data}\NormalTok{(}
+\NormalTok{    stringr}\SpecialCharTok{::}\FunctionTok{str\_subset}\NormalTok{(cmip\_files, }\StringTok{"tas.rds"}\NormalTok{), }
+    \AttributeTok{shp =}\NormalTok{ shp, }
+    \AttributeTok{attr\_id =}\NormalTok{ params}\SpecialCharTok{$}\NormalTok{attr\_id}
+\NormalTok{) }
+
+\NormalTok{normals}\SpecialCharTok{::}\FunctionTok{make\_boxplot\_plot}\NormalTok{(}
+\NormalTok{  tmp\_box\_data,}
+  \StringTok{"Temperature Change (°F)"}\NormalTok{, }
+  \StringTok{"Change in Mean Annual Temperature"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-tavg-box-1.pdf}
+
+}
+
+\caption{\label{fig-tavg-box}Graphs showing the minimum, maximum, and
+median temperature increases (°F) projected for each climate division in
+both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission
+scenarios. The top row shows mid-century (2040-2069) projections and the
+bottom row shows end-of-century (2070-2099) projections. The outline of
+each box is determined by model agreement on the sign of the change
+(positive or negative). A black outline means there is \textgreater=80\%
+model agreement and a red outline means that there is \textless80\%
+model agreement. In this case, all models indicated the direction of the
+temperature trend at an agreement of greater than 80\%.}
+
+\end{figure}
+
+\hypertarget{average-daiily-minimum-and-maximum-temperatures}{%
+\subsection{Average Daiily Minimum and Maximum
+Temperatures}\label{average-daiily-minimum-and-maximum-temperatures}}
+
+Average daily minimum and maximum temperatures increase in the
+mid-century and end-of-century projections for both stabilization and
+business-as-usual emission scenarios (Figure 2-10 shows output for
+annual average daily maximum temperature). The degree of change is
+similar to that found for the average annual temperatures. In
+end-of-century projections, summers have the largest increases in
+average temperature: 6.5°F (3.6°C) for the stabilization emission
+scenario, 11.8°F (6.6°C) for the business-as-usual emission scenario.
+
+\begin{itemize}
+\tightlist
+\item
+  Mid-century projection specifics.---Average daily minimum and maximum
+  temperatures change in a manner similar to the average annual
+  projected increases (again for both RCP scenarios).
+\item
+  End-of-century projection specifics.---Average daily minimum and
+  maximum temperatures increase by similar magnitudes to average annual
+  daily temperatures for both emission scenarios. Summer months have the
+  largest projected increase in average temperature. In the
+  stabilization emission scenario, summer temperatures increase by 6.5°F
+  (3.6°C) (minimum: 3.2°F {[}1.8°C{]}, maximum: 9.1°F {[}5.1°C{]},
+  percent agreement: 100\%) and in the business-as-usual emission
+  scenario, summer temperatures increase by about 11.8°F (6.6°C)
+  (minimum: 8.0°F {[}4.4°C{]}, maximum: 15.2°F {[}8.4°C{]}, percent
+  agreement: 100\%).
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-tmmx-map-1.pdf}
+
+}
+
+\caption{\label{fig-tmmx-map}The projected increase in annual average
+daily maximum temperature (°F) for each climate division in Montana for
+the periods 2049-2069 and 2070-2099 for (A) stabilization (RCP4.5) and
+(B) business-as-usual (RCP8.5) emission scenarios.}
+
+\end{figure}
+
+\hypertarget{average-monthly-temperatures}{%
+\subsection{Average Monthly
+Temperatures}\label{average-monthly-temperatures}}
+
+Average monthly temperatures are projected to increase across all
+climate divisions by mid century (2040-2069) and for both stabilization
+and business-as-usual emission scenarios (Figure 2-11). Average monthly
+temperatures in summer and winter generally show larger projected
+increases than those in spring and fall. In the business-as-usual
+emission scenario, August has the largest projected change across all
+climate divisions.
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-tavg-heatmap-1.pdf}
+
+}
+
+\caption{\label{fig-tavg-heatmap}The projected monthly increase in
+average temperature (°F) for each climate division in Montana in the
+mid-century projections (2040-2069) for the (A) stabilization (RCP4.5)
+and (B) business-as-usual (RCP8.5) emission scenarios.}
+
+\end{figure}
+
+\hypertarget{number-of-days-above-90f-32c}{%
+\subsection{Number of Days Above 90°F
+(32°C)}\label{number-of-days-above-90f-32c}}
+
+The number of annual days where maximum temperatures are above 90°F
+(32°C) increases across all climate divisions in both mid-century and
+end-of-century projections and for both stabilization and
+business-as-usual emission scenarios (Figures 2-12, 2-13). Large
+differences in the magnitude of change exist, however, among the climate
+divisions. For example, in mid-century projections using the
+business-as-usual emission scenario, the northwestern part of the state
+shows increases of about 11 days with temperatures above 90°F (32°C),
+while the eastern parts of the state have increases of about 33 days.
+Similarly, in end-of-century projections based on the business-as-usual
+emission scenario, the northwestern part of the state shows an increase
+of about 34 days, while the eastern parts of the state have an increase
+of about 54 days above 90°F (32°C).
+
+\begin{itemize}
+\tightlist
+\item
+  Mid-century projection specifics.---The number of annual days at mid
+  century where maximum temperatures are above 90°F (32°C) increases
+  across all climate divisions and both emission scenarios (Figure 2-12,
+  2-13). Large differences in the magnitude of change exist, however,
+  among the climate divisions. These differences are likely due, in
+  part, to variability in moisture availability among the climate
+  divisions and the energy it takes to evaporate this moisture (i.e.,
+  latent heat). In the stabilization emission scenario, the northwestern
+  and north central climate divisions have increases of about 5.0 days
+  (minimum: 1.5 days, maximum: 12.0 days, percent agreement: 100\%);
+  while the number of days in both eastern and south central climate
+  divisions of the state increase by about 25.0 days (minimum: 6.0 days,
+  maximum: 36.0 days, percent agreement: 100\%). Similar spatial
+  patterns exist for the business-as-usual emission scenario, but the
+  magnitudes of change increase along with the ranges of the ensemble
+  minimums and maximums. In the northwestern and north central climate
+  divisions of the state, increases of about 11 days are projected
+  (minimum: 1.5 days, maximum: 25.0 days, percent agreement: 100\%); in
+  the south central and both eastern climate divisions increases are
+  projected to be about 33.0 days (minimum: 11 days, maximum: 44.0 days,
+  percent agreement: 100\%).
+\item
+  End-of-century projection specifics.---The number of days where
+  maximum temperatures exceed 90°F (32°C) by the end-of-century
+  continues to increase across the state in both emission scenarios,
+  with 100\% model agreement. The spatial pattern in the end-of-century
+  projection is similar to that of the mid-century one (Figures 2-12,
+  2-13). For the stabilization emission scenario, the number of days/yr
+  exceeding 90°F (32°C) increases in the northwestern and north central
+  regions by about 8.5 days (minimum: 1.7 days, maximum: 22.0 days,
+  percent agreement: 100\%), while in the southern and eastern parts of
+  the state, it increases by about 29.0 days (minimum: 11.0 days,
+  maximum: 43.0 days, percent agreement: 100\%). For the
+  business-as-usual emission scenario, the number of days exceeding 90°F
+  (32°C) in the northwestern and north central parts of the state
+  increases by about 34.0 days (minimum: 9.5 days, maximum: 58.0 days,
+  percent agreement: 100\%), while in the southern and eastern parts of
+  the state, it increases by about 54.0 days (minimum: 26.0 days,
+  maximum: 70.0 days, percent agreement: 100\%).
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-90-map-1.pdf}
+
+}
+
+\caption{\label{fig-90-map}The projected increases in number of days
+above 90°F (32°C) for each climate division in Montana over two periods
+2040-2069 and 2070-2099 for (A) stabilization (RCP4.5) and (B)
+business-as-usual (RCP8.5) emission scenarios.}
+
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-90-box-1.pdf}
+
+}
+
+\caption{\label{fig-90-box}Graphs showing the increase in the number of
+days per year above 90°F (32°C) projected for each climate division in
+both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission
+scenarios. The top row shows mid-century projections (2040-2069) and the
+bottom row shows end-of-century projections (2070-2099). The outline of
+each box is determined by model agreement on the sign of the change
+(positive or negative). A black outline means there is ≥80\% model
+agreement and a red outline means that there is \textless80\% model
+agreement. In this case, all models indicated the direction of the trend
+for days above 90°F (32°C) at an agreement of greater than 80\%.}
+
+\end{figure}
+
+\hypertarget{number-of-days-where-minimum-temperatures-are-above-32f-0c}{%
+\subsection{Number of Days Where Minimum Temperatures are Above 32°F
+(0°C)}\label{number-of-days-where-minimum-temperatures-are-above-32f-0c}}
+
+The number of days/yr where minimum temperatures exceed 32°F (0°C; i.e.,
+frost-free days) also increases across all climate divisions in both
+mid- and end-of-century projections and for both stabilization and
+business-as-usual emission scenarios (Figures 2-14, 2-15). While varying
+considerably across the state, projected changes are substantial. For
+example, in the mid-century projections with the stabilization emission
+scenario, frost-free days increase by about 30 days in the western part
+of the state and by 23 days in the eastern part of the state. Similar
+patterns exist for end-of-century projections: in the business-as-usual
+emission scenario, frost-free days increase by about 70 days in the
+western part of the state and by about 55 days in the eastern part of
+the state.
+
+\begin{itemize}
+\tightlist
+\item
+  Mid-century projection specifics.---The number of days/yr where
+  minimum temperatures are above 32°F (0°C; i.e., frost-free days)
+  increases across all climate divisions and both emission scenarios
+  (Figures 2-14, 2-15). In the stabilization emission scenario,
+  frost-free days increase by 30.0 days in the western part of the state
+  (minimum: 9.0 days, maximum: 51.0 days, percent agreement: 100\%) and
+  by 23.0 days in the eastern part of the state (minimum: 10.0 days,
+  maximum: 43.0 days, percent agreement: 100\%). In the
+  business-as-usual emission scenario, frost-free days increase by 41.0
+  days in the western part of the state (minimum: 17.0 days, maximum:
+  68.0 days, percent agreement: 100\%) and by 32.0 days in the eastern
+  part of the state (minimum: 15.0 days, maximum: 63.0 days, percent
+  agreement: 100\%).
+\item
+  End-of-century projection specifics.---The number of days/yr where
+  minimum temperatures are above 32°F (0°C; i.e., frost-free days)
+  continues to increase in the end-of-century projections across all
+  climate divisions and for both emission scenarios, with 100\% model
+  agreement. Again, similar spatial patterns exist between the
+  mid-century and end-of-century projections (Figures 2-14, 2-15). In
+  the stabilization emission scenario, frost-free days increase by 41.0
+  days in the western part of the state (minimum: 18.0 days, maximum:
+  66.0 days, percent agreement: 100\%), and by 30.0 days in the eastern
+  part of the state (minimum: 14.0 days, maximum: 60.0 days, percent
+  agreement: 100\%). In the business-as-usual emission scenario,
+  frost-free days increase by 70.0 days in the western part of the state
+  (minimum: 36.0 days, maximum: 110.0 days, percent agreement: 100\%),
+  and by 55.0 days in the eastern part of the state (minimum: 26.0 days,
+  maximum: 100.0 days, percent agreement: 100\%).
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-ff-map-1.pdf}
+
+}
+
+\caption{\label{fig-ff-map}The projected change in the number of
+frost-free days for each climate division in Montana over two periods
+2040-2069 and 2070-2099 for (A) stabilization (RCP4.5) and (B)
+business-as-usual (RCP8.5) emission scenarios.}
+
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-ff-box-1.pdf}
+
+}
+
+\caption{\label{fig-ff-box}Graphs showing the increases in frost-free
+days/yr projected for each climate division in both stabilization
+(RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row
+shows mid-century projections (2040-2069) and the bottom row shows
+end-of-century projections (2070-2099). The outline of each box is
+determined by model agreement on the sign of the change (positive or
+negative). A black outline means there is \textgreater=80\% model
+agreement and a red outline means that there is \textless80\% model
+agreement. In this case, all models indicated the direction of the trend
+of frost-free days at an agreement of greater than 80\%.}
+
+\end{figure}
+
+\hypertarget{summary}{%
+\subsection{Summary}\label{summary}}
+
+In general, there is high model agreement and low uncertainty that
+temperatures and associated temperature metrics will increase both by
+mid century and end-of-century. For both periods, annual and seasonal
+temperature averages, the number of days/yr with extreme heat, and the
+overall length of the growing season are projected to increase.
+Differences exist in projections for the stabilization and
+business-as-usual emission scenarios, with the former consistently
+showing lower magnitudes of change than the latter. Many of the trends
+and spatial patterns seen in the mid-century projections are extended
+and exacerbated in the end-of-century projections. The range of model
+outputs also increases for end-of-century projections, suggesting that
+the magnitude of change becomes more uncertain in the models further out
+in time.
+
+Regardless of uncertainties, the GCMs show full agreement regarding the
+direction of change: temperatures will be increasing.
+
+\hypertarget{precipitation-projections}{%
+\section{Precipitation Projections}\label{precipitation-projections}}
+
+Below we provide projections of Montana's future precipitation based on
+our modeling efforts. Those projections are for the stabilization and
+business-as-usual emission scenarios and for two periods: mid century
+(2040-2069) and end-of-century (2070-2099).
+
+We discuss a subset of our precipitation modeling results here,
+including a) precipitation projections reported by the median values of
+the 20 GCM ensemble and b) figures that include maps and graphs that
+represent the median value and distribution of values observed for
+precipitation across the 20 GCMs. Special consideration is required for
+interpretations of precipitation changes in Montana's complex terrain.
+Precipitation increases drastically with elevation such as that found in
+northwest Montana. Here, median values do not characterize the potential
+for spatial variability that exists within these regions.
+
+An ensemble minimum, maximum, and percent agreement are also provided
+parenthetically. As with our temperature analysis, the percent agreement
+concerning the precipitation trends is based on the number of GCMs that
+project the same sign of change (i.e., positive or negative) as the
+median value. For example, if the median value is positive and 18 out of
+20 models also project positive change, then the percent agreement would
+be 100 x 18/20 = 90\%. This simple calculation helps convey the
+uncertainty in the projections. For some variables both the absolute
+change and the percent change from historical is calculated.
+
+\hypertarget{average-annual-precipitation}{%
+\subsection{Average Annual
+Precipitation}\label{average-annual-precipitation}}
+
+Average annual precipitation increases across the state in both
+mid-century and end-of-century projections for both emission scenarios
+(Figures 2-16, 2-17, 2-18). For the mid-century projection using the
+stabilization emission scenario, increases of about 1.3 inch/yr (3.3
+cm/yr) occur in the northwestern and north central climate divisions and
+about 0.9 inch/yr (2.3 cm/yr) in the southwestern, central, and eastern
+climate divisions. For the business-as-usual emission scenario in the
+mid-century projection, average annual precipitation increases by about
+2.0 inch/yr (5.1 cm/yr) in the western half of the state, and about 1.8
+inch/yr (4.6 cm/yr) in the eastern half of the state. The GCMs used in
+the ensemble show large differences in their end-of-century projections,
+but there is high agreement in the positive direction of change.
+
+\begin{itemize}
+\tightlist
+\item
+  Mid-century projection specifics.---Average annual precipitation
+  increases by mid century across the state for both emission scenarios,
+  with moderately high agreement among models (Figures 2-16, 2-17,
+  2-18). In the stabilization scenario, increases of about 1.3 inch/yr
+  (3.3 cm/yr) and 5.0\% (minimum: -0.5 inch/yr {[}-1.3 cm/yr{]}, -1.1\%;
+  maximum: 3.2 inch/yr {[}8.1 cm/yr{]}, 14.0\%; percent agreement: 85\%)
+  are projected in the northwestern parts of the state. In the southern
+  and eastern parts of the state, increases of about 0.9 inch/yr (2.3
+  cm/yr) and 6.5\% are projected (minimum: -1.2 inch/yr {[}-3.0
+  cm/yr{]}, -6.0\%; maximum: 2.5 inch/yr {[}6.4 cm/yr{]}, 18.0\%;
+  percent agreement: 85\%). In the business-as-usual emission scenario,
+  average annual precipitation increase by about 1.6 inch/yr (4.1 cm/yr)
+  and 6.5\% in the northwestern parts of the state (minimum: -0.2
+  inch/yr {[}-0.51 cm/yr{]}, -1.0\%; maximum: 4.4 inch/yr {[}11.2
+  cm/yr{]}, 17.0\%; percent agreement: 90\%), and by about 1.2 inch/yr
+  (3.0 cm/yr) and 10\% in the southern and eastern parts of the state
+  (minimum: -0.5 inch/yr {[}-1.3 cm/yr{]}, -3.5\%; maximum: 2.9 inch/yr
+  {[}7.4 cm/yr{]}, 22.0\%; percent agreement: 85\%).
+\item
+  End-of-century projection specifics.---Average annual precipitation is
+  projected to increase through the end-of-century for both emission
+  scenarios (Figures 2-16, 2-17, 2-18). The GCMs used in the ensemble
+  show large differences in their end-of-century projections, but there
+  is high agreement in the positive direction of change. In the
+  stabilization emission scenario, average annual precipitation
+  increases in the northwestern climate division by about 2.2 inch/yr
+  (5.6 cm/yr) and 7.3\% (minimum: -1.2 inch/yr {[}-3.0 cm/yr{]}, -4.5\%;
+  maximum: 3.6 inch/yr {[}9.1 cm/yr{]}, 12.9\%; percent agreement:
+  85\%), and by about 1.1 inch/yr (2.8 cm/yr) and 8.0\% in the two
+  eastern climate divisions (minimum: -0.5 inch/yr {[}-1.3 cm/yr{]},
+  -4.5\%; maximum: 3.0 inch/yr {[}7.6 cm/yr{]}, 18.0\%; percent
+  agreement: 85\%). In the business-as-usual emission scenario, average
+  annual precipitation is projected to increase by slightly more than in
+  the stabilization emission scenario, although the range of model
+  projections also increases. In the western half of the state, annual
+  precipitation increases by about 2.0 inch/yr (5.1 cm/yr) and 10.0\%
+  (minimum: 0.4 inch/yr {[}1.0 cm/yr{]}, 1.3\%; maximum: 5.5 inch/yr
+  {[}14.0 cm/yr{]}, 28.0\%; percent agreement: 100\%), and in the
+  eastern half of the state annual precipitation increases by about 1.8
+  inch/yr (4.6 cm/yr) and 14.0\% (minimum: -0.2 inch/yr {[}-0.5
+  cm/yr{]}, -1.0\%; maximum: 3.6 inch/yr {[}9.1 cm/yr{]}, 26.0\%;
+  percent agreement: 95\%).
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-pr-map-1.pdf}
+
+}
+
+\caption{\label{fig-pr-map}The projected change in annual precipitation
+(inches) for each climate division in Montana over two periods 2040-2069
+and 2070-2099 for (A) stabilization (RCP4.5) and (B) business-as-usual
+(RCP8.5) emission scenarios.}
+
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-pr-box-1.pdf}
+
+}
+
+\caption{\label{fig-pr-box}Graphs showing annual precipitation change
+(in inches) projected for each climate division in both stabilization
+(RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row
+shows mid-century projections (2040-2069) and the bottom row shows
+end-of-century projections (2070-2099). The outline of each box is
+determined by model agreement on the sign of the change (positive or
+negative). A black outline means there is \textgreater=80\% model
+agreement and a red outline means that there is \textless80\% model
+agreement. In this case, all models indicated the direction of the
+annual precipitation trend at an agreement of greater than 80\%.}
+
+\end{figure}
+
+\hypertarget{interannual-variability}{%
+\subsection{Interannual Variability}\label{interannual-variability}}
+
+Interannual variability (i.e., the amount precipitation changes from
+year to year) is also projected to increase slightly across the state by
+mid century and end-of-century for both emission scenarios (Figure
+2-19). The increase could be attributed to wet years getting wetter, dry
+years getting drier, or some combination of both.
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-iv-box-1.pdf}
+
+}
+
+\caption{\label{fig-iv-box}Graphs showing the interannual variability of
+precipitation projected for each climate division in both stabilization
+(RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row
+shows mid-century projections (2040-2069) and the bottom row shows for
+end-of-century projections (2070-2099). The outline of each box is
+determined by model agreement on the sign of the change (positive or
+negative). A black outline means there is ≥80\% model agreement and a
+red outline means that there is \textless80\% model agreement.}
+
+\end{figure}
+
+\hypertarget{monthly-and-seasonal-change-in-average-precipitation}{%
+\subsection{Monthly and Seasonal Change in Average
+Precipitation}\label{monthly-and-seasonal-change-in-average-precipitation}}
+
+While annual increases in precipitation are projected across the state
+with moderately high model agreement, the monthly and seasonal
+projections vary. In mid-century projections, winter, spring, and fall
+increase in monthly precipitation for both emission scenarios, with
+spring experiencing the largest increases (e.g., 0.4 inch/month {[}1.0
+cm/month{]} for the business-as-usual emission scenario; Figure 2-23).
+Summers, however, are projected to decrease by about 0.1 inch/month (0.3
+cm/month) in both emission scenarios (model agreement, however, is
+fairly low for these projections). For end-of-century projections, the
+same trends are seen for increasing precipitation in winter, spring, and
+fall and decreasing precipitation in summer. The magnitude of change is
+similar to that of mid-century projections.
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-pr-heatmap-1.pdf}
+
+}
+
+\caption{\label{fig-pr-heatmap}Projected monthly change in average
+precipitation (inches) for each climate division in Montana in the
+mid-century projections (2040-2069) for (A) stabilization (RCP4.5) and
+(B) business-as-usual (RCP8.5) emission scenarios.}
+
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Mid-century projection specifics.---Although annual precipitation
+  increases across the state with moderately high model agreement, the
+  monthly and seasonal projections vary somewhat. Winter, spring, and
+  fall increase in monthly precipitation for both emission scenarios,
+  with the largest increases in spring (Figure 2-20). For the
+  stabilization emission scenario, spring months increase by about 0.2
+  inch/month (0.5 cm/month) (minimum: -0.1 inch/month {[}-0.3
+  cm/month{]}, maximum: 0.8 inch/month {[}2.0 cm/month{]}, percent
+  agreement: 85\%). In the business-as-usual emission scenario, spring
+  months increase by 0.4 inch/month (1.0 cm/month) (minimum: 0.0
+  inch/month {[}0 cm/month{]}, maximum: 1.0 inch/month {[}2.5
+  cm/month{]}, percent agreement: 95\%). Summer months, however, show
+  decreasing precipitation for both scenarios, although model agreement
+  is fairly low in the projections. For the both the stabilization and
+  business-as-usual emission scenarios, summer precipitation decreases
+  by -0.1 inch/month (-0.3 cm/month) (minimum: -0.4 inch/month {[}-1.0
+  cm/month{]}, maximum: 0.5 inch/month {[}1.3 cm/month{]}, percent
+  agreement: 65\%).
+\item
+  Mid-century projection specifics.---Although annual precipitation
+  increases across the state with moderately high model agreement, the
+  monthly and seasonal projections vary somewhat. Winter, spring, and
+  fall increase in monthly precipitation for both emission scenarios,
+  with the largest increases in spring (Figure 2-20). For the
+  stabilization emission scenario, spring months increase by about 0.2
+  inch/month (0.5 cm/month) (minimum: -0.1 inch/month {[}-0.3
+  cm/month{]}, maximum: 0.8 inch/month {[}2.0 cm/month{]}, percent
+  agreement: 85\%). In the business-as-usual emission scenario, spring
+  months increase by 0.4 inch/month (1.0 cm/month) (minimum: 0.0
+  inch/month {[}0 cm/month{]}, maximum: 1.0 inch/month {[}2.5
+  cm/month{]}, percent agreement: 95\%). Summer months, however, show
+  decreasing precipitation for both scenarios, although model agreement
+  is fairly low in the projections. For the both the stabilization and
+  business-as-usual emission scenarios, summer precipitation decreases
+  by -0.1 inch/month (-0.3 cm/month) (minimum: -0.4 inch/month {[}-1.0
+  cm/month{]}, maximum: 0.5 inch/month {[}1.3 cm/month{]}, percent
+  agreement: 65\%).
+\end{itemize}
+
+\hypertarget{projected-changes-in-consecutive-dry-days}{%
+\section{Projected Changes in Consecutive Dry
+Days}\label{projected-changes-in-consecutive-dry-days}}
+
+To assess changes in the frequency of dry events, we determined the
+annual number of dry days (defined as days when precipitation is less
+than 0.01 inch {[}0.03 cm{]}), then calculated the maximum number of
+consecutive dry days/yr averaged over the 30-year periods of interest.
+In general, in both mid- and end-of-century projections, we found a
+modest increase statewide in consecutive dry days---generally less than
+0.5 days---for both emission scenarios (Figures 2-22, 2-23). Low model
+agreement exists and the range of projections from the ensemble of GCMs
+is wide, both suggesting high uncertainty in these projections.
+
+\begin{itemize}
+\tightlist
+\item
+  Mid-century projection specifics.---In general, consecutive dry days
+  show a modest increase (i.e., less than 0.5 days); however, model
+  agreement is low (approximately 60\%; where 50\% would mean complete
+  disagreement among models) in both emission scenarios.
+\item
+  End-of-century projection specifics.---In end-of-century projections,
+  changes in consecutive dry days/yr remain positive, but the increase
+  is small (generally less than 0.5 days) with low model agreement
+  (approximate 60\%). This result is consistent across both emission
+  scenarios. The range of projections from the ensemble of models is
+  wide; however, minimum and maximum values are projected to increase by
+  about -2.5 days and 4.0 days, respectively. This large range, in
+  addition to the low model agreement, suggests high uncertainty in
+  these projections.
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-dd-map-1.pdf}
+
+}
+
+\caption{\label{fig-dd-map}The projected change in the number of
+consecutive dry days (\textless0.1 inch {[}0.3 cm{]} of precipitation)
+for each climate division in Montana over two periods 2040-2069 and
+2070-2099 for (A) stabilization (RCP4.5) and (B) business-as-usual
+(RCP8.5) emission scenarios.}
+
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-dd-box-1.pdf}
+
+}
+
+\caption{\label{fig-dd-box}Graphs showing the number of consecutive dry
+days in a year projected for each climate division in both stabilization
+(RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row
+shows mid-century projections (2040-2069) and the bottom row shows
+end-of-century projections (2070-2099). The outline of each box is
+determined by model agreement on the sign of the change (positive or
+negative). A black outline means there is ≥80\% model agreement and a
+red outline means that there is \textless80\% model agreement. In the
+case of consecutive dry days, there was less than 80\% agreement across
+the models for all climate divisions.}
+
+\end{figure}
+
+\hypertarget{projected-change-in-wet-days}{%
+\subsection{Projected Change in Wet
+Days}\label{projected-change-in-wet-days}}
+
+To evaluate changes in wet events, we calculated the number of days/yr
+where precipitation is greater than 1.0 inch (2.5 cm) and average those
+values over the period of interest (Figures 2-24).
+
+\begin{itemize}
+\tightlist
+\item
+  Mid-century projection specifics.---Very modest changes in the number
+  of wet events (i.e., less than 0.5 days) is projected for both
+  emission scenarios. This time, however, model agreement is high that
+  these small changes will occur (approximately 90\%).
+\item
+  End-of-century projection specifics.---Very high model agreement
+  (approximately 100\%) exists that the number of days/yr with
+  precipitation above 1.0 inch (2.5 cm) will increase, although the
+  magnitude of change is still small (less than 1.0 day). The
+  northwestern climate division is projected to have the largest changes
+  in this metric for both emission scenarios, reaching almost a 1.0 day
+  increase of over 1.0 inch (2.5 cm) of precipitation for the period
+  from 2070 to 2099. The range of model output is higher in the
+  business-as-usual emission scenario.
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics{./future_files/figure-pdf/fig-wd-box-1.pdf}
+
+}
+
+\caption{\label{fig-wd-box}Graphs showing the increase in the number of
+wet days/yr projected for each climate division in both stabilization
+(RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row
+shows projections for mid century (2040-2069) and the bottom row shows
+projections for end-of-century (2070-2099). The outline of each box is
+determined by model agreement on the sign of the change (positive or
+negative). A black outline means there is ≥80\% model agreement and a
+red outline indicates \textless80\% model agreement. Model agreement for
+the trend of wet days each year was greater than 80\%, except for the
+northeastern climate division.}
+
+\end{figure}
+
+\hypertarget{summary-1}{%
+\subsection{Summary}\label{summary-1}}
+
+In mid-century and end-of-century projections, average annual
+precipitation and variability increase across the state, as does winter,
+spring, and fall precipitation. Summers, however, show slight decreases
+in precipitation. The projections suggest little change in the annual
+frequency of dry and wet events, although there is high uncertainty in
+the case of wet events. Similar analysis using different metrics for the
+larger region surrounding Montana indicates an even larger potential
+(30\%) for more days of extreme precipitation (NCA 2014). Overall, the
+differences in precipitation resulting from the different emission
+scenarios (i.e., stabilization versus business-as-usual) are small when
+compared to the impact of the emission scenarios on the temperature
+projections. Uncertainty in the projections generally increases the
+further out in time (i.e., in the end-of-century projections), as well
+as for the higher business-as-usual emission scenario.
+
+\hypertarget{key-knowledge-gaps}{%
+\chapter{Key Knowledge Gaps}\label{key-knowledge-gaps}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Additional climate variables.---Our analysis provides a critical local
+  look at changes for two important climate variables, precipitation and
+  temperature. However, Montana's climate and its impacts go beyond
+  these. A more in depth downscaling effort that involves physics based
+  models will be required to evaluate two additional important
+  variables, evapotranspiration and drought.
+\item
+  Land use and land cover change.---Most climate analyses do not account
+  for changes in land cover with climatic trends. However, interactions
+  between climate, vegetation cover, and land use quality are tightly
+  coupled. For example, with changes in temperature and precipitation,
+  ecosystems within Montana may shift to drier conditions resulting in
+  changes to vegetation types. This would contribute to a difference in
+  evapotranspiration rates and aridity.
+\item
+  Precipitation timing and form.---We took a first look at changes in
+  Montana's precipitation. However, it is well known that the timing
+  (winter versus spring and summer) and form (rain versus snow) of
+  Montana's precipitation is critical for areas such as water, forests,
+  and agriculture resources. More work that incorporates physically
+  based, distributed hydrological models is required to understand how
+  our precipitation distribution will change in both space (low
+  elevations to mountaintops) and time.
+\end{enumerate}
+
+\hypertarget{conclusions}{%
+\chapter{Conclusions}\label{conclusions}}
+
+The analysis presented in this chapter shows that Montana has
+warmed---up to 2.7°F (1.5°C) annually as averaged across the
+state---since 1950. Seasonally, that warming has been greatest in winter
+(3.9°F {[}2.2°C{]}) and spring (2.6°F {[}1.4°C{]}). Montana's number of
+frost days has decreased by 12 days since 1951. Statewide, average
+annual precipitation did not change between 1950 and 2015, although
+variations caused by global climate oscillations, such as El Niño
+events, explain some of the historical precipitation variability in
+parts of the state.
+
+With this historical context, we considered Montana's future under two
+potential greenhouse gas emission scenarios. Using those scenarios, we
+employed standard modeling techniques available to climate scientists
+today---ensembles of general circulation models---and projected
+Montana's climate over the next century. Our analyses focused on
+projecting the possible range of temperature and precipitation amounts
+in Montana, under our chosen greenhouse gas emission scenarios.
+
+While the model results varied, one message is imminently clear: Montana
+in the coming century will be a warmer place.
+
+\begin{quote}
+One thing is clear: Montana in the coming century will be a warmer
+place.
+\end{quote}
+
+In Table 2-6 we provide a summary of the work done and described in this
+chapter (plus in accompanying appendices). In summary, Montana is
+projected to continue to warm in all geographic locations, seasons, and
+under all emission scenarios throughout the 21st century. By mid
+century, Montana temperatures are projected to increase by up to 6°F
+(3°C); by the end of the century, temperatures will increase by up to
+9.8°F (5.4°C) (both projections depend on the particular carbon emission
+scenario {[}i.e., RCP{]}, and these numbers are based on the
+business-as-usual {[}RCP8.5{]} scenario). Projections show that we could
+have up to 70 more frost-free days at the end of the century. Likewise,
+frequency of extreme heat will increase. In eastern Montana, for
+example, we may have as many as 54 days/yr in which maximum temperatures
+exceed 90°F (32°C).
+
+In mid- and end-of-century projections, average annual precipitation and
+variability increase across the state, as do winter, spring, and fall
+precipitation. Summer months, however, show small decreases in
+precipitation. Current projections suggest little change in the
+frequency of dry and wet events, although projections in the former case
+show high uncertainty.
+
+Montanans must be prepared for projected increases in temperature in the
+future. Because of its interior location, Montana has warmed more over
+the last 65 yr than the national average, and it will experience greater
+warming than most parts of the country in the future, particularly when
+compared to states in coastal regions. Key to the concern is that coming
+temperature changes will be larger in magnitude and occur more rapidly
+than any time since our 1889 declaration of statehood (and, to be sure,
+well before).
+
+\begin{quote}
+Montana's average annual temperature is projected to increase through
+the end-of-century for all models, all emission scenarios, and in all
+geographic locations.
+\end{quote}
+
+\textbf{Summary Table}
 
 \hypertarget{references}{%
 \chapter*{References}\label{references}}
@@ -479,7 +1920,14 @@ Alaska
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{0}{0}
-\end{CSLReferences}
+\leavevmode\vadjust pre{\hypertarget{ref-gridmet}{}}%
+\CSLLeftMargin{1. }%
+\CSLRightInline{Abatzoglou, J. T.
+\href{https://doi.org/10.1002/joc.3413}{Development of gridded surface
+meteorological data for ecological applications and modelling}.
+\emph{International Journal of Climatology} \textbf{33}, 121--131
+(2013).}
 
+\end{CSLReferences}
 
 \end{document}
