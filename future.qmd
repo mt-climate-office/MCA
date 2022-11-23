@@ -103,6 +103,46 @@ make_bullet_text <- function(period, variable, suffix, description) {
   mx_agree <- dplyr::slice(agree, which.max(avg)) %$% agree
   glue::glue("- {long}: Across the domain, the majority of SSP scenarios project that the {description} in the {tolower(long)} will {up_down_txt}. Changes in {description} across SSPs range from {mn_num} {suffix} ({mn_agree}% model agreement) to {mx_num} {suffix} ({mx_agree}% model agreement)")
 }
+
+seasonal_summary_text <- function(dat, period, suffix, description, are_is) {
+  if (period == "mid") {
+    long = "Mid Century"
+    short = "mid_century"
+  } else {
+    long = "End of Century"
+    short = "end_century"
+  }
+  
+  txt <- dat %>% 
+    dplyr::filter(period == long) %>% 
+    dplyr::mutate(
+      season = dplyr::case_when(
+        month %in% c("January", "February", "December") ~ "Winter",
+        month %in% c("March", "April", "May") ~ "Spring",
+        month %in% c("June", "July", "August") ~ "Summer",
+        TRUE ~ "Fall"
+      )
+    ) %>% 
+    dplyr::mutate(season = factor(season, levels = c("Winter", "Spring", "Summer", "Fall"))) %>%
+    dplyr::group_by(scenario, season) %>%
+    dplyr::summarise(agree = mean(agree), 
+                     diff = mean(diff), 
+                     txt = most_common(txt),
+                     .groups = "drop") %>% 
+    dplyr::group_by(season) %>%
+    dplyr::summarise(
+      up_down = most_common(txt),
+      txt = glue::glue(
+        "{tools::toTitleCase(description)} {are_is} projected to {up_down} in the {season}, with values ranging from {round(min(diff), 2)} {suffix} to {round(max(diff), 2)} {suffix} ({round(mean(agree))}% model agreement) depending on the SSP scenario."
+      ), 
+      .groups = "drop"
+    ) %>% 
+    dplyr::distinct() %>%
+    dplyr::arrange(season) %$%
+    paste(txt, collapse = " ") 
+  
+  glue::glue("- {long}: {txt}")
+}
 ```
 
 # **Draft**  Future Projections
@@ -210,6 +250,12 @@ tavg_heat_data <- normals::make_heatmap_data(
     attr_id = params$attr_id
 )
 
+# tavg_heat_domain <- normals::make_heatmap_data(
+#       stringr::str_subset(cmip_files, "tas.rds"), 
+#     shp = shp, 
+#     attr_id = NULL
+# )
+
 abv90_map_data <- normals::make_map_data(
     stringr::str_subset(cmip_files, "above90.rds"), 
     shp = shp, 
@@ -246,11 +292,11 @@ We discuss a subset of our modeling results here, including a) temperature proje
 ### Average Annual Temperatures
 @fig-tavg-box shows projected changes in average annual temperatures across all `r params$attr_plural` for both the mid- and end-of-century. Below, projected changes in average annual temperature across the domain and associated model agreements are given:
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r tas_bullet_mid, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("mid", "tas", "°F", "average annual temperature"))
 ```
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r tas_bullet_end, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("end", "tas", "°F", "average annual temperature"))
 ```
 
@@ -258,7 +304,7 @@ cat(make_bullet_text("end", "tas", "°F", "average annual temperature"))
 #| label: fig-tavg-box
 #| fig-width: 10
 #| fig-height: 7
-#| fig-cap: "Graphs showing the minimum, maximum, and median temperature increases (°F) projected for each climate division in both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row shows mid-century (2040-2069) projections and the bottom row shows end-of-century (2070-2099) projections. The outline of each box is determined by model agreement on the sign of the change (positive or negative). A black outline means there is >=80% model agreement and a red outline means that there is <80% model agreement. In this case, all models indicated the direction of the temperature trend at an agreement of greater than 80%."
+#| fig-cap: "Graphs showing the distribution of projected changes in temperature (°F) projected for each `r params$attr_name` across all SSP scenarios. The top row shows mid-century (2040-2069) projections and the bottom row shows end-of-century (2070-2099) projections."
 
 normals::make_boxplot_plot(
   tmp_box_data,
@@ -270,11 +316,11 @@ normals::make_boxplot_plot(
 ### Average Daily Minimum Temperatures
 @fig-tmmn-map shows spatially distributed changes in minimum annual temperature across all `r params$attr_plural` for both the mid- and end-of-century. Below, projected changes in both minimum temperature and associated model agreements are given for the entire domain:
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r tmin_bullet_mid, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("mid", "tasmin", "°F", "average annual minimum temperature"))
 ```
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r tmin_bulled_end, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("end", "tasmin", "°F", "average annual minimum temperature"))
 ```
 
@@ -282,7 +328,7 @@ cat(make_bullet_text("end", "tasmin", "°F", "average annual minimum temperature
 #| label: fig-tmmn-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected increase in annual average daily minimum temperature (°F) for each climate division in Montana for the periods 2049-2069 and 2070-2099 for (A) stabilization (RCP4.5) and (B) business-as-usual (RCP8.5) emission scenarios."
+#| fig-cap: "The projected increase in annual average daily minimum temperature (°F) for each `r params$attr_name` in params$location for the periods 2049-2069 and 2070-2099 for all SSP scenarios"
 
 normals::apply_map_by_scenario(
   dat = tmmn_map_data,
@@ -295,11 +341,11 @@ normals::apply_map_by_scenario(
 ### Average Daily Maximum Temperatures
 @fig-tmmx-map shows spatially distributed changes in maximum annual temperature across all `r params$attr_plural` for both the mid- and end-of-century. Below, projected changes in both maxiimum temperature and associated model agreements are given for the entire domain:
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r tmax_bullet_mid, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("mid", "tasmax", "°F", "average annual maximum temperature"))
 ```
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r tmax_bullet_end, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("end", "tasmax", "°F", "average annual maximum temperature"))
 ```
 
@@ -307,7 +353,7 @@ cat(make_bullet_text("end", "tasmax", "°F", "average annual maximum temperature
 #| label: fig-tmmx-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected increase in annual average daily maximum temperature (°F) for each climate division in Montana for the periods 2049-2069 and 2070-2099 for (A) stabilization (RCP4.5) and (B) business-as-usual (RCP8.5) emission scenarios."
+#| fig-cap: "The projected increase in annual average daily maximum temperature (°F) for each `r params$attr_name` in params$location for the periods 2049-2069 and 2070-2099 for all SSP scenarios"
 
 normals::apply_map_by_scenario(
   dat = tmmx_map_data,
@@ -320,16 +366,19 @@ normals::apply_map_by_scenario(
 ### Average Monthly Temperatures
 @fig-tavg-heatmap shows projected changes in average monthly temperatures across all `r params$attr_plural` for both the mid- and end-of-century. Below, projected changes in average monthly temperature across the domain and associated model agreements are given:
 
-- **fill in** 
+```{r tavg-mon_bullet_mid,  echo=FALSE,message=FALSE,results="asis"}
+cat(seasonal_summary_text(tavg_heat_data, "mid", "°F", "average temperature", "is"))
+```
 
-@fig-tavg-heatmap shows projected monthly changes in temperature for both mid- and end-of-century. 
-Average monthly temperatures are projected to increase across all climate divisions by mid century (2040-2069) and for both stabilization and business-as-usual emission scenarios (Figure 2-11). Average monthly temperatures in summer and winter generally show larger projected increases than those in spring and fall. In the business-as-usual emission scenario, August has the largest projected change across all climate divisions. 
+```{r tavg-mon_bullet_end,  echo=FALSE,message=FALSE,results="asis"}
+cat(seasonal_summary_text(tavg_heat_data, "end", "°F", "average temperature", "is"))
+```
 
 ```{r tavg_heatmap, echo=FALSE, warning=FALSE, message=FALSE}
 #| label: fig-tavg-heatmap
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: " The projected monthly increase in average temperature (°F) for each climate division in Montana in the mid-century projections (2040-2069) for the (A) stabilization (RCP4.5) and (B) business-as-usual (RCP8.5) emission scenarios."
+#| fig-cap: " The projected monthly increase in average temperature (°F) for each `r params$attr_name` in params$location in the mid-century (2040-2069) and end-of century (2070 - 2099) for all SSP scenarios"
 normals::apply_heatmap_by_scenario(
   dat = tavg_heat_data,
   hot = TRUE,
@@ -340,11 +389,11 @@ normals::apply_heatmap_by_scenario(
 ### Number of Days Above 90°F (32°C)
 @fig-90-map and @fig-90-box show projected changes in number of days above 90°F for both the mid- and end-of-century. Below, projected changes in days above 90°F across the domain and associated model agreements are given:
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r avb90_bullet_mid, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("mid", "above90", "days", "number of days above 90°F"))
 ```
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r abv90_bullet_end, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("end", "above90", "days", "number of days above 90°F"))
 ```
 
@@ -353,7 +402,7 @@ cat(make_bullet_text("end", "above90", "days", "number of days above 90°F"))
 #| label: fig-90-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected increases in number of days above 90°F (32°C) for each climate division in Montana over two periods 2040-2069 and 2070-2099 for (A) stabilization (RCP4.5) and (B) business-as-usual (RCP8.5) emission scenarios."
+#| fig-cap: "The projected increases in number of days above 90°F (32°C) for each `r params$attr_name` in params$location over two periods 2040-2069 and 2070-2099 for all SSP scenarios"
 
 normals::apply_map_by_scenario(
   dat = abv90_map_data,
@@ -367,7 +416,7 @@ normals::apply_map_by_scenario(
 #| label: fig-90-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing the increase in the number of days per year above 90°F (32°C) projected for each climate division in both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099). The outline of each box is determined by model agreement on the sign of the change (positive or negative). A black outline means there is ≥80% model agreement and a red outline means that there is <80% model agreement. In this case, all models indicated the direction of the trend for days above 90°F (32°C) at an agreement of greater than 80%."
+#| fig-cap: "Graphs showing the distribution across ensemble members of the increase in number of days per year above 90°F (32°C) projected for each `r params$attr_name` all SSP scenarios and both mid-century (2040-2069) and  end-of-century (2070-2099) projections."
 
 normals::make_boxplot_plot(
   dat = abv90_box_data,
@@ -379,11 +428,11 @@ normals::make_boxplot_plot(
 ### Number of Days Where Minimum Temperatures are Above 32°F (0°C)
 @fig-ff-map and @fig-ff-box show projected changes in number of days freeze-free days for both the mid- and end-of-century. Below, projected changes in the number of freeze-free days across the domain and associated model agreements are given:
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r ff_bullet_mid, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("mid", "freeze-free", "days", "number of freeze-free days"))
 ```
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r ff_bullet_end, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("end", "freeze-free", "days", "number of freeze-free days"))
 ```
 
@@ -392,7 +441,7 @@ cat(make_bullet_text("end", "freeze-free", "days", "number of freeze-free days")
 #| label: fig-ff-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected change in the number of frost-free days for each climate division in Montana over two periods 2040-2069 and 2070-2099 for (A) stabilization (RCP4.5) and (B) business-as-usual (RCP8.5) emission scenarios."
+#| fig-cap: "The projected change in the number of frost-free days for each `r params$attr_name` in params$location over two periods 2040-2069 and 2070-2099 for all SSP scenarios."
 
 normals::apply_map_by_scenario(
   dat = ff_map_data,
@@ -406,7 +455,7 @@ normals::apply_map_by_scenario(
 #| label: fig-ff-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing the increases in frost-free days/yr projected for each climate division in both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099). The outline of each box is determined by model agreement on the sign of the change (positive or negative). A black outline means there is >=80% model agreement and a red outline means that there is <80% model agreement. In this case, all models indicated the direction of the trend of frost-free days at an agreement of greater than 80%."
+#| fig-cap: "Graphs showing the increases in frost-free days/yr projected for each `r params$attr_name` across all SSP scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099)."
 
 normals::make_boxplot_plot(
   dat = ff_box_data,
@@ -416,9 +465,7 @@ normals::make_boxplot_plot(
 ```
 
 ### Summary 
-**In general, there is high model agreement and low uncertainty that temperatures and associated temperature metrics will increase both by mid century and end-of-century. For both periods, annual and seasonal temperature averages, the number of days/yr with extreme heat, and the overall length of the growing season are projected to increase. Differences exist in projections for the stabilization and business-as-usual emission scenarios, with the former consistently showing lower magnitudes of change than the latter. Many of the trends and spatial patterns seen in the mid-century projections are extended and exacerbated in the end-of-century projections. The range of model outputs also increases for end-of-century projections, suggesting that the magnitude of change becomes more uncertain in the models further out in time.**
-
-**Regardless of uncertainties, the GCMs show full agreement regarding the direction of change: temperatures will be increasing.**
+**Talk with team about how to summarize**
 
 ## Precipitation Projections
 Below we provide projections of `r params$location`’s future precipitation based on our modeling efforts. Those projections cover all SSP scenarios and two periods: mid century (2040-2069) and end-of-century (2070-2099).
@@ -428,11 +475,11 @@ We discuss a subset of our precipitation modeling results here, including a) pre
 ### Average Annual Precipitation
 @fig-pr-map and @fig-pr-box show projected changes in annual total precipitation for both the mid- and end-of-century. Below, projected changes in total annual precipitation across the domain and associated model agreements are given:
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r pr_bullet_mid, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("mid", "pr", "inches", "total annual precipitation"))
 ```
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r pr_bullet_end, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("end", "pr", "inches", "total annual precipitation"))
 ```
 
@@ -441,7 +488,7 @@ cat(make_bullet_text("end", "pr", "inches", "total annual precipitation"))
 #| label: fig-pr-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected change in annual precipitation (inches) for each climate division in Montana over two periods 2040-2069 and 2070-2099 for (A) stabilization (RCP4.5) and (B) business-as-usual (RCP8.5) emission scenarios."
+#| fig-cap: "The projected change in annual precipitation (inches) for each `r params$attr_name` in params$location over two periods 2040-2069 and 2070-2099 for all SSP scenarios."
 
 pr_map_data <- normals::make_map_data(
     f = stringr::str_subset(cmip_files, "pr.rds"), 
@@ -462,7 +509,7 @@ normals::apply_map_by_scenario(
 #| label: fig-pr-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing annual precipitation change (in inches) projected for each climate division in both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099). The outline of each box is determined by model agreement on the sign of the change (positive or negative). A black outline means there is >=80% model agreement and a red outline means that there is <80% model agreement. In this case, all models indicated the direction of the annual precipitation trend at an agreement of greater than 80%."
+#| fig-cap: "Graphs showing annual precipitation change (in inches) projected for each `r params$attr_name` for all SSP scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099)."
 
 pr_box_data <- normals::make_boxplot_data(
     stringr::str_subset(cmip_files, "pr.rds"), 
@@ -484,7 +531,7 @@ Interannual variability (i.e., the amount precipitation changes from year to yea
 #| label: fig-iv-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing the interannual variability of precipitation projected for each climate division in both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows for end-of-century projections (2070-2099). The outline of each box is determined by model agreement on the sign of the change (positive or negative). A black outline means there is ≥80% model agreement and a red outline means that there is <80% model agreement."
+#| fig-cap: "Graphs showing the interannual variability of precipitation projected for each climate division for all SSP scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows for end-of-century projections (2070-2099)."
 
 iv_box_data <- normals::make_boxplot_data(
     stringr::str_subset(cmip_files, "iv.rds"), 
@@ -500,13 +547,13 @@ normals::make_boxplot_plot(
 )
 ```
 ### Monthly and Seasonal Change in Average Precipitation
-**FILL IN While annual increases in precipitation are projected across the state with moderately high model agreement, the monthly and seasonal projections vary. In mid-century projections, winter, spring, and fall increase in monthly precipitation for both emission scenarios, with spring experiencing the largest increases (e.g., 0.4 inch/month [1.0 cm/month] for the business-as-usual emission scenario; Figure 2-23). Summers, however, are projected to decrease by about 0.1 inch/month (0.3 cm/month) in both emission scenarios (model agreement, however, is fairly low for these projections). For end-of-century projections, the same trends are seen for increasing precipitation in winter, spring, and fall and decreasing precipitation in summer. The magnitude of change is similar to that of mid-century projections.**
+@fig-pr-heatmap shows projected changes in average monthly precipitation across all `r params$attr_plural` for both the mid- and end-of-century. Below, projected changes in average monthly precipitation across the domain and associated model agreements are given:
 
 ```{r pr_heatmap, echo=FALSE, warning=FALSE, message=FALSE}
 #| label: fig-pr-heatmap
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "Projected monthly change in average precipitation (inches) for each climate division in Montana in the mid-century projections (2040-2069) for (A) stabilization (RCP4.5) and (B) business-as-usual (RCP8.5) emission scenarios."
+#| fig-cap: "Projected monthly change in average precipitation (inches) for each `r params$attr_name` in params$location in the mid-century projections (2040-2069) for all SSP scenarios."
 
 pr_heat_data <- normals::make_heatmap_data(
     stringr::str_subset(cmip_files, "pr.rds"), 
@@ -521,17 +568,22 @@ normals::apply_heatmap_by_scenario(
 )
 ```
 
-- **Mid-century projection specifics.—Although annual precipitation increases across the state with moderately high model agreement, the monthly and seasonal projections vary somewhat. Winter, spring, and fall increase in monthly precipitation for both emission scenarios, with the largest increases in spring (Figure 2-20). For the stabilization emission scenario, spring months increase by about 0.2 inch/month (0.5 cm/month) (minimum: -0.1 inch/month [-0.3 cm/month], maximum: 0.8 inch/month [2.0 cm/month], percent agreement: 85%). In the business-as-usual emission scenario, spring months increase by 0.4 inch/month (1.0 cm/month) (minimum: 0.0 inch/month [0 cm/month], maximum: 1.0 inch/month [2.5 cm/month], percent agreement: 95%). Summer months, however, show decreasing precipitation for both scenarios, although model agreement is fairly low in the projections. For the both the stabilization and business-as-usual emission scenarios, summer precipitation decreases by -0.1 inch/month (-0.3 cm/month) (minimum: -0.4 inch/month [-1.0 cm/month], maximum: 0.5 inch/month [1.3 cm/month], percent agreement: 65%). **
-- **Mid-century projection specifics.—Although annual precipitation increases across the state with moderately high model agreement, the monthly and seasonal projections vary somewhat. Winter, spring, and fall increase in monthly precipitation for both emission scenarios, with the largest increases in spring (Figure 2-20). For the stabilization emission scenario, spring months increase by about 0.2 inch/month (0.5 cm/month) (minimum: -0.1 inch/month [-0.3 cm/month], maximum: 0.8 inch/month [2.0 cm/month], percent agreement: 85%). In the business-as-usual emission scenario, spring months increase by 0.4 inch/month (1.0 cm/month) (minimum: 0.0 inch/month [0 cm/month], maximum: 1.0 inch/month [2.5 cm/month], percent agreement: 95%). Summer months, however, show decreasing precipitation for both scenarios, although model agreement is fairly low in the projections. For the both the stabilization and business-as-usual emission scenarios, summer precipitation decreases by -0.1 inch/month (-0.3 cm/month) (minimum: -0.4 inch/month [-1.0 cm/month], maximum: 0.5 inch/month [1.3 cm/month], percent agreement: 65%). **
+```{r pr-mon_bullet_mid,  echo=FALSE,message=FALSE,results="asis"}
+cat(seasonal_summary_text(pr_heat_data, "mid", "inches", "total precipitation", "is"))
+```
 
-## Projected Changes in Consecutive Dry Days
+```{r pr-mon_bullet_end,  echo=FALSE,message=FALSE,results="asis"}
+cat(seasonal_summary_text(pr_heat_data, "end", "inches", "total precipitation", "is"))
+```
+
+### Projected Changes in Consecutive Dry Days
 To assess changes in the frequency of dry events, we determined the annual number of dry days (defined as days when precipitation is less than 0.01 inch [0.03 cm]), then calculated the maximum number of consecutive dry days/yr averaged over the 30-year periods of interest. Across the domain, we found a `r subset_agreements("con-dry", "mid_century", fun = most_common, col = "txt")` in consecutive dry days for the mid-century across the all SSPs (`r subset_agreements("con-dry", "mid_century", fun = mean, col = "agree")`% agreement) and a `r subset_agreements("con-dry", "end_century", fun = most_common, col = "txt")` in consecutive dry days for the end-of-century across the all SSPs (`r subset_agreements("con-dry", "end_century", fun = mean, col = "agree")`% agreement). Figures @fig-dd-map and @fig-dd-box show changes in projected number of dry days across `r params$attr_plural` and domain-wide projections for mid- and end-of-century are given below: 
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r dd_bullet_mid, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("mid", "con-dry", "days", "annual number of consecutive dry days"))
 ```
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r dd_bullet_end, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("end", "con-dry", "days", "annual number of consecutive dry days"))
 ```
 
@@ -540,7 +592,7 @@ cat(make_bullet_text("end", "con-dry", "days", "annual number of consecutive dry
 #| label: fig-dd-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected change in the number of consecutive dry days (<0.1 inch [0.3 cm] of precipitation) for each climate division in Montana over two periods 2040-2069 and 2070-2099 for (A) stabilization (RCP4.5) and (B) business-as-usual (RCP8.5) emission scenarios."
+#| fig-cap: "The projected change in the number of consecutive dry days (<0.1 inch [0.3 cm] of precipitation) for each `r params$attr_name` in params$location over two periods 2040-2069 and 2070-2099 for all SSP scenarios."
 
 dd_map_data <- normals::make_map_data(
     f = stringr::str_subset(cmip_files, "con-dry.rds"), 
@@ -580,11 +632,11 @@ normals::make_boxplot_plot(
 ### Projected Change in Wet Days
 To evaluate changes in wet events, we calculated the number of days/yr where precipitation is greater than 1.0 inch (2.5 cm) and average those values over the period of interest. Figures @fig-wd-box shows changes in projected number of wet days across `r params$attr_plural` and domain-wide projections for mid- and end-of-century are given below: 
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r wd_bullet_mid, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("mid", "con-wet", "days", "annual number of consecutive wet days"))
 ```
 
-```{r, echo=FALSE,message=FALSE,results="asis"}
+```{r wd_bullet_end, echo=FALSE,message=FALSE,results="asis"}
 cat(make_bullet_text("end", "con-wet", "days", "annual number of consecutive wet days"))
 ```
 
@@ -592,7 +644,7 @@ cat(make_bullet_text("end", "con-wet", "days", "annual number of consecutive wet
 #| label: fig-wd-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing the increase in the number of wet days/yr projected for each climate division in both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row shows projections for mid century (2040-2069) and the bottom row shows projections for end-of-century (2070-2099). The outline of each box is determined by model agreement on the sign of the change (positive or negative). A black outline means there is ≥80% model agreement and a red outline indicates <80% model agreement. Model agreement for the trend of wet days each year was greater than 80%, except for the northeastern climate division."
+#| fig-cap: "Graphs showing the increase in the number of wet days/yr projected for each `r params$attr_name` in all SSP scenarios. The top row shows projections for mid century (2040-2069) and the bottom row shows projections for end-of-century (2070-2099)."
 
 wd_box_data <- normals::make_boxplot_data(
     stringr::str_subset(cmip_files, "con-wet.rds"), 
@@ -609,5 +661,4 @@ normals::make_boxplot_plot(
 ```
 
 ### Summary
-In mid-century and end-of-century projections, average annual precipitation and variability increase across the state, as does winter, spring, and fall precipitation. Summers, however, show slight decreases in precipitation. The projections suggest little change in the annual frequency of dry and wet events, although there is high uncertainty in the case of wet events. Similar analysis using different metrics for the larger region surrounding Montana indicates an even larger potential (30%) for more days of extreme precipitation (NCA 2014). Overall, the differences in precipitation resulting from the different emission scenarios (i.e., stabilization versus business-as-usual) are small when compared to the impact of the emission scenarios on the temperature projections. Uncertainty in the projections generally increases the further out in time (i.e., in the end-of-century projections), as well as for the higher business-as-usual emission scenario.
-
+**Ask team about this** 
