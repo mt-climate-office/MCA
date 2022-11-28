@@ -6,7 +6,7 @@ Climate is driven largely by radiation from the sun. Incoming solar radiation ma
 
 The Earth’s climate is driven by the sun. The balance between incoming and outgoing radiation—Earth’s radiation or energy budget—determines the energy available for changes in temperature, precipitation, and winds and, hence, influences atmospheric chemistry and the hydrologic cycle. The Earth’s surface, atmosphere, and clouds absorb a portion of incoming solar radiation, thereby increasing temperatures. Energy as longwave radiation (heat) is re-emitted to the atmosphere, clouds, or space, thereby reducing temperatures at the source. If the absorbed solar radiation and emitted heat are in balance, the Earth’s temperature remains constant.
 
-![The Earth’s radiation balance is the main driver of our climate. Image courtesy of National Aeronautics and Space Administration (NASA undated)](assets/energy-budget.jpg){#fig-budget}
+![The Earth’s radiation balance is the main driver of our climate. Image courtesy of National Aeronautics and Space Administration (@energy_balance)](assets/energy-budget.jpg){#fig-budget}
 :::
 
 Natural factors contributing to past climate change are well documented and include changes in atmospheric chemistry, ocean circulation patterns, solar radiation intensity, snow and ice cover, Earth’s orbital cycle around the sun, continental position, and volcanic eruptions. While these natural factors are linked to past climate change, they are also incorporated in the analysis of current climate change.

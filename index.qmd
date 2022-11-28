@@ -1,6 +1,16 @@
+---
+params: 
+  location: "Montana"
+  asset_dir: "./assets"
+  attr_id: "Division"
+  attr_name: "Climate Division"
+  attr_plural: "Climate Divisions"
+  
+---
+
 # **Draft** Overview {.unnumbered}
 
-Understanding current climate change and projecting future climate trends are of vital importance–both for our economy and our well-being. It is our goal to provide science-based information that serves as a resource for *Montanans* who are interested in understanding *Montana*’s climate and its impacts on water, agricultural lands and forests. To provide this understanding, we can learn from past climate trends. However, knowledge of the past is only partially sufficient in preparing for a future defined by unprecedented levels of greenhouse gases in the atmosphere. Therefore, we also provide projections of change into the future using today’s best scientific information and modeling techniques.
+Understanding current climate change and projecting future climate trends are of vital importance–both for our economy and our well-being. It is our goal to provide science-based information that serves as a resource for residents of `r params$location` who are interested in understanding `r params$location`’s climate and its impacts on water, agricultural lands and forests. To provide this understanding, we can learn from past climate trends. However, knowledge of the past is only partially sufficient in preparing for a future defined by unprecedented levels of greenhouse gases in the atmosphere. Therefore, we also provide projections of change into the future using today’s best scientific information and modeling techniques.
 
 ## Key Messages
 Annual average temperatures, including daily minimums, maximums, and averages, have risen across the state between 1950 and 2015. The increases range between **2.0-3.0°F (1.1-1.7°C)** during this period.
@@ -18,7 +28,7 @@ The number of days in a year when daily temperature exceeds 90°F (32°C) and th
 Across the state, precipitation is projected to increase in **winter, spring, and fall;** precipitation is projected to decrease in *summer.* The largest increases are expected to occur during *spring* in the *southern* part of the state. The largest decreases are expected to occur during *summer* in the *central* and *southern* parts of the state. 
 
 ## Climate Change Defined
-The US Global Change Research Program (USGCRP undated) defines climate change as follows:
+The US Global Change Research Program (@cc_def) defines climate change as follows:
 
 > “Changes in average weather conditions that persist over multiple decades or longer. Climate change encompasses both increases and decreases in temperature, as well as shifts in precipitation, changing risk of certain types of severe weather events, and changes to other features of the climate system.”
 
