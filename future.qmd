@@ -149,27 +149,7 @@ seasonal_summary_text <- function(dat, period, suffix, description, are_is) {
 ## Global Climate Modeling
 Projecting future climate on a global scale requires modeling many intricate relationships between the land, ocean, and atmosphere. Many global climate and Earth system models exist, each varying in complexity, capabilities, and limitations.
 
-Consider one of the simplest forms of a model used for future projections, a linear regression model (@fig-lm-example). With this model, researchers would plot a climate variable (e.g., temperature) over time, draw a best-fit, straight line through the data, and then extend the line into the future. That line, then, provides a means of projecting future conditions. Whether or not those projections are valid is a separate question. For example, the model may be based on false assumptions: the relationship may a) not be constant through time, b) not include outside influences such as human interventions (e.g., policy regulations), and c) not consider system feedbacks that might enhance or dampen the relationship being modeled.
-
-```{r echo=FALSE, warning=FALSE, message=FALSE}
-#| label: fig-lm-example
-#| fig-cap: "Example of fitting a linear model to data to predict future conditions."
-x = 1981:2045
-y = seq(30, 35, length.out = length(x)) + rnorm(length(x), 0, 1)
-z = seq(30, 35, length.out = length(x))
-
-tibble::tibble(x = x, y = y) %>% 
-  dplyr::mutate(
-    future = ifelse(x > 2022, "Projected", "Observed"),
-    y = ifelse(future == "Projected", NA, y)
-  ) %>% 
-  ggplot() + 
-    geom_point(aes(x=x, y=y), color="#F8766D") +
-    geom_smooth(aes(x=x, y=z, linetype=future), method = "lm", se = FALSE, color="black") + 
-    theme_minimal() + 
-  geom_vline(aes(xintercept=2022)) + 
-  labs(x="Year", y="Average Temperature (°F)", color="", linetype = "")
-```
+Consider one of the simplest forms of a model used for future projections, a linear regression model. With this model, researchers would plot a climate variable (e.g., temperature) over time, draw a best-fit, straight line through the data, and then extend the line into the future. That line, then, provides a means of projecting future conditions. Whether or not those projections are valid is a separate question. For example, the model may be based on false assumptions: the relationship may a) not be constant through time, b) not include outside influences such as human interventions (e.g., policy regulations), and c) not consider system feedbacks that might enhance or dampen the relationship being modeled.
 
 While the linear regression model provides an instructive visual aid for considering modeling, it is too simple for looking at climate changes, in which the interactions are complex and often nonlinear. For example, if temperatures rises, evaporation is expected to increase. At the same time, increasing temperatures increase the atmosphere’s capacity to hold water. Water is a greenhouse gas so more water in the atmosphere means the atmosphere can absorb more heat... thus driving more evaporation. What seemed a simple relationship has changed (possibly dramatically) because of this feedback between temperature, evaporation, and the water-holding capacity of the atmosphere. 
 
@@ -222,6 +202,10 @@ For this climate assessment, we used a statistical downscaling method called the
 
 The 8 downscaled GCMs in CMIP6 were evaluated at two future time periods: 1) mid century (2040–2069) and 2) end-of-century (2070–2099). Thirty-year averages of these future projections were then compared to a historical (1981–2010) 30-year average, which results in a projected difference, or change, from historical conditions. We make those projections using the stabilization the four SSPs outlined above. These future projections were then compared to the historical trends in Montana to reveal the major climate-associated changes that Montana is likely to experience in the future.
 
+## Summary of Projections
+### Temperature Summary
+### Precipitation Summary
+
 ## Temperature Projections
 ```{r prep_temp, echo=FALSE, warning=FALSE, message=FALSE}
 library(magrittr)
@@ -235,13 +219,17 @@ tmp_box_data <- normals::make_boxplot_data(
 tmmx_map_data <- normals::make_map_data(
     stringr::str_subset(cmip_files, "tasmax.rds"), 
     shp = shp, 
-    proj = normals::mt_state_plane
+    attr_id = params$attr_id,
+    proj = normals::mt_state_plane,
+    fun = "mean"
 ) 
 
 tmmn_map_data <- normals::make_map_data(
     stringr::str_subset(cmip_files, "tasmin.rds"), 
     shp = shp, 
-    proj = normals::mt_state_plane
+    attr_id = params$attr_id,
+    proj = normals::mt_state_plane,
+    fun = "mean"
 ) 
 
 tavg_heat_data <- normals::make_heatmap_data(
@@ -250,15 +238,11 @@ tavg_heat_data <- normals::make_heatmap_data(
     attr_id = params$attr_id
 )
 
-# tavg_heat_domain <- normals::make_heatmap_data(
-#       stringr::str_subset(cmip_files, "tas.rds"), 
-#     shp = shp, 
-#     attr_id = NULL
-# )
 
 abv90_map_data <- normals::make_map_data(
     stringr::str_subset(cmip_files, "above90.rds"), 
     shp = shp, 
+    attr_id = params$attr_id,
     proj = normals::mt_state_plane,
     fun = "sum"
 )
@@ -273,6 +257,7 @@ abv90_box_data <- normals::make_boxplot_data(
 ff_map_data <- normals::make_map_data(
     stringr::str_subset(cmip_files, "freeze-free.rds"), 
     shp = shp, 
+    attr_id = params$attr_id,
     proj = normals::mt_state_plane,
     fun = "sum"
 )
@@ -304,7 +289,7 @@ cat(make_bullet_text("end", "tas", "°F", "average annual temperature"))
 #| label: fig-tavg-box
 #| fig-width: 10
 #| fig-height: 7
-#| fig-cap: "Graphs showing the distribution of projected changes in temperature (°F) projected for each `r params$attr_name` across all SSP scenarios. The top row shows mid-century (2040-2069) projections and the bottom row shows end-of-century (2070-2099) projections."
+#| fig-cap: !expr glue::glue("Graphs showing the distribution of projected changes in temperature (°F) projected for each {params$attr_name} across all SSP scenarios. The top row shows mid-century (2040-2069) projections and the bottom row shows end-of-century (2070-2099) projections.")
 
 normals::make_boxplot_plot(
   tmp_box_data,
@@ -328,13 +313,13 @@ cat(make_bullet_text("end", "tasmin", "°F", "average annual minimum temperature
 #| label: fig-tmmn-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected increase in annual average daily minimum temperature (°F) for each `r params$attr_name` in params$location for the periods 2049-2069 and 2070-2099 for all SSP scenarios"
+#| fig-cap: !expr glue::glue("The projected increase in annual average daily minimum temperature (°F) for each {params$attr_name} in {params$location} for the periods 2049-2069 and 2070-2099 for all SSP scenarios")
 
-normals::apply_map_by_scenario(
+normals::make_map_plot(
   dat = tmmn_map_data,
-  shp = shp,
+  shp = normals::mt,
   hot = TRUE,
-  title = "Change in Annual Minimum Temperature (°F)"
+  title_txt = "Change in Annual Minimum Temperature (°F)"
 )
 ```
 
@@ -353,13 +338,13 @@ cat(make_bullet_text("end", "tasmax", "°F", "average annual maximum temperature
 #| label: fig-tmmx-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected increase in annual average daily maximum temperature (°F) for each `r params$attr_name` in params$location for the periods 2049-2069 and 2070-2099 for all SSP scenarios"
+#| fig-cap: !expr glue::glue("The projected increase in annual average daily maximum temperature (°F) for each {params$attr_name} in {params$location} for the periods 2049-2069 and 2070-2099 for all SSP scenarios")
 
-normals::apply_map_by_scenario(
+normals::make_map_plot(
   dat = tmmx_map_data,
-  shp = shp,
+  shp = normals::mt,
   hot = TRUE,
-  title = "Change in Annual Maximum Temperature (°F)"
+  title_txt = "Change in Annual Maximum Temperature (°F)"
 )
 ```
 
@@ -378,11 +363,11 @@ cat(seasonal_summary_text(tavg_heat_data, "end", "°F", "average temperature", "
 #| label: fig-tavg-heatmap
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: " The projected monthly increase in average temperature (°F) for each `r params$attr_name` in params$location in the mid-century (2040-2069) and end-of century (2070 - 2099) for all SSP scenarios"
-normals::apply_heatmap_by_scenario(
+#| fig-cap: !expr glue::glue("The projected monthly increase in average temperature (°F) for each {params$attr_name} in {params$location} in the mid-century (2040-2069) and end-of century (2070 - 2099) for all SSP scenarios")
+normals::make_heatmap_plot(
   dat = tavg_heat_data,
   hot = TRUE,
-  title = "Monthly Change in Average Temperature (°F)"
+  title_txt = "Monthly Change in Average Temperature (°F)"
 )
 ```
 
@@ -402,13 +387,13 @@ cat(make_bullet_text("end", "above90", "days", "number of days above 90°F"))
 #| label: fig-90-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected increases in number of days above 90°F (32°C) for each `r params$attr_name` in params$location over two periods 2040-2069 and 2070-2099 for all SSP scenarios"
+#| fig-cap: !expr glue::glue("The projected increases in number of days above 90°F (32°C) for each {params$attr_name} in {params$location} over two periods 2040-2069 and 2070-2099 for all SSP scenarios")
 
-normals::apply_map_by_scenario(
+normals::make_map_plot(
   dat = abv90_map_data,
   hot = TRUE,
-  shp = shp,
-  title = "Change in Annual Number of Days Above 90°F"
+  shp = normals::mt,
+  title_txt = "Change in Annual Number of Days Above 90°F"
 )
 ```
 
@@ -416,7 +401,7 @@ normals::apply_map_by_scenario(
 #| label: fig-90-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing the distribution across ensemble members of the increase in number of days per year above 90°F (32°C) projected for each `r params$attr_name` all SSP scenarios and both mid-century (2040-2069) and  end-of-century (2070-2099) projections."
+#| fig-cap: !expr glue::glue("Graphs showing the distribution across ensemble members of the increase in number of days per year above 90°F (32°C) projected for each {params$attr_name} all SSP scenarios and both mid-century (2040-2069) and  end-of-century (2070-2099) projections.")
 
 normals::make_boxplot_plot(
   dat = abv90_box_data,
@@ -441,13 +426,13 @@ cat(make_bullet_text("end", "freeze-free", "days", "number of freeze-free days")
 #| label: fig-ff-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected change in the number of frost-free days for each `r params$attr_name` in params$location over two periods 2040-2069 and 2070-2099 for all SSP scenarios."
+#| fig-cap: !expr glue::glue("The projected change in the number of frost-free days for each {params$attr_name} in {params$location} over two periods 2040-2069 and 2070-2099 for all SSP scenarios.")
 
-normals::apply_map_by_scenario(
+normals::make_map_plot(
   dat = ff_map_data,
   hot = TRUE,
   shp = shp,
-  title = "Change in Number of Freeze Free Days"
+  title_txt = "Change in Number of Freeze Free Days"
 )
 ```
 
@@ -455,7 +440,7 @@ normals::apply_map_by_scenario(
 #| label: fig-ff-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing the increases in frost-free days/yr projected for each `r params$attr_name` across all SSP scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099)."
+#| fig-cap: !expr glue::glue("Graphs showing the increases in frost-free days/yr projected for each {params$attr_name} across all SSP scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099).")
 
 normals::make_boxplot_plot(
   dat = ff_box_data,
@@ -488,20 +473,21 @@ cat(make_bullet_text("end", "pr", "inches", "total annual precipitation"))
 #| label: fig-pr-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected change in annual precipitation (inches) for each `r params$attr_name` in params$location over two periods 2040-2069 and 2070-2099 for all SSP scenarios."
+#| fig-cap: !expr glue::glue("The projected change in annual precipitation (inches) for each {params$attr_name} in {params$location} over two periods 2040-2069 and 2070-2099 for all SSP scenarios.")
 
 pr_map_data <- normals::make_map_data(
     f = stringr::str_subset(cmip_files, "pr.rds"), 
     shp = shp, 
+    attr_id = params$attr_id,
     proj = normals::mt_state_plane,
     fun = "sum"
 ) 
 
-normals::apply_map_by_scenario(
+normals::make_map_plot(
   dat = pr_map_data,
-  hot = TRUE,
+  hot = FALSE,
   shp = shp,
-  title = "Change in Total Annual Precipitation (in.)"
+  title_txt = "Change in Total Annual Precipitation (in.)"
 )
 ```
 
@@ -509,7 +495,7 @@ normals::apply_map_by_scenario(
 #| label: fig-pr-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing annual precipitation change (in inches) projected for each `r params$attr_name` for all SSP scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099)."
+#| fig-cap: !expr glue::glue("Graphs showing annual precipitation change (in inches) projected for each {params$attr_name} for all SSP scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099).")
 
 pr_box_data <- normals::make_boxplot_data(
     stringr::str_subset(cmip_files, "pr.rds"), 
@@ -531,7 +517,7 @@ Interannual variability (i.e., the amount precipitation changes from year to yea
 #| label: fig-iv-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing the interannual variability of precipitation projected for each climate division for all SSP scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows for end-of-century projections (2070-2099)."
+#| fig-cap: !expr glue::glue("Graphs showing the interannual variability of precipitation projected for each {params$attr_name} for all SSP scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows for end-of-century projections (2070-2099).")
 
 iv_box_data <- normals::make_boxplot_data(
     stringr::str_subset(cmip_files, "iv.rds"), 
@@ -553,7 +539,7 @@ normals::make_boxplot_plot(
 #| label: fig-pr-heatmap
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "Projected monthly change in average precipitation (inches) for each `r params$attr_name` in params$location in the mid-century projections (2040-2069) for all SSP scenarios."
+#| fig-cap: !expr glue::glue("Projected monthly change in average precipitation (inches) for each {params$attr_name} in {params$location} in the mid-century projections (2040-2069) for all SSP scenarios.")
 
 pr_heat_data <- normals::make_heatmap_data(
     stringr::str_subset(cmip_files, "pr.rds"), 
@@ -561,11 +547,12 @@ pr_heat_data <- normals::make_heatmap_data(
     attr_id = params$attr_id
 ) 
 
-normals::apply_heatmap_by_scenario(
+normals::make_heatmap_plot(
   dat = pr_heat_data,
   hot = FALSE,
-  title = "Monthly Change in Total Precipitation (in.)"
+  title_txt  = "Monthly Change in Total Precipitation (in.)"
 )
+
 ```
 
 ```{r pr-mon_bullet_mid,  echo=FALSE,message=FALSE,results="asis"}
@@ -592,20 +579,21 @@ cat(make_bullet_text("end", "con-dry", "days", "annual number of consecutive dry
 #| label: fig-dd-map
 #| fig.width: 10
 #| fig.height: 15
-#| fig-cap: "The projected change in the number of consecutive dry days (<0.1 inch [0.3 cm] of precipitation) for each `r params$attr_name` in params$location over two periods 2040-2069 and 2070-2099 for all SSP scenarios."
+#| fig-cap: !expr glue::glue("The projected change in the number of consecutive dry days (<0.1 inch [0.3 cm] of precipitation) for each {params$attr_name} in {params$location} over two periods 2040-2069 and 2070-2099 for all SSP scenarios.")
 
 dd_map_data <- normals::make_map_data(
     f = stringr::str_subset(cmip_files, "con-dry.rds"), 
     shp = shp, 
+    attr_id = params$attr_id,
     proj = normals::mt_state_plane,
     fun = "sum"
 ) 
 
-normals::apply_map_by_scenario(
+normals::make_map_plot(
   dat = dd_map_data,
   hot = FALSE,
   shp = shp,
-  title = 'Change in Number of Consecutive Dry Days (<0.1in")'
+  title_txt = 'Change in Number of Consecutive Dry Days (<0.1in")'
 )
 ```
 
@@ -613,7 +601,7 @@ normals::apply_map_by_scenario(
 #| label: fig-dd-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing the number of consecutive dry days in a year projected for each climate division in both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099). The outline of each box is determined by model agreement on the sign of the change (positive or negative). A black outline means there is ≥80% model agreement and a red outline means that there is <80% model agreement. In the case of consecutive dry days, there was less than 80% agreement across the models for all climate divisions."
+#| fig-cap: !expr glue::glue("Graphs showing the number of consecutive dry days in a year projected for each {params$attr_name} in both stabilization (RCP4.5) and business-as-usual (RCP8.5) emission scenarios. The top row shows mid-century projections (2040-2069) and the bottom row shows end-of-century projections (2070-2099).")
 
 dd_box_data <- normals::make_boxplot_data(
     stringr::str_subset(cmip_files, "con-dry.rds"), 
@@ -644,7 +632,7 @@ cat(make_bullet_text("end", "con-wet", "days", "annual number of consecutive wet
 #| label: fig-wd-box
 #| fig.width: 10
 #| fig.height: 7
-#| fig-cap: "Graphs showing the increase in the number of wet days/yr projected for each `r params$attr_name` in all SSP scenarios. The top row shows projections for mid century (2040-2069) and the bottom row shows projections for end-of-century (2070-2099)."
+#| fig-cap: !expr glue::glue("Graphs showing the increase in the number of wet days/yr projected for each {params$attr_name} in all SSP scenarios. The top row shows projections for mid century (2040-2069) and the bottom row shows projections for end-of-century (2070-2099).")
 
 wd_box_data <- normals::make_boxplot_data(
     stringr::str_subset(cmip_files, "con-wet.rds"), 
@@ -659,6 +647,3 @@ normals::make_boxplot_plot(
   title = 'Change in Number of Consecutive Wet Days (>1 in")'
 )
 ```
-
-### Summary
-**Ask team about this** 
