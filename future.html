@@ -79,6 +79,12 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "showHighlights": true
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
 
 
 </head>
@@ -198,7 +204,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><strong>Draft</strong> Future Projections</span></h1>
+<h1 class="title"><span id="sec-future" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><strong>Draft</strong> Future Projections</span></span></h1>
 </div>
 
 
@@ -237,9 +243,9 @@ General Circulation Models
 </div>
 </div>
 <p>Because of the complexities involved, climate scientists rarely rely on a single model, but instead use an ensemble (or suite) of models. Each model in an ensemble represents a single description of future climate based on specific initial conditions and assumptions. The use of multiple models helps scientists explore the variability of future projections (i.e., how certain are we about the projection) and incorporate the strengths, as well as uncertainties, of multiple approaches.</p>
-<p>For the work of the Montana Climate Assessment, we employed an ensemble from the sixth iteration of the Coupled Model Intercomparison Project (CMIP6), which includes over 100 GCMs depending on the experiment conducted (<span class="citation" data-cites="cmip6"><sup><a href="references.html#ref-cmip6" role="doc-biblioref">1</a></sup></span>). The World Climate Research Program describes CMIP as “a standard experimental protocol for studying the output” of GCMs (<span class="citation" data-cites="usgcrp"><sup><a href="references.html#ref-usgcrp" role="doc-biblioref">2</a></sup></span>). It provides a means of validating, comparing, documenting, and accessing diverse climate model results. The CMIP project dates back to 1995, with the sixth iteration (CMIP6) starting in 2016 and providing climate data for the latest IPCC Sixth Assessment Report (<span class="citation" data-cites="ipcc"><sup><a href="references.html#ref-ipcc" role="doc-biblioref">3</a></sup></span>).</p>
-<p>We employed 8 individual GCMs from the CMIP6 project for the Montana Climate Assessment ensemble, chosen because they provide daily outputs and are found to have a realistic performance over North America (<span class="citation" data-cites="mahony22"><sup><a href="references.html#ref-mahony22" role="doc-biblioref">4</a></sup></span>)</p>
-<p>The benefits of using CMIP6 data are that each model in the ensemble a) has been rigorously evaluated, and b) uses the same standard socioeconomic trajectories—known as Shared Socioeconomic Pathways (SSPs)—to describe future greenhouse gas emissions. “The SSPs are based on five narratives describing alternative socio-economic developments, including sustainable development, regional rivalry, inequality, fossil-fueled development, and middle-of-the-road development” (<span class="citation" data-cites="ssp"><sup><a href="references.html#ref-ssp" role="doc-biblioref">5</a></sup></span>)</p>
+<p>For the work of the Montana Climate Assessment, we employed an ensemble from the sixth iteration of the Coupled Model Intercomparison Project (CMIP6), which includes over 100 GCMs depending on the experiment conducted (<span class="citation" data-cites="cmip6"><sup><a href="#ref-cmip6" role="doc-biblioref">1</a></sup></span>). The World Climate Research Program describes CMIP as “a standard experimental protocol for studying the output” of GCMs (<span class="citation" data-cites="usgcrp"><sup><a href="#ref-usgcrp" role="doc-biblioref">2</a></sup></span>). It provides a means of validating, comparing, documenting, and accessing diverse climate model results. The CMIP project dates back to 1995, with the sixth iteration (CMIP6) starting in 2016 and providing climate data for the latest IPCC Sixth Assessment Report (<span class="citation" data-cites="ipcc"><sup><a href="#ref-ipcc" role="doc-biblioref">3</a></sup></span>).</p>
+<p>We employed 8 individual GCMs from the CMIP6 project for the Montana Climate Assessment ensemble, chosen because they provide daily outputs and are found to have a realistic performance over North America (<span class="citation" data-cites="mahony22"><sup><a href="#ref-mahony22" role="doc-biblioref">4</a></sup></span>)</p>
+<p>The benefits of using CMIP6 data are that each model in the ensemble a) has been rigorously evaluated, and b) uses the same standard socioeconomic trajectories—known as Shared Socioeconomic Pathways (SSPs)—to describe future greenhouse gas emissions. “The SSPs are based on five narratives describing alternative socio-economic developments, including sustainable development, regional rivalry, inequality, fossil-fueled development, and middle-of-the-road development” (<span class="citation" data-cites="ssp"><sup><a href="#ref-ssp" role="doc-biblioref">5</a></sup></span>)</p>
 <div class="callout-note callout callout-style-default no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -250,8 +256,9 @@ Shared Socioeconomic Pathways
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>There are five different SSP categories that climate projections are grouped by (following text taken from<span class="citation" data-cites="ssp"><sup><a href="references.html#ref-ssp" role="doc-biblioref">5</a></sup></span>): - SSP1 Sustainability: Taking the Green Road (Low challenges to mitigation and adaptation) The world shifts gradually, but pervasively, toward a more sustainable path, emphasizing more inclusive development that respects perceived environmental boundaries. Management of the global commons slowly improves, educational and health investments accelerate the demographic transition, and the emphasis on economic growth shifts toward a broader emphasis on human well-being. Driven by an increasing commitment to achieving development goals, inequality is reduced both across and within countries. Consumption is oriented toward low material growth and lower resource and energy intensity.</p>
+<p>There are five different SSP categories that climate projections are grouped by (following text taken from<span class="citation" data-cites="ssp"><sup><a href="#ref-ssp" role="doc-biblioref">5</a></sup></span>):</p>
 <ul>
+<li><p>SSP1 Sustainability: Taking the Green Road (Low challenges to mitigation and adaptation) The world shifts gradually, but pervasively, toward a more sustainable path, emphasizing more inclusive development that respects perceived environmental boundaries. Management of the global commons slowly improves, educational and health investments accelerate the demographic transition, and the emphasis on economic growth shifts toward a broader emphasis on human well-being. Driven by an increasing commitment to achieving development goals, inequality is reduced both across and within countries. Consumption is oriented toward low material growth and lower resource and energy intensity.</p></li>
 <li><p>SSP2 Middle of the Road: (Medium challenges to mitigation and adaptation) The world follows a path in which social, economic, and technological trends do not shift markedly from historical patterns. Development and income growth proceeds unevenly, with some countries making relatively good progress while others fall short of expectations. Global and national institutions work toward but make slow progress in achieving sustainable development goals. Environmental systems experience degradation, although there are some improvements and overall the intensity of resource and energy use declines. Global population growth is moderate and levels off in the second half of the century. Income inequality persists or improves only slowly and challenges to reducing vulnerability to societal and environmental changes remain.</p></li>
 <li><p>SSP3 Regional Rivalry: A Rocky Road (High challenges to mitigation and adaptation) A resurgent nationalism, concerns about competitiveness and security, and regional conflicts push countries to increasingly focus on domestic or, at most, regional issues. Policies shift over time to become increasingly oriented toward national and regional security issues. Countries focus on achieving energy and food security goals within their own regions at the expense of broader-based development. Investments in education and technological development decline. Economic development is slow, consumption is material-intensive, and inequalities persist or worsen over time. Population growth is low in industrialized and high in developing countries. A low international priority for addressing environmental concerns leads to strong environmental degradation in some regions.</p></li>
 <li><p>SSP4 Inequality: A Road Divided (Low challenges to mitigation, high challenges to adaptation) Highly unequal investments in human capital, combined with increasing disparities in economic opportunity and political power, lead to increasing inequalities and stratification both across and within countries. Over time, a gap widens between an internationally-connected society that contributes to knowledge- and capital-intensive sectors of the global economy, and a fragmented collection of lower-income, poorly educated societies that work in a labor intensive, low-tech economy. Social cohesion degrades and conflict and unrest become increasingly common. Technology development is high in the high-tech economy and sectors. The globally connected energy sector diversifies, with investments in both carbon-intensive fuels like coal and unconventional oil, but also low-carbon energy sources. Environmental policies focus on local issues around middle and high income areas.</p></li>
@@ -263,8 +270,8 @@ Shared Socioeconomic Pathways
 <p>Due to their complexity and global extent, GCMs can be computationally intensive. Thus, scientists often make climate projections at coarse spatial resolution where each projected data point is an average value of a grid cell that measures hundreds of miles (kilometers) across.</p>
 <p>For areas where the terrain and land cover are relatively homogenous (e.g., an expanse of the Great Plains), such coarse grid cells may be adequate to capture important climate processes. But in areas with complex landscapes like Montana, data points so widely spaced are inadequate to reflect variability in terrain and vegetation and their influence on climate. A 100 mile (161 km) grid, for example, might not capture the climate effects of a small mountain range rising out of the eastern Montana plains or the climate differences between mountain summits and valleys in western Montana where temperature and precipitation vary greatly.</p>
 <p>To capture such important terrain characteristics, scientist take the coarse-resolution output from a GCM and statistically attribute the results from those models to smaller regions at higher resolution (e.g., grid points at 1 mile rather than 100 mile apart). This process, called downscaling, more accurately represents climate across smaller, more complex landscapes, including Montana.</p>
-<p>For this climate assessment, we used a statistical downscaling method called the Multivariate Adaptive Constructive Analogs. By using a downscaled dataset—rather than the original output from the ensemble of GCMs—we gained the ability to evaluate temperature and precipitation at relatively high resolution statewide before conveying the results at the climate division scale. Additionally, we were able to aggregate data points within each of Montana’s seven climate divisions (Figure 2-3), and look at Montana’s climate future in different geographic areas. Aggregating to the climate-division level minimizes the potential for false precision by reporting results at spatial scales that better represent underlying climate processes.</p>
-<p>The 8 downscaled GCMs in CMIP6 were evaluated at two future time periods: 1) mid century (2040–2069) and 2) end-of-century (2070–2099). Thirty-year averages of these future projections were then compared to a historical (1981–2010) 30-year average, which results in a projected difference, or change, from historical conditions. We make those projections using the stabilization the four SSPs outlined above. These future projections were then compared to the historical trends in Montana to reveal the major climate-associated changes that Montana is likely to experience in the future.</p>
+<p>For this climate assessment, we used a statistical downscaling method called the Bias-Correction Spatial Disaggregation. By using a downscaled dataset—rather than the original output from the ensemble of GCMs—we gained the ability to evaluate temperature and precipitation at relatively high resolution statewide before conveying the results at the climate division scale. Additionally, we were able to aggregate data points within each of Montana’s seven climate divisions, and look at Montana’s climate future in different geographic areas. Aggregating to the climate-division level minimizes the potential for false precision by reporting results at spatial scales that better represent underlying climate processes.</p>
+<p>The 8 downscaled GCMs in CMIP6 were evaluated at two future time periods: 1) mid century (2040–2069) and 2) end-of-century (2070–2099). Thirty-year averages of these future projections were then compared to a historical (1991–2020) 30-year average, which results in a projected difference, or change, from historical conditions. We make those projections using the stabilization the four SSPs outlined above. These future projections were then compared to the historical trends in Montana to reveal the major climate-associated changes that Montana is likely to experience in the future.</p>
 </section>
 <section id="summary-of-projections" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="summary-of-projections"><span class="header-section-number">5.2</span> Summary of Projections</h2>
@@ -288,7 +295,7 @@ Shared Socioeconomic Pathways
 <p>We also report a percent agreement of the 8 GCMs used for the analysis. The percent agreement represents the number of GCMs that project the same sign of change (i.e., positive or negative) as the mean value. For example, if the mean value is positive and 7 out of 8 models also project positive change, then the percent agreement would be 100 x 7/8 = 87.5%. This simple calculation helps convey the uncertainty in the projections.</p>
 <section id="average-annual-temperatures" class="level3" data-number="5.3.1">
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="average-annual-temperatures"><span class="header-section-number">5.3.1</span> Average Annual Temperatures</h3>
-<p><a href="#fig-tavg-box">Figure&nbsp;<span>5.1</span></a> shows projected changes in average annual temperatures across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in average annual temperature across the domain and associated model agreements are given:</p>
+<p><a href="#fig-tavg-box">Figure&nbsp;<span class="quarto-unresolved-ref">fig-tavg-box</span></a> shows projected changes in average annual temperatures across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in average annual temperature across the domain and associated model agreements are given:</p>
 <div class="cell" data-hash="future_cache/html/tas_bullet_mid_34c232a519b95c7cd71d2f8ccc75d9cb">
 <ul>
 <li>Mid-century: Across the domain, the majority of SSP scenarios project that the average annual temperature in the mid-century will increase. Changes in average annual temperature across SSPs range from 3.6 °F (100% model agreement) to 5.48 °F (100% model agreement)</li>
@@ -312,7 +319,7 @@ Shared Socioeconomic Pathways
 </section>
 <section id="average-daily-minimum-temperatures" class="level3" data-number="5.3.2">
 <h3 data-number="5.3.2" class="anchored" data-anchor-id="average-daily-minimum-temperatures"><span class="header-section-number">5.3.2</span> Average Daily Minimum Temperatures</h3>
-<p><a href="#fig-tmmn-map">Figure&nbsp;<span>5.2</span></a> shows spatially distributed changes in minimum annual temperature across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in both minimum temperature and associated model agreements are given for the entire domain:</p>
+<p><a href="#fig-tmmn-map">Figure&nbsp;<span class="quarto-unresolved-ref">fig-tmmn-map</span></a> shows spatially distributed changes in minimum annual temperature across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in both minimum temperature and associated model agreements are given for the entire domain:</p>
 <div class="cell" data-hash="future_cache/html/tmin_bullet_mid_c39636ac7a121e8440f172bbded52b8e">
 <ul>
 <li>Mid-century: Across the domain, the majority of SSP scenarios project that the average annual minimum temperature in the mid-century will increase. Changes in average annual minimum temperature across SSPs range from 3.54 °F (100% model agreement) to 5.53 °F (100% model agreement)</li>
@@ -336,7 +343,7 @@ Shared Socioeconomic Pathways
 </section>
 <section id="average-daily-maximum-temperatures" class="level3" data-number="5.3.3">
 <h3 data-number="5.3.3" class="anchored" data-anchor-id="average-daily-maximum-temperatures"><span class="header-section-number">5.3.3</span> Average Daily Maximum Temperatures</h3>
-<p><a href="#fig-tmmx-map">Figure&nbsp;<span>5.3</span></a> shows spatially distributed changes in maximum annual temperature across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in both maxiimum temperature and associated model agreements are given for the entire domain:</p>
+<p><a href="#fig-tmmx-map">Figure&nbsp;<span class="quarto-unresolved-ref">fig-tmmx-map</span></a> shows spatially distributed changes in maximum annual temperature across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in both maxiimum temperature and associated model agreements are given for the entire domain:</p>
 <div class="cell" data-hash="future_cache/html/tmax_bullet_mid_4dd904bb57cebd10fd9405ed5384b4c4">
 <ul>
 <li>Mid-century: Across the domain, the majority of SSP scenarios project that the average annual maximum temperature in the mid-century will increase. Changes in average annual maximum temperature across SSPs range from 3.66 °F (100% model agreement) to 5.43 °F (100% model agreement)</li>
@@ -360,7 +367,7 @@ Shared Socioeconomic Pathways
 </section>
 <section id="average-monthly-temperatures" class="level3" data-number="5.3.4">
 <h3 data-number="5.3.4" class="anchored" data-anchor-id="average-monthly-temperatures"><span class="header-section-number">5.3.4</span> Average Monthly Temperatures</h3>
-<p><a href="#fig-tavg-heatmap">Figure&nbsp;<span>5.4</span></a> shows projected changes in average monthly temperatures across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in average monthly temperature across the domain and associated model agreements are given:</p>
+<p><a href="#fig-tavg-heatmap">Figure&nbsp;<span class="quarto-unresolved-ref">fig-tavg-heatmap</span></a> shows projected changes in average monthly temperatures across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in average monthly temperature across the domain and associated model agreements are given:</p>
 <div class="cell" data-hash="future_cache/html/tavg-mon_bullet_mid_9765e908ed111085c8f18e52933a134d">
 <ul>
 <li>Mid Century: Average Temperature is projected to increase in the Winter, with values ranging from 3.47 °F to 5.22 °F (100% model agreement) depending on the SSP scenario. Average Temperature is projected to increase in the Spring, with values ranging from 3.29 °F to 4.5 °F (100% model agreement) depending on the SSP scenario. Average Temperature is projected to increase in the Summer, with values ranging from 3.65 °F to 6.23 °F (100% model agreement) depending on the SSP scenario. Average Temperature is projected to increase in the Fall, with values ranging from 3.99 °F to 5.99 °F (100% model agreement) depending on the SSP scenario.</li>
@@ -384,7 +391,7 @@ Shared Socioeconomic Pathways
 </section>
 <section id="number-of-days-above-90f-32c" class="level3" data-number="5.3.5">
 <h3 data-number="5.3.5" class="anchored" data-anchor-id="number-of-days-above-90f-32c"><span class="header-section-number">5.3.5</span> Number of Days Above 90°F (32°C)</h3>
-<p><a href="#fig-90-map">Figure&nbsp;<span>5.5</span></a> and <a href="#fig-90-box">Figure&nbsp;<span>5.6</span></a> show projected changes in number of days above 90°F for both the mid- and end-of-century. Below, projected changes in days above 90°F across the domain and associated model agreements are given:</p>
+<p><a href="#fig-90-map">Figure&nbsp;<span class="quarto-unresolved-ref">fig-90-map</span></a> and <a href="#fig-90-box">Figure&nbsp;<span class="quarto-unresolved-ref">fig-90-box</span></a> show projected changes in number of days above 90°F for both the mid- and end-of-century. Below, projected changes in days above 90°F across the domain and associated model agreements are given:</p>
 <div class="cell" data-hash="future_cache/html/avb90_bullet_mid_c428a7eb2b0735f020f4a1b1f77457bd">
 <ul>
 <li>Mid-century: Across the domain, the majority of SSP scenarios project that the number of days above 90°F in the mid-century will increase. Changes in number of days above 90°F across SSPs range from 14.16 days (100% model agreement) to 26.85 days (100% model agreement)</li>
@@ -418,7 +425,7 @@ Shared Socioeconomic Pathways
 </section>
 <section id="number-of-days-where-minimum-temperatures-are-above-32f-0c" class="level3" data-number="5.3.6">
 <h3 data-number="5.3.6" class="anchored" data-anchor-id="number-of-days-where-minimum-temperatures-are-above-32f-0c"><span class="header-section-number">5.3.6</span> Number of Days Where Minimum Temperatures are Above 32°F (0°C)</h3>
-<p><a href="#fig-ff-map">Figure&nbsp;<span>5.7</span></a> and <a href="#fig-ff-box">Figure&nbsp;<span>5.8</span></a> show projected changes in number of days freeze-free days for both the mid- and end-of-century. Below, projected changes in the number of freeze-free days across the domain and associated model agreements are given:</p>
+<p><a href="#fig-ff-map">Figure&nbsp;<span class="quarto-unresolved-ref">fig-ff-map</span></a> and <a href="#fig-ff-box">Figure&nbsp;<span class="quarto-unresolved-ref">fig-ff-box</span></a> show projected changes in number of days freeze-free days for both the mid- and end-of-century. Below, projected changes in the number of freeze-free days across the domain and associated model agreements are given:</p>
 <div class="cell" data-hash="future_cache/html/ff_bullet_mid_9fb336c12a40c40b600fa05e547b1cd8">
 <ul>
 <li>Mid-century: Across the domain, the majority of SSP scenarios project that the number of freeze-free days in the mid-century will increase. Changes in number of freeze-free days across SSPs range from 22.29 days (100% model agreement) to 32.1 days (100% model agreement)</li>
@@ -461,7 +468,7 @@ Shared Socioeconomic Pathways
 <p>We discuss a subset of our precipitation modeling results here, including a) precipitation projections reported by the mean values of the 8 GCM ensemble and b) figures that include maps and graphs that represent the mean and distribution of values observed for precipitation across the 8 GCMs. Special consideration is required for interpretations of precipitation changes in Montana’s complex terrain. Precipitation increases drastically with elevation such as that found in northwest Montana. Here, mean values do not characterize the potential for spatial variability that exists within these regions.</p>
 <section id="average-annual-precipitation" class="level3" data-number="5.4.1">
 <h3 data-number="5.4.1" class="anchored" data-anchor-id="average-annual-precipitation"><span class="header-section-number">5.4.1</span> Average Annual Precipitation</h3>
-<p><a href="#fig-pr-map">Figure&nbsp;<span>5.9</span></a> and <a href="#fig-pr-box">Figure&nbsp;<span>5.10</span></a> show projected changes in annual total precipitation for both the mid- and end-of-century. Below, projected changes in total annual precipitation across the domain and associated model agreements are given:</p>
+<p><a href="#fig-pr-map">Figure&nbsp;<span class="quarto-unresolved-ref">fig-pr-map</span></a> and <a href="#fig-pr-box">Figure&nbsp;<span class="quarto-unresolved-ref">fig-pr-box</span></a> show projected changes in annual total precipitation for both the mid- and end-of-century. Below, projected changes in total annual precipitation across the domain and associated model agreements are given:</p>
 <div class="cell" data-hash="future_cache/html/pr_bullet_mid_f0fecd50b5ba898d822d02d22d76abf2">
 <ul>
 <li>Mid-century: Across the domain, the majority of SSP scenarios project that the total annual precipitation in the mid-century will increase. Changes in total annual precipitation across SSPs range from 0.99 inches (75% model agreement) to 1.3 inches (88% model agreement)</li>
@@ -495,7 +502,7 @@ Shared Socioeconomic Pathways
 </section>
 <section id="interannual-variability" class="level3" data-number="5.4.2">
 <h3 data-number="5.4.2" class="anchored" data-anchor-id="interannual-variability"><span class="header-section-number">5.4.2</span> Interannual Variability</h3>
-<p>Interannual variability (i.e., the amount precipitation changes from year to year) is projected to increase across the domain by mid century and increase by the end-of-century for the majority of SSP scenarios (<a href="#fig-iv-box">Figure&nbsp;<span>5.11</span></a>). These changes could be attributed to wet years getting wetter, dry years getting drier, or some combination of both.</p>
+<p>Interannual variability (i.e., the amount precipitation changes from year to year) is projected to increase across the domain by mid century and increase by the end-of-century for the majority of SSP scenarios (<a href="#fig-iv-box">Figure&nbsp;<span class="quarto-unresolved-ref">fig-iv-box</span></a>). These changes could be attributed to wet years getting wetter, dry years getting drier, or some combination of both.</p>
 <div class="cell" data-hash="future_cache/html/fig-iv-box_0cac945fcd4365c39c616e9d564e9f55">
 <div class="cell-output-display">
 <div id="fig-iv-box" class="quarto-figure quarto-figure-center anchored">
@@ -509,7 +516,7 @@ Shared Socioeconomic Pathways
 </section>
 <section id="monthly-and-seasonal-change-in-average-precipitation" class="level3" data-number="5.4.3">
 <h3 data-number="5.4.3" class="anchored" data-anchor-id="monthly-and-seasonal-change-in-average-precipitation"><span class="header-section-number">5.4.3</span> Monthly and Seasonal Change in Average Precipitation</h3>
-<p><a href="#fig-pr-heatmap">Figure&nbsp;<span>5.12</span></a> shows projected changes in average monthly precipitation across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in average monthly precipitation across the domain and associated model agreements are given:</p>
+<p><a href="#fig-pr-heatmap">Figure&nbsp;<span class="quarto-unresolved-ref">fig-pr-heatmap</span></a> shows projected changes in average monthly precipitation across all Climate Divisions for both the mid- and end-of-century. Below, projected changes in average monthly precipitation across the domain and associated model agreements are given:</p>
 <div class="cell" data-hash="future_cache/html/fig-pr-heatmap_093fba4555f312614b0c5c95a90807de">
 <div class="cell-output-display">
 <div id="fig-pr-heatmap" class="quarto-figure quarto-figure-center anchored">
@@ -533,7 +540,7 @@ Shared Socioeconomic Pathways
 </section>
 <section id="projected-changes-in-consecutive-dry-days" class="level3" data-number="5.4.4">
 <h3 data-number="5.4.4" class="anchored" data-anchor-id="projected-changes-in-consecutive-dry-days"><span class="header-section-number">5.4.4</span> Projected Changes in Consecutive Dry Days</h3>
-<p>To assess changes in the frequency of dry events, we determined the annual number of dry days (defined as days when precipitation is less than 0.01 inch [0.03 cm]), then calculated the maximum number of consecutive dry days/yr averaged over the 30-year periods of interest. Across the domain, we found a increase in consecutive dry days for the mid-century across the all SSPs (65.25% agreement) and a increase in consecutive dry days for the end-of-century across the all SSPs (75% agreement). Figures <a href="#fig-dd-map">Figure&nbsp;<span>5.13</span></a> and <a href="#fig-dd-box">Figure&nbsp;<span>5.14</span></a> show changes in projected number of dry days across Climate Divisions and domain-wide projections for mid- and end-of-century are given below:</p>
+<p>To assess changes in the frequency of dry events, we determined the annual number of dry days (defined as days when precipitation is less than 0.01 inch [0.03 cm]), then calculated the maximum number of consecutive dry days/yr averaged over the 30-year periods of interest. Across the domain, we found a increase in consecutive dry days for the mid-century across the all SSPs (65.25% agreement) and a increase in consecutive dry days for the end-of-century across the all SSPs (75% agreement). Figures <a href="#fig-dd-map">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dd-map</span></a> and <a href="#fig-dd-box">Figure&nbsp;<span class="quarto-unresolved-ref">fig-dd-box</span></a> show changes in projected number of dry days across Climate Divisions and domain-wide projections for mid- and end-of-century are given below:</p>
 <div class="cell" data-hash="future_cache/html/dd_bullet_mid_10d99c495f58b50dabc401f850837cb4">
 <ul>
 <li>Mid-century: Across the domain, the majority of SSP scenarios project that the annual number of consecutive dry days in the mid-century will increase. Changes in annual number of consecutive dry days across SSPs range from 0.78 days (62% model agreement) to 1.5 days (75% model agreement)</li>
@@ -567,7 +574,7 @@ Shared Socioeconomic Pathways
 </section>
 <section id="projected-change-in-wet-days" class="level3" data-number="5.4.5">
 <h3 data-number="5.4.5" class="anchored" data-anchor-id="projected-change-in-wet-days"><span class="header-section-number">5.4.5</span> Projected Change in Wet Days</h3>
-<p>To evaluate changes in wet events, we calculated the number of days/yr where precipitation is greater than 1.0 inch (2.5 cm) and average those values over the period of interest. Figures <a href="#fig-wd-box">Figure&nbsp;<span>5.15</span></a> shows changes in projected number of wet days across Climate Divisions and domain-wide projections for mid- and end-of-century are given below:</p>
+<p>To evaluate changes in wet events, we calculated the number of days/yr where precipitation is greater than 1.0 inch (2.5 cm) and average those values over the period of interest. Figures <a href="#fig-wd-box">Figure&nbsp;<span class="quarto-unresolved-ref">fig-wd-box</span></a> shows changes in projected number of wet days across Climate Divisions and domain-wide projections for mid- and end-of-century are given below:</p>
 <div class="cell" data-hash="future_cache/html/wd_bullet_mid_590f72e0e785345cbd9f5fe4626b5d6c">
 <ul>
 <li>Mid-century: Across the domain, the majority of SSP scenarios project that the annual number of consecutive wet days in the mid-century will increase. Changes in annual number of consecutive wet days across SSPs range from 0.11 days (88% model agreement) to 0.13 days (100% model agreement)</li>
@@ -590,7 +597,7 @@ Shared Socioeconomic Pathways
 </div>
 
 
-<div id="refs" class="references csl-bib-body" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="refs" class="references csl-bib-body" data-line-spacing="2" role="doc-bibliography">
 <div id="ref-cmip6" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">1. </div><div class="csl-right-inline">Eyring, V. <em>et al.</em> <a href="https://doi.org/10.5194/gmd-9-1937-2016">Overview of the coupled model intercomparison project phase 6 (CMIP6) experimental design and organization</a>. <em>Geoscientific Model Development</em> <strong>9</strong>, 1937–1958 (2016).</div>
 </div>
