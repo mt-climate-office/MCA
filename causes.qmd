@@ -1,4 +1,4 @@
-# **Draft** Natural and Human Causes of Climate Change
+# **Draft** Natural and Human Causes of Climate Change {#sec-causes}
 Climate is driven largely by radiation from the sun. Incoming solar radiation may be reflected, absorbed by land surface and water bodies, transformed (as in photosynthesis), or emitted from the land surface as longwave radiation. Each of these processes influences climate through changes to temperature, winds, the water cycle, and more. The overall process is best understood by considering the Earth’s energy budget. 
 
 ::: {.callout-note icon=false}

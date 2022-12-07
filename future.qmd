@@ -145,7 +145,7 @@ seasonal_summary_text <- function(dat, period, suffix, description, are_is) {
 }
 ```
 
-# **Draft**  Future Projections
+# **Draft**  Future Projections {#sec-future}
 ## Global Climate Modeling
 Projecting future climate on a global scale requires modeling many intricate relationships between the land, ocean, and atmosphere. Many global climate and Earth system models exist, each varying in complexity, capabilities, and limitations.
 
@@ -172,8 +172,9 @@ We employed 8 individual GCMs from the CMIP6 project for the Montana Climate Ass
 The benefits of using CMIP6 data are that each model in the ensemble a) has been rigorously evaluated, and b) uses the same standard socioeconomic trajectories—known as Shared Socioeconomic Pathways (SSPs)—to describe future greenhouse gas emissions. "The SSPs are based on five narratives describing alternative socio-economic developments, including sustainable development, regional rivalry, inequality, fossil-fueled development, and middle-of-the-road development" (@ssp)
 
 ::: {.callout-note icon=false}
-### Shared Socioeconomic Pathways {#ssp-callout}
+### Shared Socioeconomic Pathways
 There are five different SSP categories that climate projections are grouped by (following text taken from @ssp): 
+
 - SSP1	Sustainability: Taking the Green Road (Low challenges to mitigation and adaptation)
 The world shifts gradually, but pervasively, toward a more sustainable path, emphasizing more inclusive development that respects perceived environmental boundaries. Management of the global commons slowly improves, educational and health investments accelerate the demographic transition, and the emphasis on economic growth shifts toward a broader emphasis on human well-being. Driven by an increasing commitment to achieving development goals, inequality is reduced both across and within countries. Consumption is oriented toward low material growth and lower resource and energy intensity.
 
@@ -198,13 +199,19 @@ For areas where the terrain and land cover are relatively homogenous (e.g., an e
 
 To capture such important terrain characteristics, scientist take the coarse-resolution output from a GCM and statistically attribute the results from those models to smaller regions at higher resolution (e.g., grid points at 1 mile rather than 100 mile apart). This process, called downscaling, more accurately represents climate across smaller, more complex landscapes, including Montana.
 
-For this climate assessment, we used a statistical downscaling method called the Multivariate Adaptive Constructive Analogs. By using a downscaled dataset—rather than the original output from the ensemble of GCMs—we gained the ability to evaluate temperature and precipitation at relatively high resolution statewide before conveying the results at the climate division scale. Additionally, we were able to aggregate data points within each of Montana’s seven climate divisions (Figure 2-3), and look at Montana’s climate future in different geographic areas. Aggregating to the climate-division level minimizes the potential for false precision by reporting results at spatial scales that better represent underlying climate processes. 
+For this climate assessment, we used a statistical downscaling method called the Bias-Correction Spatial Disaggregation. By using a downscaled dataset—rather than the original output from the ensemble of GCMs—we gained the ability to evaluate temperature and precipitation at relatively high resolution statewide before conveying the results at the climate division scale. Additionally, we were able to aggregate data points within each of Montana’s seven climate divisions, and look at Montana’s climate future in different geographic areas. Aggregating to the climate-division level minimizes the potential for false precision by reporting results at spatial scales that better represent underlying climate processes. 
 
-The 8 downscaled GCMs in CMIP6 were evaluated at two future time periods: 1) mid century (2040–2069) and 2) end-of-century (2070–2099). Thirty-year averages of these future projections were then compared to a historical (1981–2010) 30-year average, which results in a projected difference, or change, from historical conditions. We make those projections using the stabilization the four SSPs outlined above. These future projections were then compared to the historical trends in Montana to reveal the major climate-associated changes that Montana is likely to experience in the future.
+The 8 downscaled GCMs in CMIP6 were evaluated at two future time periods: 1) mid century (2040–2069) and 2) end-of-century (2070–2099). Thirty-year averages of these future projections were then compared to a historical (1991–2020) 30-year average, which results in a projected difference, or change, from historical conditions. We make those projections using the stabilization the four SSPs outlined above. These future projections were then compared to the historical trends in Montana to reveal the major climate-associated changes that Montana is likely to experience in the future.
 
 ## Summary of Projections
 ### Temperature Summary
+In general, there is high model agreement and low uncertainty that temperatures and associated temperature metrics will increase both by mid century and end-of-century. For both periods, annual and seasonal temperature averages, the number of days/yr with extreme heat, and the overall length of the growing season are projected to increase. Differences exist in projections all SSP scenarios, with the lower consequence scenarios showing lower magnitudes of change than the more extreme.Many of the trends and spatial patterns seen in the mid-century projections are extended and exacerbated in the end-of-century projections. The range of model outputs also increases for end-of-century projections, suggesting that the magnitude of change becomes more uncertain in the models further out in time.
+
+Regardless of uncertainties, the GCMs show full agreement regarding the direction of change: temperatures will be increasing.
+
 ### Precipitation Summary
+
+In mid-century and end-of-century projections, average annual precipitation and variability increase across the state, as does winter, spring, and fall precipitation. Summers, however, show slight decreases in precipitation. The projections suggest slight increases in both the annual number of consecutive dry and wet days. Overall, the differences in precipitation resulting from the different emission scenarios are small when compared to the impact of the emission scenarios on the temperature projections. Uncertainty in the projections generally increases the further out in time (i.e., in the end-of-century projections), as well as for the more extreme emission scenarios.
 
 ## Temperature Projections
 ```{r prep_temp, echo=FALSE, warning=FALSE, message=FALSE}
@@ -272,7 +279,9 @@ ff_box_data <- normals::make_boxplot_data(
 
 Below we provide projections for various aspects of Montana’s future temperature based on our modeling analysis.
 
-We discuss a subset of our modeling results here, including a) temperature projections reported by the median values of the 8 GCM ensemble and b) figures that include maps and graphs that represent the median value and distribution of values observed for temperature across the 8 GCMs. 
+We discuss a subset of our modeling results here, including a) temperature projections reported by the mean values of the 8 GCM ensemble and b) figures that include maps and graphs that represent the mean value and distribution of values observed for temperature across the 8 GCMs. 
+
+We also report a percent agreement of the 8 GCMs used for the analysis. The percent agreement represents the number of GCMs that project the same sign of change (i.e., positive or negative) as the mean value. For example, if the mean value is positive and 7 out of 8 models also project positive change, then the percent agreement would be 100 x 7/8 = 87.5%. This simple calculation helps convey the uncertainty in the projections.
 
 ### Average Annual Temperatures
 @fig-tavg-box shows projected changes in average annual temperatures across all `r params$attr_plural` for both the mid- and end-of-century. Below, projected changes in average annual temperature across the domain and associated model agreements are given:

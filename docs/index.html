@@ -80,6 +80,12 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "showHighlights": true
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
 
 
 </head>
@@ -135,22 +141,27 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./future.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><strong>Draft</strong> Future Projections</span></a>
+  <a href="./teleconnections.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><strong>Draft</strong> Teleconnections</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./gaps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><strong>Draft</strong> Key Knowledge Gaps</span></a>
+  <a href="./future.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><strong>Draft</strong> Future Projections</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><strong>Draft</strong> Conclusions</span></a>
+  <a href="./gaps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><strong>Draft</strong> Key Knowledge Gaps</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./conclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title"><strong>Draft</strong> Conclusions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><strong>Draft</strong> References</a>
   </div>
 </li>
     </ul>
@@ -164,6 +175,8 @@ div.csl-indent {
   <ul>
   <li><a href="#draft-overview" id="toc-draft-overview" class="nav-link active" data-scroll-target="#draft-overview"><strong>Draft</strong> Overview</a>
   <ul class="collapse">
+  <li><a href="#an-update-to-the-montana-climate-analysis" id="toc-an-update-to-the-montana-climate-analysis" class="nav-link" data-scroll-target="#an-update-to-the-montana-climate-analysis">An Update to the Montana Climate Analysis</a></li>
+  <li><a href="#importance" id="toc-importance" class="nav-link" data-scroll-target="#importance">Importance</a></li>
   <li><a href="#key-messages" id="toc-key-messages" class="nav-link" data-scroll-target="#key-messages">Key Messages</a></li>
   <li><a href="#climate-change-defined" id="toc-climate-change-defined" class="nav-link" data-scroll-target="#climate-change-defined">Climate Change Defined</a></li>
   <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a></li>
@@ -205,16 +218,31 @@ div.csl-indent {
 
 <section id="draft-overview" class="level1 unnumbered">
 <h1 class="unnumbered"><strong>Draft</strong> Overview</h1>
+<p><strong>Throughout this document, numbers that are in bold still need to be updated. </strong></p>
+<section id="an-update-to-the-montana-climate-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="an-update-to-the-montana-climate-analysis">An Update to the Montana Climate Analysis</h2>
+<p>This website is an update to to the climate chapter of the <a href="https://montanaclimate.org/chapter/climate-change">Montana Climate Assessment</a> being developed by the Montana Climate Office. The update to the assessment provides a summary of historical climate conditions across the state (<a href="historical.html"><span>Chapter&nbsp;3</span></a>), as well as an overview of projected changes in Montana’s climate given different climate change scenarios (<a href="future.html"><span>Chapter&nbsp;5</span></a>). To assess historical climate conditions, we are using <a href="https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00332">NClimGrid</a> climate data instead of NOAA’s <a href="https://www.ncei.noaa.gov/products/land-based-station/us-climate-normals">station-based climate normals</a> used in the original version. We choose to use NClimGrid because it is spatially continuous across Montana and we have found it to have high accuracy relative to <a href="https://climate.umt.edu/mesonet/">Montana Mesonet</a> weather stations. Using NClimGrid allows us to provide an accurate and high-resolution assessment of Montana’s historical climate conditions.</p>
+<p>To summarize future climate projections, we use data from the sixth version of the Coupled Model Intercomparison Project (CMIP6), whereas the original assessment used CMIP5 projections. Specifically, we use an ensemble of eight models that have been spatially downscaled by the <a href="https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6">NASA NEX-GDDP</a> project. The ensemble of eight models has been shown to best represent North America’s future climate downscaled project ensemble of 8 models that perform well over North America <a href="https://eartharxiv.org/repository/view/2510/">(https://eartharxiv.org/repository/view/2510/)</a>. While CMIP6 projections are similar to the CMIP5 projections used in the original climate assessment, there are two notable differences:</p>
+<ol type="1">
+<li><strong>Different Downscaling Methods.</strong> Both the original climate assessment and the update presented here use downscaled CMIP projections. The standard outputs of CMIP models are very coarse in spatial resolution, making it difficult to analyze their output at the county or even state scale. To overcome this issue, statistical methods can be applied to the coarse data to spatially downscale the models to a finer spatial resolution. The original climate assessment used projections downscaled with the <a href="https://www.climatologylab.org/maca.html">Multivariate Adaptive Constructed Analogs (MACA)</a> method, whereas this update uses projections downscaled with the <a href="https://www.nccs.nasa.gov/sites/default/files/NEX-GDDP-CMIP6-Tech_Note.pdf">Bias-Correction Spatial Disaggregation (BCSD)</a> method. While the results in both the original climate assessment and our update are similar, it is important to note that these two different downscaling methods were used.</li>
+<li><strong>Different Climate Scenarios.</strong> In CMIP5 climate projections, future climate scenarios were provided as Representative Concentration Pathways (RCPs). In short, RCPs simulated the amount of warming that would occur given different increases in global CO<sub>2</sub> concentrations. The CMIP6 projections use a similar grouping of scenarios called Shared Socioeconomic Pathways (SSPs; explained in detail in <a href="future.html"><span>Chapter&nbsp;5</span></a>). SSPs take a more holistic approach to future emissions scenarios and incorporate information on how changes in the global economy, politics, and population are likely to affect CO<sub>2</sub> emissions. In this analysis, we use the SSP1-2.6, SSP2-4.5, SSP3-7.0 and SSP5-8.5 scenarios to summarize Montana’s future climate projections. These scenarios encompass the full range of climate change scenarios we might expect by the end of the century.</li>
+<li><strong>Different Reference Period.</strong> The original climate assessment compared future climate conditions to a reference period of 1981 to 2010. In climate science, it is common practice to update reference periods used for comparison with future projections each decade. As such, we have updated the reference period used in this analysis to the years 1991 to 2020.</li>
+</ol>
+<p>Like the original climate assessment, this assessment also uses Montana’s climate divisions to summarize future climate conditions, with plans to summarize results at the county and watershed scale in the future.</p>
+</section>
+<section id="importance" class="level2">
+<h2 class="anchored" data-anchor-id="importance">Importance</h2>
 <p>Understanding current climate change and projecting future climate trends are of vital importance–both for our economy and our well-being. It is our goal to provide science-based information that serves as a resource for residents of Montana who are interested in understanding Montana’s climate and its impacts on water, agricultural lands and forests. To provide this understanding, we can learn from past climate trends. However, knowledge of the past is only partially sufficient in preparing for a future defined by unprecedented levels of greenhouse gases in the atmosphere. Therefore, we also provide projections of change into the future using today’s best scientific information and modeling techniques.</p>
+</section>
 <section id="key-messages" class="level2">
 <h2 class="anchored" data-anchor-id="key-messages">Key Messages</h2>
-<p>Annual average temperatures, including daily minimums, maximums, and averages, have risen across the state between 1950 and 2015. The increases range between <strong>2.0-3.0°F (1.1-1.7°C)</strong> during this period.</p>
-<p>Winter and spring in Montana have experienced the most warming. Average temperatures during these seasons have risen by <strong>3.9°F (2.2°C)</strong> between 1950 and 2015.</p>
+<p>Annual average temperatures, including daily minimums, maximums, and averages, have risen across the state between 1950 and 2015. The average temperature increase between 1951 and 2015 across Montana was 1.92°F</p>
+<p>Winter and spring in Montana have experienced the most warming. Average temperatures during these seasons have risen by 3.4°F between 1950 and 2015.</p>
 <p>Montana’s growing season length is increasing due to the earlier onset of spring and more extended summers; we are also experiencing more warm days and fewer cool nights. From <strong>1951-2010</strong>, the growing season increased by <strong>12</strong> days. In addition, the annual number of warm days has increased by <strong>2.0%</strong> and the annual number of cool nights has decreased by <strong>4.6%</strong> over this period.</p>
-<p>Despite no historical changes in average annual precipitation between 1950 and 2015, there have been changes in average seasonal precipitation over the same period. Average winter precipitation has decreased by <strong>0.9 inches (2.3 cm)</strong>, which can mostly be attributed to natural variability and an increase in El Niño events, especially in the <strong>western and central parts of the state</strong>. A significant increase in spring precipitation <strong>(1.3-2.0 inches [3.3-5.1 cm])</strong> has also occurred during this period for the <strong>eastern portion</strong> of the state.</p>
-<p>The state of Montana is projected to continue to warm in all geographic locations, seasons, and under all emission scenarios throughout the 21st century. By mid century, Montana temperatures are projected to increase by approximately <strong>4.5-6.0°F (2.5-3.3°C)</strong> depending on the emission scenario. By the end-of-century, Montana temperatures are projected to increase <strong>5.6-9.8°F (3.1-5.4°C)</strong> depending on the emission scenario. These state-level changes are larger than the average changes projected globally and nationally.</p>
-<p>The number of days in a year when daily temperature exceeds 90°F (32°C) and the number of frost-free days are expected to increase across the state and in both emission scenarios studied. Increases in the number of days above 90°F (32°C) are expected to be greatest in the <strong>eastern</strong> part of the state. Increases in the number of frost-free days are expected to be greatest in the <strong>western</strong> part of the state.</p>
-<p>Across the state, precipitation is projected to increase in <strong>winter, spring, and fall;</strong> precipitation is projected to decrease in <em>summer.</em> The largest increases are expected to occur during <em>spring</em> in the <em>southern</em> part of the state. The largest decreases are expected to occur during <em>summer</em> in the <em>central</em> and <em>southern</em> parts of the state.</p>
+<p>Despite no historical changes in average annual precipitation between 1950 and 2015, there have been changes in average seasonal precipitation over the same period. Average winter precipitation has decreased by 0.96 inches, which can mostly be attributed to natural variability and an increase in El Niño events, especially in the western and central parts of the state. A significant increase in spring precipitation (1.34-1.98 inches) has also occurred during this period for the eastern portion of the state.</p>
+<p>The state of Montana is projected to continue to warm in all geographic locations, seasons, and under all emission scenarios throughout the 21st century. By mid century, Montana temperatures are projected to increase by approximately 3.6-5.5°F depending on the emission scenario. By the end-of-century, Montana temperatures are projected to increase 3.7-9.2°F depending on the emission scenario.</p>
+<p>The number of days in a year when daily temperature exceeds 90°F (32°C) and the number of frost-free days are expected to increase across the state and in both emission scenarios studied. Increases in the number of days above 90°F (32°C) are expected to be greatest in the eastern part of the state. Increases in the number of frost-free days are expected to be greatest in the western part of the state.</p>
+<p>Across the state, precipitation is projected to increase in winter, spring, and fall; precipitation is projected to decrease in summer. The largest increases are expected to occur during spring in the southern part of the state. The largest decreases are expected to occur during summer in the central and eastern parts of the state.</p>
 </section>
 <section id="climate-change-defined" class="level2">
 <h2 class="anchored" data-anchor-id="climate-change-defined">Climate Change Defined</h2>

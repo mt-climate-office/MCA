@@ -81,9 +81,9 @@ annual_tmp <- terra::rast("./assets/tavg_nclimgrid_annual.tif") %>%
   {(. * 9/5) + 32} %>% terra::mask(whole)
 ```
 
-# **Draft** Historical Climate
-## Climate Conditions 1981 - 2020
-To assess `r params$location`’s current climate, we analyzed climate variable data (see sidebar) provided as 3-decade of gridMET climate data @gridmet. In this section, we review average temperature and precipitation conditions from 1981-2010 as an indicator of current climate conditions.
+# **Draft** Historical Climate {#sec-historical}
+## Climate Conditions 1991 - 2020
+To assess `r params$location`’s current climate, we analyzed climate variable data (see sidebar) from the NClimGrid climate dataset. In this section, we review average temperature and precipitation conditions from 1991-2020 as an indicator of current climate conditions.
 
 ::: {.callout-note icon=false}
 ### Climate Variables {#climate-callout}
@@ -126,13 +126,13 @@ historical_table %>%
   tidyr::pivot_wider(names_from = season, values_from = value) %>% 
   knitr::kable() 
 ```
-## Historical Trends 1979 - Present
+## Historical Trends 1951 - Present
 We evaluated how temperature and precipitation have historically changed, dating back to 1950. This review of historical trends helps us provide context for future climate change scenarios explored in later sections of this chapter. In addition, evaluating these trends can help us better understand a) how `r params$location` has previously experienced and responded to changing climate, b) if projections of future change reveal a different climate than we have previously experienced, and c) the potential impacts of that projected change. 
 
 The presentation of trends that follows is confined to the period from 1950–2015 using data from NOAA's NClimGrid Dataset (@nclimgrid). This is widely acknowledged as the benchmark period in climate analysis (@liebmann), a period when our network of meteorological sensors becomes more accurate and sufficiently dense.
 
 ### Temperature
-@tbl-temp-trends shows the decadal rate of change from 1950-2015 for average annual temperatures across `r params$location` `r nrow(shp)` `r params$attr_plural`. We provide that rate of change both annually and by season for `r params$location`. We also present the average annual and average seasonal changes across the region. To account partially for autocorrelation we considered trends as significant with a conservative p value at p<0.05. 
+@tbl-temp-trends shows the decadal rate of change from 1950-2015 for average annual temperatures across `r params$location`'s `r nrow(shp)` `r params$attr_plural`. We provide that rate of change both annually and by season for `r params$location`. We also present the average annual and average seasonal changes across the region. To account partially for autocorrelation we considered trends as significant with a conservative p value at p<0.05. 
 
 ```{r echo=FALSE}
 #| label: tbl-temp-trends
@@ -191,7 +191,7 @@ normals::make_trend_fig(annual_tmp, shp, "Division", "mean", 1951, 2015, "Temper
 ```
 
 ### Precipitation
-@tbl-ppt-trends shows the decadal rate of change from 1950-2015 for average total precipitation across `r params$location` `r nrow(shp)` `r params$attr_plural`. We provide that rate of change both annually and by season for `r params$location`. We also present the average annual and average seasonal changes across the region. To account partially for autocorrelation we considered trends as significant with a conservative p-value at p<0.05. 
+@tbl-ppt-trends shows the decadal rate of change from 1950-2015 for average total precipitation across `r params$location`'s `r nrow(shp)` `r params$attr_plural`. We provide that rate of change both annually and by season for `r params$location`. We also present the average annual and average seasonal changes across the region. To account partially for autocorrelation we considered trends as significant with a conservative p-value at p<0.05. 
 
 ```{r echo=FALSE}
 #| label: tbl-ppt-trends
@@ -223,8 +223,8 @@ knitr::kable(ppt_trends)
 
 The rate of precipitation change across `r params$location` was `r dplyr::filter(ppt_trends, Division == "Statewide") %$% round(Annual, 2)`in./decade (@tbl-ppt-trends). Between 1950 and 2015, `r params$location`’s average annual precipitation has `r get_trend_direction(state_ppt_trend)` by `r dplyr::filter(ppt_trends, Division == "Statewide") %$% round(Annual * 6.4, 2)` inches.
 
-### Extreme aspects of Montana’s climate
-Along with analyzing historical trends in temperature and precipitation, we performed an analysis of changes in extreme climate events since the middle of last century. Two examples of climate extremes include periods of intense warm or cool temperatures and significant wet or dry spells across seasons. Because these events affect every aspect of our society, decision makers and stakeholders are increasingly in need of historical evaluations of extreme events and how they are changing from seasons to centuries. The coldest temperature ever observed in the conterminous US was -70°F (-57°C) at Rogers Pass outside of Helena on January 20, 1954 (see sidebar). Since 1950, however, our analysis shows the average winter temperature has increased by 0.4°F/decade (0.2°C/decade) across the state, with an overall average winter temperature increase of 3.6°F (2.0°C). Average spring temperatures have increased by 2.6°F (1.4°C) during the same period, and average summer temperatures have risen by 2.0°F (1.1°C). Montana’s fall average temperatures have increased by 1.6°F (0.9°C) since 1950.
+### Extreme aspects of Montana’s climate **IN PROGRESS**
+Along with analyzing historical trends in temperature and precipitation, we performed an analysis of changes in extreme climate events since the middle of last century. Two examples of climate extremes include periods of intense warm or cool temperatures and significant wet or dry spells across seasons. Because these events affect every aspect of our society, decision makers and stakeholders are increasingly in need of historical evaluations of extreme events and how they are changing from seasons to centuries. The coldest temperature ever observed in the conterminous US was -70°F at Rogers Pass outside of Helena on January 20, 1954. Since 1950, however, our analysis shows the average winter temperature has increased by **0.4°F/decade** across the state, with an overall average winter temperature increase of **3.6°F**. Average spring temperatures have increased by **2.6°F** during the same period, and average summer temperatures have risen by **2.0°F**. Montana’s fall average temperatures have increased by **1.6°F** since 1951.
 
 We performed our analysis of climate extremes using the CLIMDEX project (CLIMDEX undated), which provides a collection of global and regional climate data from multiple sources. CLIMDEX is developed and maintained by researchers at the Climate Change Research Centre and the University of New South Wales, in collaboration with the University of Melbourne, Climate Research Division of Environment Canada, and NOAA’s National Centers for Environmental Information. The CLIMDEX project aims to produce a global dataset of standardized indices representing the extreme aspects of climate. Particular attention was placed on the changes in variables such as consecutive dry days, days of heavy precipitation, growing season length, frost days, number of cool days and nights, and the number of warm days and nights. Extreme precipitation events across the United States have increased in both intensity and frequency since 1901 (NCA 2014), including across both the High Plains and the northwestern US (many states combined), where studies have shown an increase in the number of days with extreme precipitation (NCA 2014). However, for our analysis at the state level we found no evidence of changes in extreme precipitation so it is not a variable of focus. Here, we report those variables that did change significantly (p<0.05) for Montana and, for perspective, the climate normals for these extremes for the periods 1951–1980 and from 1981-2010 (Table 2-5).
 
