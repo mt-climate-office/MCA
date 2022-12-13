@@ -162,7 +162,7 @@ state_tavg_trend <-
   normals::make_seasonal_trend_table(monthly_tmp, whole, "region", "mean", 1951, 2015, TRUE) %$%
   round(Annual, 2)
 
-all_trends <- dplyr::bind_rows(by_div, by_state) %>% 
+all_tmp_trends <- dplyr::bind_rows(by_div, by_state) %>% 
   dplyr::select(Division, Annual, Winter, Spring, Summer, Fall) %>% 
   dplyr::mutate(dplyr::across(where(is.numeric), ~ round(.x, 2))) 
 
@@ -176,10 +176,10 @@ get_trend_direction <- function(x) {
   }
 }
 
-knitr::kable(all_trends)
+knitr::kable(all_tmp_trends)
 ```
 
-The rate of temperature change across `r params$location` was `r dplyr::filter(all_trends, Division == "Statewide")  %$% round(Annual, 2)`°F/decade (@tbl-temp-trends). Across `r params$attr_plural` average annual minimum and maximum temperature changes ranged from `r state_tmmx_trend`-`r state_tmmn_trend`°F/decade, respectively. Between 1950 and 2015, `r params$location`’s average annual temperature has `r get_trend_direction(state_tavg_trend)` by `r dplyr::filter(all_trends, Division == "Statewide") %$% round(Annual * 6.4, 2)`°F; annual maximum and minimum temperatures have `r get_trend_direction(state_tmmx_trend)` by approximately `r round(state_tmmx_trend * 6.4, 2)`°F and `r round(state_tmmn_trend * 6.4, 2)`°F, respectively.
+The rate of temperature change across `r params$location` was `r dplyr::filter(all_tmp_trends, Division == "Statewide")  %$% round(Annual, 2)`°F/decade (@tbl-temp-trends). Across `r params$attr_plural` average annual minimum and maximum temperature changes ranged from `r state_tmmx_trend`-`r state_tmmn_trend`°F/decade, respectively. Between 1950 and 2015, `r params$location`’s average annual temperature has `r get_trend_direction(state_tavg_trend)` by `r dplyr::filter(all_tmp_trends, Division == "Statewide") %$% round(Annual * 6.4, 2)`°F; annual maximum and minimum temperatures have `r get_trend_direction(state_tmmx_trend)` by approximately `r round(state_tmmx_trend * 6.4, 2)`°F and `r round(state_tmmn_trend * 6.4, 2)`°F, respectively.
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE, eval=TRUE}
 #| label: fig-temp-trends
@@ -223,18 +223,55 @@ knitr::kable(ppt_trends)
 
 The rate of precipitation change across `r params$location` was `r dplyr::filter(ppt_trends, Division == "Statewide") %$% round(Annual, 2)`in./decade (@tbl-ppt-trends). Between 1950 and 2015, `r params$location`’s average annual precipitation has `r get_trend_direction(state_ppt_trend)` by `r dplyr::filter(ppt_trends, Division == "Statewide") %$% round(Annual * 6.4, 2)` inches.
 
-### Extreme aspects of Montana’s climate **IN PROGRESS**
-Along with analyzing historical trends in temperature and precipitation, we performed an analysis of changes in extreme climate events since the middle of last century. Two examples of climate extremes include periods of intense warm or cool temperatures and significant wet or dry spells across seasons. Because these events affect every aspect of our society, decision makers and stakeholders are increasingly in need of historical evaluations of extreme events and how they are changing from seasons to centuries. The coldest temperature ever observed in the conterminous US was -70°F at Rogers Pass outside of Helena on January 20, 1954. Since 1950, however, our analysis shows the average winter temperature has increased by **0.4°F/decade** across the state, with an overall average winter temperature increase of **3.6°F**. Average spring temperatures have increased by **2.6°F** during the same period, and average summer temperatures have risen by **2.0°F**. Montana’s fall average temperatures have increased by **1.6°F** since 1951.
+## Extreme aspects of Montana’s climate 
 
-We performed our analysis of climate extremes using the CLIMDEX project (CLIMDEX undated), which provides a collection of global and regional climate data from multiple sources. CLIMDEX is developed and maintained by researchers at the Climate Change Research Centre and the University of New South Wales, in collaboration with the University of Melbourne, Climate Research Division of Environment Canada, and NOAA’s National Centers for Environmental Information. The CLIMDEX project aims to produce a global dataset of standardized indices representing the extreme aspects of climate. Particular attention was placed on the changes in variables such as consecutive dry days, days of heavy precipitation, growing season length, frost days, number of cool days and nights, and the number of warm days and nights. Extreme precipitation events across the United States have increased in both intensity and frequency since 1901 (NCA 2014), including across both the High Plains and the northwestern US (many states combined), where studies have shown an increase in the number of days with extreme precipitation (NCA 2014). However, for our analysis at the state level we found no evidence of changes in extreme precipitation so it is not a variable of focus. Here, we report those variables that did change significantly (p<0.05) for Montana and, for perspective, the climate normals for these extremes for the periods 1951–1980 and from 1981-2010 (Table 2-5).
+```{r echo=FALSE, cache=TRUE, warning=FALSE, message=FALSE}
+c_to_f <- function(x) (x * 9/5) + 32 
+extremes <- readRDS("./assets/climdex.rds") %>% 
+  dplyr::mutate(value = ifelse(stringr::str_detect(name, "monthly"), c_to_f(value), value)) %>% 
+  dplyr::mutate(value = ifelse(stringr::str_detect(name, "monthly") && period == "diff", value - 32, value)) %>% 
+  dplyr::mutate(value = round(value, 1))
 
-**extremes table**
+cool_diff = extremes %>% dplyr::filter(name == "cool_days", period == "diff") %$% value 
+icing_diff = extremes %>% dplyr::filter(name == "icing_days", period == "diff") %$% value 
+growing_diff = extremes %>% dplyr::filter(name == "growing_season", period == "diff") %$% value 
+warm_diff = extremes %>% dplyr::filter(name == "warm_days", period == "diff") %$% value 
+mon_min_diff = extremes %>% dplyr::filter(name == "monthly_min", period == "diff") %$% value 
+mon_max_diff = extremes %>% dplyr::filter(name == "monthly_max", period == "diff") %$% value 
+```
+Along with analyzing historical trends in temperature and precipitation, we performed an analysis of changes in extreme climate events since the middle of last century. Two examples of climate extremes include periods of intense warm or cool temperatures and significant wet or dry spells across seasons. Because these events affect every aspect of our society, decision makers and stakeholders are increasingly in need of historical evaluations of extreme events and how they are changing from seasons to centuries. Since 1951, our analysis shows the average winter temperature has increased by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Winter`°F/decade across the state, with an overall average winter temperature increase of `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Winter * 6.4`°F. Average spring temperatures have increased by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Spring * 6.4`°F during the same period, and average summer temperatures have risen by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Summer * 6.4`°F. Montana’s fall average temperatures have increased by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Fall * 6.4`°F since 1951.
 
-The annual number of cool days and the number of days with frost are decreasing across Montana. We use the CLIMDEX definition of cool days as the percentage of days when maximum temperature is lower than 10% of the historical observations. Coincident with warming temperatures, the number of cool days each year during the period from 1951–2010 has decreased by 13.3 days. Along with this trend, the number of days in which the minimum temperatures are below 32°F (0°C; i.e. frost days) has decreased by 12 days during this time period. These trends have contributed to an overall increase in the growing season length of 12 days between 1951 and 2010. In addition, the number of warm days, where maximum temperature exceeds 90°F (32°C) based on historical conditions, has increased by 11 days over this period. At a sub-annual level, monthly maximum and minimum temperatures have also changed. These are defined as the monthly maximum (minimum) value of daily maximum (minimum) temperatures. Monthly minimum values of daily minimum temperatures have increased by 5°F (2.8°C) from the period 1951–2010. Over the same time period, monthly minimum values of daily maximum temperatures have increased by 1.1°F (0.6°C).
+We performed our analysis of climate extremes using extreme climate indices outlined by the CLIMDEX project (CLIMDEX undated). The extreme climate indices were derived using NClimGrid data. Extreme precipitation events across the United States have increased in both intensity and frequency since 1901 (NCA 2014), including across both the High Plains and the northwestern US (many states combined), where studies have shown an increase in the number of days with extreme precipitation (NCA 2014). Here, we report change in temperature extremes for `r params$location` and, for perspective, the climate normals for these extremes for the periods 1951–1980 and from 1991-2020 (@tbl-xtremes).
 
-There has been an increase in the number of warm nights and a related decrease in the number of cool nights across Montana. We use the CLIMDEX definition of warm nights (and cool nights) as the number of days when minimum temperature is higher (lower) than a specified maximum (minimum) threshold defined by historical conditions. The number of warm nights has increased by 11 days from 1951 to 2010. The number of cool nights has decreased by 12 days over this same period. These trends are in agreement with observations across many portions of the continental US (Davy and Esau 2016).
+```{r xt-table, echo=FALSE}
+#| label: tbl-xtremes
+#| tbl-cap: !expr glue::glue("Changes in {params$location}’s climate extremes. For historical perspective, we also report the climate normal for these extremes from the periods 1951-1980 and from 1991-2020.")
 
-> Between 1951 and 2010, the growing season in Montana increased 12 days.
+dplyr::select(extremes, name, period, value) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::mutate(
+    name = dplyr::recode(
+      name,
+      cool_days = "Frost Days",
+      icing_days = "Icing Days",
+      growing_season = "Growing Season Length (Days)",
+      warm_days = "Summer Days",
+      monthly_max = "Max Monthly Temperature",
+      monthly_min = "Min Monthly Temperature"
+    ),
+    period = dplyr::recode(
+      period,
+      start = "1951–1980",
+      end = "1991–2020",
+      diff = "Change (1951-2020)"
+    ) 
+  ) %>% 
+  tidyr::pivot_wider(names_from = period, values_from = value) %>% 
+  dplyr::rename(Variable=name) %>% 
+  knitr::kable()
+```
+
+The annual number of frost days and the number of icing days are `r extremes %>% dplyr::filter(name %in% c("icing_days", "cool_days"), period == "diff") %$% ifelse(mean(value) <= 0, "decreasing", "increasing")` across `r params$location` We use the CLIMDEX definition of frost days (icing days) as the number of days in a year when minimum (maximum) temperature is below 32°F. Coincident with warming temperatures, the number of frost days each year during the period from 1951–2010 has `r ifelse(cool_diff <= 0,"decreased", "increased")` by `r abs(cool_diff)` days. Along with this trend, the number of days in which the maximum temperatures are below 32°F (0°C; i.e. icing days) has `r ifelse(icing_diff <= 0,"decreased", "increased")` by `r abs(icing_diff)` days during this time period. These trends have contributed to an overall `r ifelse(growing_diff <= 0,"decrease", "increase")` in the growing season length of `r abs(growing_diff)` days between 1951 and 2010. In addition, the number of summer days, where maximum temperature exceeds 77°F (25°C) based on historical conditions, has `r ifelse(warm_diff <= 0,"decreased", "increased")` by `r abs(warm_diff)` days over this period. At a sub-annual level, monthly maximum and minimum temperatures have also changed. These are defined as the monthly maximum (minimum) value of daily maximum (minimum) temperatures. Monthly minimum values of daily minimum temperatures have `r ifelse(mon_min_diff <= 0,"decreased", "increased")` by `r abs(mon_min_diff)`°F from the period 1951–2010. Over the same time period, monthly minimum values of daily maximum temperatures have `r ifelse(mon_max_diff <= 0,"decreased", "increased")` by `r abs(mon_max_diff)`°F
 
 ::: {.callout-note icon=false}
 ### Drought {#drought-callout}

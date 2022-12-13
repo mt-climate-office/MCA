@@ -31,3 +31,6 @@ format:
 
 include-in-header: "./assets/hypothesis.js"
 number-sections: true
+
+crossref:
+  chapters: true
