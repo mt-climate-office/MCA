@@ -1,11 +1,11 @@
 # **Draft** Conclusions {#sec-conclusions}
-The analysis presented in this chapter shows that statewide, Montana has warmed—up to 1.9°F the between 1951 and 2015. Seasonally, that warming has been greatest in winter (3.2°F) and spring (3.5°F [1.4°C]). Montana’s number of frost days has decreased by **12 days** since 1951. Statewide, average annual precipitation did not change between 1951 and 2015, although variations caused by global climate oscillations, such as El Niño events, explain some of the historical precipitation variability in parts of the state.
+The analysis presented in this chapter shows that statewide, Montana has warmed—up to 1.86°F the between 1951 and 2020 Seasonally, that warming has been greatest in winter (2.9°F) and spring (3.4°F). Montana’s number of frost days has decreased by 6 days since 1951. Statewide, average annual precipitation increeased by 0.12 inches/decade between 1951 and 2020, with variations caused by global climate oscillations, such as El Niño events, explaining some of the historical precipitation variability in parts of the state.
 
 With this historical context, we considered Montana’s future under four shared socioeconomic pathways. Using those pathways, we employed standard modeling techniques available to climate scientists today—ensembles of general circulation models—and projected Montana’s climate over the next century. Our analyses focused on projecting the possible range of temperature and precipitation amounts in Montana, under our chosen greenhouse gas emission scenarios.
 
 > While the model results varied, one message is imminently clear: Montana in the coming century will be a warmer place.
 
-In @tbl-summary we provide a summary of the work done and described in this chapter. In summary, Montana is projected to continue to warm in all geographic locations, seasons, and under all emission scenarios throughout the 21st century. By mid century, Montana temperatures are projected to increase by up to 5.5°F; by the end of the century, temperatures will increase by up to 9.2°F. Projections show that we could have up to 55 more frost-free days at the end of the century. Likewise, frequency of extreme heat will increase. In eastern Montana, for example, we may have more then 60 days/yr in which maximum temperatures exceed 90°F (32°C). 
+In @tbl-summary we provide a summary of the work done and described in this chapter. In summary, Montana is projected to continue to warm in all geographic locations, seasons, and under all emission scenarios throughout the 21st century. By mid century, Montana temperatures are projected to increase by up to 4.8°F; by the end of the century, temperatures will increase by up to 8.7°F. Projections show that we could have up to 50 more frost-free days at the end of the century. Likewise, frequency of extreme heat will increase. In eastern Montana, for example, we may have more then 45 days/yr in which maximum temperatures exceed 90°F (32°C). 
 
 In mid- and end-of-century projections, average annual precipitation and variability increase across the state, as do winter, spring, and fall precipitation. Summer months, however, show small decreases in precipitation. Current projections suggest slight increases in both dry and wet events.
 
@@ -21,13 +21,13 @@ library(magrittr)
 tibble::tribble(
   ~`Climate Metric`, ~`Trend and Future Scenario`,
   'Atmospheric CO2 Concentrations', 'Global atmospheric carbon dioxide concentrations have increased over 100 ppm since Montana statehood and are projected to increase under both future scenarios considered here.',
-  'Average Temperature', 'Since 1951, average statewide temperatures have increased by 0.3°F/decade, with greatest warming in spring; projected to increase by 3-6°F  by mid century, with greatest warming in summer and winter and in the east',
-  'Maximum Temperatures', 'Maximum temperatures have increased most in spring and are projected to increase 4-5°F by mid century.',
-  'Days above 90°F', 'Extreme heat days are projected to increase by 14-27 additional days by mid century, with greatest increases in the northeast and south.',
-  'Minimum Temperatures', 'Minimum temperatures are projected to increase 4-6°F by mid century.', 
-  'Frost-free Days', 'Frost-free days are projected to increase by 22-32 days by mid century, particularly in the west.',
-  'Average Precipitation', 'Statewide precipitation has decreased in winter (0.15 inches/decade) since 1951, but no significant change has occurred in annual mean precipitation, probably because of very slight increases in spring and fall precipitation. Precipitation is projected to increase, primarily in spring (0.25-0.3 inches; a slight statewide decrease in summer precipitation and increased year-to-year variability of precipitation are projected, as well.',
-  'Number of Consecutive Dry Days', 'Projected changes range from 1.3 to 3.3 by end of the century. However, increased variability in precipitation suggests potential for more severe droughts, particularly in connection with climate oscillations.',
+  'Average Temperature', 'Since 1951, average statewide temperatures have increased by 0.27°F/decade, with greatest warming in spring; projected to increase by 3-5°F  by mid century, with greatest warming in summer and winter and in the east',
+  'Maximum Temperatures', 'Maximum temperatures have increased most in spring and are projected to increase 3-5°F by mid century.',
+  'Days above 90°F', 'Extreme heat days are projected to increase by 10-23 additional days by mid century, with greatest increases in the northeast and south.',
+  'Minimum Temperatures', 'Minimum temperatures are projected to increase 3-5°F by mid century.', 
+  'Frost-free Days', 'Frost-free days are projected to increase by 18-28 days by mid century, particularly in the west.',
+  'Average Precipitation', 'Statewide precipitation has decreased in winter (0.1 inches/decade) since 1951, but annual precipitation has increased by 0.12 inches/decade, driven by increases in spring and fall precipitation. Precipitation is projected to increase, primarily in spring (0.25-0.3 inches; a slight statewide decrease in summer precipitation and increased year-to-year variability of precipitation are projected, as well.',
+  'Number of Consecutive Dry Days', 'Projected changes range from 0.5 to 3.1 by end of the century. However, increased variability in precipitation suggests potential for more severe droughts, particularly in connection with climate oscillations.',
   'Number of Consecutive Wet Days', 'Slight increases across all climate divisions and SSP scenarios.'
 ) %>%
   knitr::kable()

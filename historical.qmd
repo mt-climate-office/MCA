@@ -77,8 +77,9 @@ monthly_tmmn <- terra::rast("./assets/tmmn_nclimgrid_monthly.tif")  %>%
   terra::mask(whole)
 monthly_ppt <- terra::rast("./assets/pr_nclimgrid_monthly.tif") %>% 
   {. / 25.4} %>% terra::mask(whole)
-annual_tmp <- terra::rast("./assets/tavg_nclimgrid_annual.tif") %>% 
-  {(. * 9/5) + 32} %>% terra::mask(whole)
+annual_tmp <- monthly_tmp %>% 
+  terra::tapp(fun = "mean", index = "years") %>% 
+  terra::`time<-`(as.Date(glue::glue("{names(.)}0101"), format = "X%Y%m%d"))
 ```
 
 # **Draft** Historical Climate {#sec-historical}
@@ -129,37 +130,37 @@ historical_table %>%
 ## Historical Trends 1951 - Present
 We evaluated how temperature and precipitation have historically changed, dating back to 1950. This review of historical trends helps us provide context for future climate change scenarios explored in later sections of this chapter. In addition, evaluating these trends can help us better understand a) how `r params$location` has previously experienced and responded to changing climate, b) if projections of future change reveal a different climate than we have previously experienced, and c) the potential impacts of that projected change. 
 
-The presentation of trends that follows is confined to the period from 1950–2015 using data from NOAA's NClimGrid Dataset (@nclimgrid). This is widely acknowledged as the benchmark period in climate analysis (@liebmann), a period when our network of meteorological sensors becomes more accurate and sufficiently dense.
+The presentation of trends that follows is confined to the period from 1950-2020 using data from NOAA's NClimGrid Dataset (@nclimgrid). This is widely acknowledged as the benchmark period in climate analysis (@liebmann), a period when our network of meteorological sensors becomes more accurate and sufficiently dense.
 
 ### Temperature
-@tbl-temp-trends shows the decadal rate of change from 1950-2015 for average annual temperatures across `r params$location`'s `r nrow(shp)` `r params$attr_plural`. We provide that rate of change both annually and by season for `r params$location`. We also present the average annual and average seasonal changes across the region. To account partially for autocorrelation we considered trends as significant with a conservative p value at p<0.05. 
+@tbl-temp-trends shows the decadal rate of change from 1950-2020 for average annual temperatures across `r params$location`'s `r nrow(shp)` `r params$attr_plural`. We provide that rate of change both annually and by season for `r params$location`. We also present the average annual and average seasonal changes across the region. To account partially for autocorrelation we considered trends as significant with a conservative p value at p<0.05. 
 
 ```{r echo=FALSE}
 #| label: tbl-temp-trends
-#| tbl-cap: "Decadal rate of change for annual average temperatures in °F (°C) for each region in the study area from 1950-2015. A value of 0 indicates no statistically significant change between decadal averages."
+#| tbl-cap: "Decadal rate of change for annual average temperatures in °F (°C) for each region in the study area from 1950-2020. A value of 0 indicates no statistically significant change between decadal averages."
 by_div <- dplyr::full_join(
-  normals::make_seasonal_trend_table(monthly_tmp, shp, "Division", "mean", 1951, 2015),
-  normals::make_seasonal_trend_table(monthly_tmp, shp, "Division", "mean", 1951, 2015, TRUE),
+  normals::make_seasonal_trend_table(monthly_tmp, shp, "Division", "mean", 1951, 2020),
+  normals::make_seasonal_trend_table(monthly_tmp, shp, "Division", "mean", 1951, 2020, TRUE),
   by="Division"
 )
 
 by_state <- dplyr::full_join(
-  normals::make_seasonal_trend_table(monthly_tmp, whole, "region", "mean", 1951, 2015),
-  normals::make_seasonal_trend_table(monthly_tmp, whole, "region", "mean", 1951, 2015, TRUE),
+  normals::make_seasonal_trend_table(monthly_tmp, whole, "region", "mean", 1951, 2020),
+  normals::make_seasonal_trend_table(monthly_tmp, whole, "region", "mean", 1951, 2020, TRUE),
   by="region"
 ) %>%
   dplyr::mutate(Division="Statewide")
 
 state_tmmx_trend <- 
-  normals::make_seasonal_trend_table(monthly_tmmx, whole, "region", "mean", 1951, 2015, TRUE) %$%
+  normals::make_seasonal_trend_table(monthly_tmmx, whole, "region", "mean", 1951, 2020, TRUE) %$%
   round(Annual, 2) 
 
 state_tmmn_trend <- 
-  normals::make_seasonal_trend_table(monthly_tmmn, whole, "region", "mean", 1951, 2015, TRUE) %$%
+  normals::make_seasonal_trend_table(monthly_tmmn, whole, "region", "mean", 1951, 2020, TRUE) %$%
   round(Annual, 2)
 
 state_tavg_trend <- 
-  normals::make_seasonal_trend_table(monthly_tmp, whole, "region", "mean", 1951, 2015, TRUE) %$%
+  normals::make_seasonal_trend_table(monthly_tmp, whole, "region", "mean", 1951, 2020, TRUE) %$%
   round(Annual, 2)
 
 all_tmp_trends <- dplyr::bind_rows(by_div, by_state) %>% 
@@ -179,7 +180,7 @@ get_trend_direction <- function(x) {
 knitr::kable(all_tmp_trends)
 ```
 
-The rate of temperature change across `r params$location` was `r dplyr::filter(all_tmp_trends, Division == "Statewide")  %$% round(Annual, 2)`°F/decade (@tbl-temp-trends). Across `r params$attr_plural` average annual minimum and maximum temperature changes ranged from `r state_tmmx_trend`-`r state_tmmn_trend`°F/decade, respectively. Between 1950 and 2015, `r params$location`’s average annual temperature has `r get_trend_direction(state_tavg_trend)` by `r dplyr::filter(all_tmp_trends, Division == "Statewide") %$% round(Annual * 6.4, 2)`°F; annual maximum and minimum temperatures have `r get_trend_direction(state_tmmx_trend)` by approximately `r round(state_tmmx_trend * 6.4, 2)`°F and `r round(state_tmmn_trend * 6.4, 2)`°F, respectively.
+The rate of temperature change across `r params$location` was `r dplyr::filter(all_tmp_trends, Division == "Statewide")  %$% round(Annual, 2)`°F/decade (@tbl-temp-trends). Across `r params$attr_plural` average annual minimum and maximum temperature changes ranged from `r state_tmmx_trend`-`r state_tmmn_trend`°F/decade, respectively. Between 1950 and 2020, `r params$location`’s average annual temperature has `r get_trend_direction(state_tavg_trend)` by `r dplyr::filter(all_tmp_trends, Division == "Statewide") %$% round(Annual * 6.9, 2)`°F; annual maximum and minimum temperatures have `r get_trend_direction(state_tmmx_trend)` by approximately `r round(state_tmmx_trend * 6.9, 2)`°F and `r round(state_tmmn_trend * 6.9, 2)`°F, respectively.
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE, eval=TRUE}
 #| label: fig-temp-trends
@@ -187,31 +188,31 @@ The rate of temperature change across `r params$location` was `r dplyr::filter(a
 #| fig-height: 7
 #| fig-width: 10
 
-normals::make_trend_fig(annual_tmp, shp, "Division", "mean", 1951, 2015, "Temperature °F")
+normals::make_trend_fig(annual_tmp, shp, "Division", "mean", 1951, 2020, "Temperature °F")
 ```
 
 ### Precipitation
-@tbl-ppt-trends shows the decadal rate of change from 1950-2015 for average total precipitation across `r params$location`'s `r nrow(shp)` `r params$attr_plural`. We provide that rate of change both annually and by season for `r params$location`. We also present the average annual and average seasonal changes across the region. To account partially for autocorrelation we considered trends as significant with a conservative p-value at p<0.05. 
+@tbl-ppt-trends shows the decadal rate of change from 1950-2020 for average total precipitation across `r params$location`'s `r nrow(shp)` `r params$attr_plural`. We provide that rate of change both annually and by season for `r params$location`. We also present the average annual and average seasonal changes across the region. To account partially for autocorrelation we considered trends as significant with a conservative p-value at p<0.05. 
 
 ```{r echo=FALSE}
 #| label: tbl-ppt-trends
-#| tbl-cap: "Decadal rate of change in average precipitation in inches/decade for the seven Montana climate divisions from 1951-2015. A value of 0 indicates no significant change."
+#| tbl-cap: "Decadal rate of change in average precipitation in inches/decade for the seven Montana climate divisions from 1951-2020. A value of 0 indicates no significant change."
 
 by_div <- dplyr::full_join(
-  normals::make_seasonal_trend_table(monthly_ppt, shp, "Division", "sum", 1951, 2015),
-  normals::make_seasonal_trend_table(monthly_ppt, shp, "Division", "sum", 1951, 2015, TRUE),
+  normals::make_seasonal_trend_table(monthly_ppt, shp, "Division", "sum", 1951, 2020),
+  normals::make_seasonal_trend_table(monthly_ppt, shp, "Division", "sum", 1951, 2020, TRUE),
   by="Division"
 )
 
 by_state <- dplyr::full_join(
-  normals::make_seasonal_trend_table(monthly_ppt, whole, "region", "sum", 1951, 2015),
-  normals::make_seasonal_trend_table(monthly_ppt, whole, "region", "sum", 1951, 2015, TRUE),
+  normals::make_seasonal_trend_table(monthly_ppt, whole, "region", "sum", 1951, 2020),
+  normals::make_seasonal_trend_table(monthly_ppt, whole, "region", "sum", 1951, 2020, TRUE),
   by="region"
 ) %>%
   dplyr::mutate(Division="Statewide")
 
 state_ppt_trend <- 
-  normals::make_seasonal_trend_table(monthly_ppt, whole, "region", "sum", 1951, 2015, TRUE) %$%
+  normals::make_seasonal_trend_table(monthly_ppt, whole, "region", "sum", 1951, 2020, TRUE) %$%
   round(Annual, 2)
 
 ppt_trends <- dplyr::bind_rows(by_div, by_state) %>% 
@@ -221,7 +222,7 @@ ppt_trends <- dplyr::bind_rows(by_div, by_state) %>%
 knitr::kable(ppt_trends)
 ```
 
-The rate of precipitation change across `r params$location` was `r dplyr::filter(ppt_trends, Division == "Statewide") %$% round(Annual, 2)`in./decade (@tbl-ppt-trends). Between 1950 and 2015, `r params$location`’s average annual precipitation has `r get_trend_direction(state_ppt_trend)` by `r dplyr::filter(ppt_trends, Division == "Statewide") %$% round(Annual * 6.4, 2)` inches.
+The rate of precipitation change across `r params$location` was `r dplyr::filter(ppt_trends, Division == "Statewide") %$% round(Annual, 2)`in./decade (@tbl-ppt-trends). Between 1950 and 2020, `r params$location`’s average annual precipitation has `r get_trend_direction(state_ppt_trend)` by `r dplyr::filter(ppt_trends, Division == "Statewide") %$% round(Annual * 6.9, 2)` inches.
 
 ## Extreme aspects of Montana’s climate 
 
@@ -239,9 +240,9 @@ warm_diff = extremes %>% dplyr::filter(name == "warm_days", period == "diff") %$
 mon_min_diff = extremes %>% dplyr::filter(name == "monthly_min", period == "diff") %$% value 
 mon_max_diff = extremes %>% dplyr::filter(name == "monthly_max", period == "diff") %$% value 
 ```
-Along with analyzing historical trends in temperature and precipitation, we performed an analysis of changes in extreme climate events since the middle of last century. Two examples of climate extremes include periods of intense warm or cool temperatures and significant wet or dry spells across seasons. Because these events affect every aspect of our society, decision makers and stakeholders are increasingly in need of historical evaluations of extreme events and how they are changing from seasons to centuries. Since 1951, our analysis shows the average winter temperature has increased by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Winter`°F/decade across the state, with an overall average winter temperature increase of `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Winter * 6.4`°F. Average spring temperatures have increased by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Spring * 6.4`°F during the same period, and average summer temperatures have risen by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Summer * 6.4`°F. Montana’s fall average temperatures have increased by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Fall * 6.4`°F since 1951.
+Along with analyzing historical trends in temperature and precipitation, we performed an analysis of changes in extreme climate events since the middle of last century. Two examples of climate extremes include periods of intense warm or cool temperatures and significant wet or dry spells across seasons. Because these events affect every aspect of our society, decision makers and stakeholders are increasingly in need of historical evaluations of extreme events and how they are changing from seasons to centuries. Since 1951, our analysis shows the average winter temperature has increased by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Winter`°F/decade across the state, with an overall average winter temperature increase of `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Winter * 6.9`°F. Average spring temperatures have increased by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Spring * 6.9`°F during the same period, and average summer temperatures have risen by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Summer * 6.9`°F. Montana’s fall average temperatures have increased by `r all_tmp_trends %>% dplyr::filter(Division == "Statewide") %$% Fall * 6.9`°F since 1951.
 
-We performed our analysis of climate extremes using extreme climate indices outlined by the CLIMDEX project (CLIMDEX undated). The extreme climate indices were derived using NClimGrid data. Extreme precipitation events across the United States have increased in both intensity and frequency since 1901 (NCA 2014), including across both the High Plains and the northwestern US (many states combined), where studies have shown an increase in the number of days with extreme precipitation (NCA 2014). Here, we report change in temperature extremes for `r params$location` and, for perspective, the climate normals for these extremes for the periods 1951–1980 and from 1991-2020 (@tbl-xtremes).
+We performed our analysis of climate extremes using extreme climate indices outlined by the CLIMDEX project (CLIMDEX undated). The extreme climate indices were derived using NClimGrid data. Extreme precipitation events across the United States have increased in both intensity and frequency since 1901 (NCA 2014), including across both the High Plains and the northwestern US (many states combined), where studies have shown an increase in the number of days with extreme precipitation (NCA 2014). Here, we report change in temperature extremes for `r params$location` and, for perspective, the climate normals for these extremes for the periods 1951-1980 and from 1991-2020 (@tbl-xtremes).
 
 ```{r xt-table, echo=FALSE}
 #| label: tbl-xtremes
@@ -256,13 +257,13 @@ dplyr::select(extremes, name, period, value) %>%
       icing_days = "Icing Days",
       growing_season = "Growing Season Length (Days)",
       warm_days = "Summer Days",
-      monthly_max = "Max Monthly Temperature",
-      monthly_min = "Min Monthly Temperature"
+      monthly_max = "Max Monthly Temperature (°F)",
+      monthly_min = "Min Monthly Temperature (°F)"
     ),
     period = dplyr::recode(
       period,
-      start = "1951–1980",
-      end = "1991–2020",
+      start = "1951-1980",
+      end = "1991-2020",
       diff = "Change (1951-2020)"
     ) 
   ) %>% 
@@ -271,7 +272,7 @@ dplyr::select(extremes, name, period, value) %>%
   knitr::kable()
 ```
 
-The annual number of frost days and the number of icing days are `r extremes %>% dplyr::filter(name %in% c("icing_days", "cool_days"), period == "diff") %$% ifelse(mean(value) <= 0, "decreasing", "increasing")` across `r params$location` We use the CLIMDEX definition of frost days (icing days) as the number of days in a year when minimum (maximum) temperature is below 32°F. Coincident with warming temperatures, the number of frost days each year during the period from 1951–2010 has `r ifelse(cool_diff <= 0,"decreased", "increased")` by `r abs(cool_diff)` days. Along with this trend, the number of days in which the maximum temperatures are below 32°F (0°C; i.e. icing days) has `r ifelse(icing_diff <= 0,"decreased", "increased")` by `r abs(icing_diff)` days during this time period. These trends have contributed to an overall `r ifelse(growing_diff <= 0,"decrease", "increase")` in the growing season length of `r abs(growing_diff)` days between 1951 and 2010. In addition, the number of summer days, where maximum temperature exceeds 77°F (25°C) based on historical conditions, has `r ifelse(warm_diff <= 0,"decreased", "increased")` by `r abs(warm_diff)` days over this period. At a sub-annual level, monthly maximum and minimum temperatures have also changed. These are defined as the monthly maximum (minimum) value of daily maximum (minimum) temperatures. Monthly minimum values of daily minimum temperatures have `r ifelse(mon_min_diff <= 0,"decreased", "increased")` by `r abs(mon_min_diff)`°F from the period 1951–2010. Over the same time period, monthly minimum values of daily maximum temperatures have `r ifelse(mon_max_diff <= 0,"decreased", "increased")` by `r abs(mon_max_diff)`°F
+The annual number of frost days and the number of icing days are `r extremes %>% dplyr::filter(name %in% c("icing_days", "cool_days"), period == "diff") %$% ifelse(mean(value) <= 0, "decreasing", "increasing")` across `r params$location` We use the CLIMDEX definition of frost days (icing days) as the number of days in a year when minimum (maximum) temperature is below 32°F. Coincident with warming temperatures, the number of frost days each year during the period from 1951-2010 has `r ifelse(cool_diff <= 0,"decreased", "increased")` by `r abs(cool_diff)` days. Along with this trend, the number of days in which the maximum temperatures are below 32°F (0°C; i.e. icing days) has `r ifelse(icing_diff <= 0,"decreased", "increased")` by `r abs(icing_diff)` days during this time period. These trends have contributed to an overall `r ifelse(growing_diff <= 0,"decrease", "increase")` in the growing season length of `r abs(growing_diff)` days between 1951 and 2010. In addition, the number of summer days, where maximum temperature exceeds 77°F (25°C) based on historical conditions, has `r ifelse(warm_diff <= 0,"decreased", "increased")` by `r abs(warm_diff)` days over this period. At a sub-annual level, monthly maximum and minimum temperatures have also changed. These are defined as the monthly maximum (minimum) value of daily maximum (minimum) temperatures. Monthly minimum values of daily minimum temperatures have `r ifelse(mon_min_diff <= 0,"decreased", "increased")` by `r abs(mon_min_diff)`°F from the period 1951-2010. Over the same time period, monthly minimum values of daily maximum temperatures have `r ifelse(mon_max_diff <= 0,"decreased", "increased")` by `r abs(mon_max_diff)`°F
 
 ::: {.callout-note icon=false}
 ### Drought {#drought-callout}

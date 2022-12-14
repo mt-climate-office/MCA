@@ -1,6 +1,7 @@
 project:
   type: book
   output-dir: "docs"
+  execute-dir: file
 
 book:
   title: "**DRAFT** Climate Change in Montana"
@@ -26,8 +27,8 @@ csl: apa.csl
 format:
   html:
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
+  # pdf:
+  #   documentclass: scrreprt
 
 include-in-header: "./assets/hypothesis.js"
 number-sections: true

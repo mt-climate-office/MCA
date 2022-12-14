@@ -18,25 +18,11 @@ shp <- sf::read_sf(file.path(params$asset_dir, "agg_regions.geojson"))
 mt <- normals::mt %>% 
   dplyr::mutate(state = "MT")
 
-f_list <- RCurl::getURL(
-  "https://data.climate.umt.edu/mca/cmip/",
-  ftp.use.epsv = TRUE,
-  dirlistonly = FALSE
-) %>%
-  XML::getHTMLLinks() %>%
-  grep(".tif", ., value = T) %>%
-  grep(".json", ., value = T, invert = T)
-
-cmip_files_full <- file.path(
-  "https://data.climate.umt.edu/mca/cmip",
-  basename(f_list)
-)
-
-cmip_files <- list.files(params$asset_dir, pattern = ".rds", full.names = T)
-
 climdiv_to_factor <- function(x) {
   factor(x, levels = c("Western", "Southwestern", "North Central", "Central", "South Central", "Northeastern", "Southeastern"))
 }
+
+cmip_files <- list.files("./assets", pattern = "cmip_", full.names = T)
 
 tas_tsfm <- function(x) (x - 273.15) * 1.8 + 32
 pr_tsfm <- function(x) x/25.4
@@ -48,7 +34,7 @@ inc_or_dec <- function(x) {
   } else if (x > 0) {
     return("increase")
   } else {
-    return("stay the")
+    return("stay the same")
   }
 }
 
